@@ -1,0 +1,197 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BAS — Magazine Archive</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+
+        <div class="logo">
+            BAS
+        </div>
+
+        <div>
+            <h1>Bashaer Science Magazine</h1>
+            <p>A Student-Run Science Publication</p>
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="archive.html">Archive</a>
+            <a href="students.html">Students</a>
+        </nav>
+
+    </header>
+
+
+    <main>
+
+        <section class="section">
+
+            <p class="eyebrow">
+                BAS SCIENCE MAGAZINE
+            </p>
+
+            <h2>
+                Magazine Archive
+            </h2>
+
+            <p>
+                Explore all issues of our student-run science
+                publication.
+            </p>
+
+            <div
+                id="issues"
+                class="cards"
+            >
+                Loading...
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <h3>
+            BAS — Bashaer Science Magazine
+        </h3>
+
+        <p>
+            A Student-Run Science Publication
+        </p>
+
+    </footer>
+
+
+    <script>
+
+        async function loadIssues() {
+
+            const container =
+                document.getElementById("issues");
+
+            try {
+
+                const response =
+                    await fetch("/api/issues");
+
+                const issues =
+                    await response.json();
+
+
+                if (!issues.length) {
+
+                    container.innerHTML =
+                        "<p>No issues available yet.</p>";
+
+                    return;
+
+                }
+
+
+                container.innerHTML = "";
+
+
+                issues.forEach(issue => {
+
+                    const card =
+                        document.createElement("article");
+
+                    card.className =
+                        "article-card";
+
+
+                    card.innerHTML = `
+
+                        ${
+                            issue.cover_image
+                            ?
+                            `
+                            <img
+                                src="${issue.cover_image}"
+                                alt="${issue.title_en}"
+                            >
+                            `
+                            :
+                            `
+                            <div class="article-placeholder">
+                                BAS
+                            </div>
+                            `
+                        }
+
+                        <div class="card-content">
+
+                            <p class="eyebrow">
+                                ISSUE ${issue.issue_number}
+                                •
+                                ${issue.month}
+                                ${issue.year}
+                            </p>
+
+                            <h3>
+                                ${issue.title_en}
+                            </h3>
+
+                            <p>
+                                ${issue.description_en || ""}
+                            </p>
+
+                            ${
+                                issue.pdf_file
+                                ?
+                                `
+                                <a
+                                    class="button"
+                                    href="${issue.pdf_file}"
+                                    target="_blank"
+                                >
+                                    Read Issue
+                                </a>
+                                `
+                                :
+                                ""
+                            }
+
+                        </div>
+
+                    `;
+
+
+                    container.appendChild(card);
+
+                });
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                container.innerHTML =
+                    "<p>Could not load the archive.</p>";
+
+            }
+
+        }
+
+
+        loadIssues();
+
+    </script>
+
+</body>
+
+</html>
+```

@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BAS — Bashaer Science Magazine</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
+<header class="site-header">
+
+    <div class="header-inner">
+
+        <a href="index.html" class="brand">
+
+            <div class="brand-mark">
+                BAS
+            </div>
+
+            <div class="brand-copy">
+                <strong>Bashaer Science</strong>
+                <span>Student-Run Science Publication</span>
+            </div>
+
+        </a>
+
+
+        <nav class="main-nav">
+
+            <a href="index.html"
+               data-en="Home"
+               data-ar="الرئيسية">
+                Home
+            </a>
+
+            <a href="archive.html"
+               data-en="Archive"
+               data-ar="الأرشيف">
+                Archive
+            </a>
+
+            <a href="students.html"
+               data-en="Students"
+               data-ar="التلاميذ">
+                Students
+            </a>
+
+            <a href="admin/login.html"
+               data-en="Admin"
+               data-ar="الإدارة">
+                Admin
+            </a>
+
+            <div class="language-switch">
+
+                <button
+                    id="enButton"
+                    class="active"
+                    onclick="setLanguage('en')">
+                    EN
+                </button>
+
+                <button
+                    id="arButton"
+                    onclick="setLanguage('ar')">
+                    العربية
+                </button>
+
+            </div>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================
+     HERO
+========================================= -->
+
+<section class="hero">
+
+    <div class="hero-copy">
+
+        <div class="hero-kicker">
+            BAS • ELEMENTARY CYCLE
+        </div>
+
+        <h1>
+            Science<br>
+            through <span>curiosity.</span>
+        </h1>
+
+        <div class="hero-title"
+             data-en="Young minds. Big questions. Real science."
+             data-ar="عقول صغيرة، أسئلة كبيرة، وعلوم حقيقية.">
+            Young minds. Big questions. Real science.
+        </div>
+
+        <p class="hero-description"
+           data-en="BAS is a student-run science publication where young scientists explore discoveries, ideas and the science behind everyday life."
+           data-ar="BAS مجلة علمية من إعداد التلاميذ، يكتشف فيها العلماء الصغار الأفكار والاكتشافات والعلوم الموجودة خلف تفاصيل حياتنا اليومية.">
+            BAS is a student-run science publication where young scientists
+            explore discoveries, ideas and the science behind everyday life.
+        </p>
+
+        <div class="hero-actions">
+
+            <a
+                href="archive.html"
+                class="button-gold"
+                data-en="Explore the Magazine"
+                data-ar="استكشف المجلة">
+                Explore the Magazine
+            </a>
+
+            <a
+                href="#latest"
+                class="button-outline"
+                data-en="Discover Articles"
+                data-ar="اكتشف المقالات">
+                Discover Articles
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-cover">
+
+        <div
+            id="heroCover"
+            class="hero-cover-placeholder">
+            BAS
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     FEATURED ISSUE
+========================================= -->
+
+<section class="section">
+
+    <div class="section-heading">
+
+        <div>
+
+            <div class="eyebrow"
+                 data-en="LATEST ISSUE"
+                 data-ar="العدد الأخير">
+                LATEST ISSUE
+            </div>
+
+            <h2
+                data-en="Featured Issue"
+                data-ar="العدد المميز">
+                Featured Issue
+            </h2>
+
+        </div>
+
+        <a
+            href="archive.html"
+            data-en="View Archive →"
+            data-ar="عرض الأرشيف ←">
+            View Archive →
+        </a>
+
+    </div>
+
+
+    <div id="featuredIssue">
+
+        <p>Loading...</p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     ARTICLES
+========================================= -->
+
+<section
+    class="section"
+    id="latest">
+
+    <div class="section-heading">
+
+        <div>
+
+            <div class="eyebrow"
+                 data-en="DISCOVER"
+                 data-ar="اكتشف">
+                DISCOVER
+            </div>
+
+            <h2
+                data-en="Latest Articles"
+                data-ar="أحدث المقالات">
+                Latest Articles
+            </h2>
+
+        </div>
+
+        <a
+            href="archive.html"
+            data-en="View All →"
+            data-ar="عرض الكل ←">
+            View All →
+        </a>
+
+    </div>
+
+
+    <div
+        id="latestArticles"
+        class="cards">
+
+        <p>Loading...</p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     CATEGORIES
+========================================= -->
+
+<section class="section-dark">
+
+    <div class="section-inner">
+
+        <div class="section-heading">
+
+            <div>
+
+                <div class="eyebrow"
+                     data-en="EXPLORE"
+                     data-ar="استكشف">
+                    EXPLORE
+                </div>
+
+                <h2
+                    data-en="Science Categories"
+                    data-ar="مجالات العلوم">
+                    Science Categories
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="categories"
+            class="category-grid">
+
+            <p>Loading...</p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     STUDENTS
+========================================= -->
+
+<section class="section">
+
+    <div class="section-heading">
+
+        <div>
+
+            <div class="eyebrow"
+                 data-en="OUR SCIENTISTS"
+                 data-ar="علماؤنا الصغار">
+                OUR SCIENTISTS
+            </div>
+
+            <h2
+                data-en="Student Voices"
+                data-ar="أصوات التلاميذ">
+                Student Voices
+            </h2>
+
+        </div>
+
+        <a
+            href="students.html"
+            data-en="Meet the Students →"
+            data-ar="تعرّف إلى التلاميذ ←">
+            Meet the Students →
+        </a>
+
+    </div>
+
+
+    <div
+        id="students"
+        class="student-grid">
+
+        <p>Loading...</p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
+<div class="science-rule"></div>
+
+<footer class="site-footer">
+
+    <div class="footer-inner">
+
+        <div>
+
+            <h3>BAS</h3>
+
+            <p
+                data-en="Bashaer Science Magazine — a student-run science publication created by the young scientists of the Elementary Cycle."
+                data-ar="مجلة بشائر للعلوم — مجلة علمية من إعداد تلاميذ الحلقة الثالثة.">
+
+                Bashaer Science Magazine — a student-run science publication
+                created by the young scientists of the Elementary Cycle.
+
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <div class="footer-heading"
+                 data-en="Explore"
+                 data-ar="استكشف">
+                Explore
+            </div>
+
+            <div class="footer-links">
+
+                <a href="archive.html"
+                   data-en="Archive"
+                   data-ar="الأرشيف">
+                    Archive
+                </a>
+
+                <a href="students.html"
+                   data-en="Students"
+                   data-ar="التلاميذ">
+                    Students
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div>
+
+            <div class="footer-heading"
+                 data-en="BAS"
+                 data-ar="BAS">
+                BAS
+            </div>
+
+            <div class="footer-links">
+
+                <a href="admin/login.html"
+                   data-en="Admin"
+                   data-ar="الإدارة">
+                    Admin
+                </a>
+
+                <a href="#latest"
+                   data-en="Latest Articles"
+                   data-ar="أحدث المقالات">
+                    Latest Articles
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        BAS — Bashaer Science Magazine
+        •
+        Elementary Cycle
+        •
+        Al Bashaer
+
+    </div>
+
+</footer>
+
+
+<!-- =========================================
+     JAVASCRIPT
+========================================= -->
+
+<script>
+
+/* =========================================
+   LANGUAGE
+========================================= */
+
+function setLanguage(language) {
+
+    document.documentElement.lang = language;
+
+    document.documentElement.dir =
+        language === "ar"
+            ? "rtl"
+            : "ltr";
+
+
+    document.querySelectorAll(
+        "[data-en]"
+    ).forEach(element => {
+
+        const text =
+            element.getAttribute(
+                "data-" + language
+            );
+
+        if (text) {
+
+            element.textContent = text;
+
+        }
+
+    });
+
+
+    document.getElementById(
+        "enButton"
+    ).classList.toggle(
+        "active",
+        language === "en"
+    );
+
+
+    document.getElementById(
+        "arButton"
+    ).classList.toggle(
+        "active",
+        language === "ar"
+    );
+
+
+    localStorage.setItem(
+        "bas-language",
+        language
+    );
+
+}
+
+
+/* =========================================
+   FEATURED ISSUE
+========================================= */
+
+async function loadFeaturedIssue() {
+
+    const container =
+        document.getElementById(
+            "featuredIssue"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/issues"
+            );
+
+
+        const issues =
+            await response.json();
+
+
+        if (
+            !Array.isArray(issues) ||
+            issues.length === 0
+        ) {
+
+            container.innerHTML = `
+                <p>
+                    No issues published yet.
+                </p>
+            `;
+
+            return;
+
+        }
+
+
+        const featured =
+            issues.find(
+                issue =>
+                    Number(issue.featured) === 1 ||
+                    issue.featured === true
+            ) || issues[0];
+
+
+        let cover = "";
+
+        if (featured.cover_image) {
+
+            let imageUrl =
+                featured.cover_image;
+
+            if (
+                !imageUrl.startsWith("/")
+                &&
+                !imageUrl.startsWith("http")
+            ) {
+
+                imageUrl =
+                    "/" + imageUrl;
+
+            }
+
+            cover = `
+                <div class="issue-cover-frame">
+
+                    <img
+                        src="${imageUrl}"
+                        alt="${escapeHtml(
+                            featured.title_en || "BAS Issue"
+                        )}"
+                    >
+
+                </div>
+            `;
+
+        } else {
+
+            cover = `
+                <div class="issue-cover-frame">
+
+                    <div class="issue-cover-placeholder">
+                        BAS
+                    </div>
+
+                </div>
+            `;
+
+        }
+
+
+        container.innerHTML = `
+
+            <article class="issue-feature">
+
+                ${cover}
+
+                <div>
+
+                    <div class="issue-meta">
+
+                        ISSUE
+                        ${featured.issue_number || ""}
+
+                        ${featured.month
+                            ? " • " + featured.month
+                            : ""}
+
+                        ${featured.year
+                            ? " " + featured.year
+                            : ""}
+
+                    </div>
+
+
+                    <h3>
+                        ${escapeHtml(
+                            featured.title_en ||
+                            "Bashaer Science Magazine"
+                        )}
+                    </h3>
+
+
+                    <p class="issue-description">
+
+                        ${escapeHtml(
+                            featured.description_en || ""
+                        )}
+
+                    </p>
+
+
+                    ${
+                        featured.pdf_file
+                        ?
+                        `
+                        <a
+                            href="${featured.pdf_file}"
+                            target="_blank"
+                            class="button-gold">
+
+                            Read the Issue
+
+                        </a>
+                        `
+                        :
+                        ""
+                    }
+
+                </div>
+
+            </article>
+
+        `;
+
+
+        /* Hero cover */
+
+        const hero =
+            document.getElementById(
+                "heroCover"
+            );
+
+
+        if (
+            hero &&
+            featured.cover_image
+        ) {
+
+            let imageUrl =
+                featured.cover_image;
+
+            if (
+                !imageUrl.startsWith("/")
+                &&
+                !imageUrl.startsWith("http")
+            ) {
+
+                imageUrl =
+                    "/" + imageUrl;
+
+            }
+
+            hero.outerHTML = `
+                <img
+                    id="heroCover"
+                    src="${imageUrl}"
+                    alt="BAS Featured Issue"
+                >
+            `;
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Issue loading error:",
+            error
+        );
+
+
+        container.innerHTML = `
+            <p>
+                Could not load the latest issue.
+            </p>
+        `;
+
+    }
+
+}
+
+
+/* =========================================
+   ARTICLES
+========================================= */
+
+async function loadArticles() {
+
+    const container =
+        document.getElementById(
+            "latestArticles"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/articles"
+            );
+
+
+        const articles =
+            await response.json();
+
+
+        if (
+            !Array.isArray(articles) ||
+            articles.length === 0
+        ) {
+
+            container.innerHTML = `
+                <p>
+                    No articles published yet.
+                </p>
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML = "";
+
+
+        articles
+            .slice(0, 6)
+            .forEach(
+                article => {
+
+                    const card =
+                        document.createElement(
+                            "article"
+                        );
+
+                    card.className =
+                        "article-card";
+
+
+                    let image = "";
+
+
+                    if (article.main_image) {
+
+                        let imageUrl =
+                            article.main_image;
+
+                        if (
+                            !imageUrl.startsWith("/")
+                            &&
+                            !imageUrl.startsWith("http")
+                        ) {
+
+                            imageUrl =
+                                "/" + imageUrl;
+
+                        }
+
+
+                        image = `
+                            <div class="article-image-wrap">
+
+                                <img
+                                    src="${imageUrl}"
+                                    alt="${escapeHtml(
+                                        article.title_en || ""
+                                    )}"
+                                >
+
+                            </div>
+                        `;
+
+                    } else {
+
+                        image = `
+                            <div class="article-image-wrap">
+
+                                <div class="article-placeholder">
+                                    BAS
+                                </div>
+
+                            </div>
+                        `;
+
+                    }
+
+
+                    card.innerHTML = `
+
+                        ${image}
+
+                        <div class="card-content">
+
+                            <div class="card-kicker">
+
+                                ${escapeHtml(
+                                    article.class_name ||
+                                    "SCIENCE"
+                                )}
+
+                            </div>
+
+
+                            <h3>
+
+                                ${escapeHtml(
+                                    article.title_en ||
+                                    "Untitled Article"
+                                )}
+
+                            </h3>
+
+
+                            <p>
+
+                                ${escapeHtml(
+                                    article.excerpt_en ||
+                                    ""
+                                )}
+
+                            </p>
+
+
+                            ${
+                                article.title_ar
+                                ?
+                                `
+                                <div class="card-ar">
+
+                                    ${escapeHtml(
+                                        article.title_ar
+                                    )}
+
+                                </div>
+                                `
+                                :
+                                ""
+                            }
+
+                        </div>
+
+                    `;
+
+
+                    container.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Articles loading error:",
+            error
+        );
+
+
+        container.innerHTML = `
+            <p>
+                Could not load articles.
+            </p>
+        `;
+
+    }
+
+}
+
+
+/* =========================================
+   CATEGORIES
+========================================= */
+
+async function loadCategories() {
+
+    const container =
+        document.getElementById(
+            "categories"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/categories"
+            );
+
+
+        const categories =
+            await response.json();
+
+
+        if (
+            !Array.isArray(categories) ||
+            categories.length === 0
+        ) {
+
+            container.innerHTML = `
+                <p>
+                    No categories yet.
+                </p>
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML = "";
+
+
+        categories.forEach(
+            (category, index) => {
+
+                const card =
+                    document.createElement(
+                        "a"
+                    );
+
+
+                card.className =
+                    "category-card";
+
+
+                card.href =
+                    `category.html?slug=${
+                        encodeURIComponent(
+                            category.slug || ""
+                        )
+                    }`;
+
+
+                const number =
+                    String(
+                        index + 1
+                    ).padStart(
+                        2,
+                        "0"
+                    );
+
+
+                card.innerHTML = `
+
+                    <div class="category-number">
+                        ${number}
+                    </div>
+
+
+                    <h3>
+                        ${escapeHtml(
+                            category.name_en ||
+                            "Science"
+                        )}
+                    </h3>
+
+
+                    ${
+                        category.name_ar
+                        ?
+                        `
+                        <div class="category-ar">
+
+                            ${escapeHtml(
+                                category.name_ar
+                            )}
+
+                        </div>
+                        `
+                        :
+                        ""
+                    }
+
+
+                    ${
+                        category.description_en
+                        ?
+                        `
+                        <p>
+
+                            ${escapeHtml(
+                                category.description_en
+                            )}
+
+                        </p>
+                        `
+                        :
+                        ""
+                    }
+
+                `;
+
+
+                container.appendChild(
+                    card
+                );
+
+            }
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Categories loading error:",
+            error
+        );
+
+
+        container.innerHTML = `
+            <p>
+                Could not load categories.
+            </p>
+        `;
+
+    }
+
+}
+
+
+/* =========================================
+   STUDENTS
+========================================= */
+
+async function loadStudents() {
+
+    const container =
+        document.getElementById(
+            "students"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/students"
+            );
+
+
+        const students =
+            await response.json();
+
+
+        if (
+            !Array.isArray(students) ||
+            students.length === 0
+        ) {
+
+            container.innerHTML = `
+                <p>
+                    No student profiles yet.
+                </p>
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML = "";
+
+
+        students
+            .slice(0, 6)
+            .forEach(
+                student => {
+
+                    const card =
+                        document.createElement(
+                            "article"
+                        );
+
+
+                    card.className =
+                        "student-card";
+
+
+                    let photo = "";
+
+
+                    if (student.photo) {
+
+                        let imageUrl =
+                            student.photo;
+
+                        if (
+                            !imageUrl.startsWith("/")
+                            &&
+                            !imageUrl.startsWith("http")
+                        ) {
+
+                            imageUrl =
+                                "/" + imageUrl;
+
+                        }
+
+
+                        photo = `
+                            <img
+                                src="${imageUrl}"
+                                alt="${escapeHtml(
+                                    student.name || "Student"
+                                )}"
+                            >
+                        `;
+
+                    } else {
+
+                        const initial =
+                            student.name
+                                ? student.name.charAt(0)
+                                : "B";
+
+
+                        photo = `
+                            <div class="student-placeholder">
+
+                                ${escapeHtml(
+                                    initial
+                                )}
+
+                            </div>
+                        `;
+
+                    }
+
+
+                    card.innerHTML = `
+
+                        ${photo}
+
+                        <div class="student-card-content">
+
+                            <h3>
+
+                                ${escapeHtml(
+                                    student.name ||
+                                    "Young Scientist"
+                                )}
+
+                            </h3>
+
+
+                            ${
+                                student.class_name
+                                ?
+                                `
+                                <div class="student-class">
+
+                                    ${escapeHtml(
+                                        student.class_name
+                                    )}
+
+                                </div>
+                                `
+                                :
+                                ""
+                            }
+
+
+                            ${
+                                student.quote_en
+                                ?
+                                `
+                                <blockquote>
+
+                                    “${escapeHtml(
+                                        student.quote_en
+                                    )}”
+
+                                </blockquote>
+                                `
+                                :
+                                ""
+                            }
+
+                        </div>
+
+                    `;
+
+
+                    container.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Students loading error:",
+            error
+        );
+
+
+        container.innerHTML = `
+            <p>
+                Could not load students.
+            </p>
+        `;
+
+    }
+
+}
+
+
+/* =========================================
+   SECURITY HELPER
+========================================= */
+
+function escapeHtml(value) {
+
+    return String(value || "")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================
+   START
+========================================= */
+
+async function start() {
+
+    const savedLanguage =
+        localStorage.getItem(
+            "bas-language"
+        );
+
+
+    setLanguage(
+        savedLanguage || "en"
+    );
+
+
+    await Promise.all([
+
+        loadFeaturedIssue(),
+
+        loadArticles(),
+
+        loadCategories(),
+
+        loadStudents()
+
+    ]);
+
+}
+
+
+start();
+
+</script>
+
+</body>
+
+</html>

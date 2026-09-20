@@ -1,0 +1,293 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BAS — Article</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+
+        <div class="logo">
+            BAS
+        </div>
+
+        <div>
+            <h1>Bashaer Science Magazine</h1>
+            <p>A Student-Run Science Publication</p>
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="archive.html">Archive</a>
+            <a href="students.html">Students</a>
+        </nav>
+
+    </header>
+
+
+    <main>
+
+        <article
+            id="article"
+            class="section"
+        >
+
+            <p>
+                Loading article...
+            </p>
+
+        </article>
+
+    </main>
+
+
+    <footer>
+
+        <h3>
+            BAS — Bashaer Science Magazine
+        </h3>
+
+        <p>
+            A Student-Run Science Publication
+        </p>
+
+    </footer>
+
+
+    <script>
+
+        async function loadArticle() {
+
+            const container =
+                document.getElementById("article");
+
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+            const slug =
+                params.get("slug");
+
+
+            if (!slug) {
+
+                container.innerHTML =
+                    "<h2>Article not found.</h2>";
+
+                return;
+
+            }
+
+
+            try {
+
+                const response =
+                    await fetch("/api/articles");
+
+                const articles =
+                    await response.json();
+
+
+                const article =
+                    articles.find(
+                        item => item.slug === slug
+                    );
+
+
+                if (!article) {
+
+                    container.innerHTML =
+                        "<h2>Article not found.</h2>";
+
+                    return;
+
+                }
+
+
+                document.title =
+                    article.title_en +
+                    " — BAS";
+
+
+                container.innerHTML = `
+
+                    ${
+                        article.main_image
+                        ?
+                        `
+                        <img
+                            src="${article.main_image}"
+                            alt="${article.title_en}"
+                            style="
+                                width:100%;
+                                max-height:550px;
+                                object-fit:cover;
+                                margin-bottom:35px;
+                            "
+                        >
+                        `
+                        :
+                        ""
+                    }
+
+                    <p class="eyebrow">
+                        ${article.class_name || "BAS SCIENCE"}
+                    </p>
+
+                    <h1 style="font-size:48px;">
+                        ${article.title_en}
+                    </h1>
+
+                    <p
+                        dir="rtl"
+                        style="
+                            font-size:24px;
+                            color:#777;
+                        "
+                    >
+                        ${article.title_ar}
+                    </p>
+
+                    ${
+                        article.excerpt_en
+                        ?
+                        `
+                        <p style="
+                            font-size:20px;
+                            color:#555;
+                            max-width:850px;
+                        ">
+                            ${article.excerpt_en}
+                        </p>
+                        `
+                        :
+                        ""
+                    }
+
+                    <hr>
+
+                    <div
+                        style="
+                            max-width:850px;
+                            font-size:18px;
+                        "
+                    >
+                        ${
+                            article.content_en
+                            ?
+                            article.content_en
+                                .replace(/\n/g, "<br><br>")
+                            :
+                            ""
+                        }
+                    </div>
+
+                    ${
+                        article.content_ar
+                        ?
+                        `
+                        <hr>
+
+                        <div
+                            dir="rtl"
+                            style="
+                                max-width:850px;
+                                font-size:18px;
+                            "
+                        >
+                            ${article.content_ar
+                                .replace(/\n/g, "<br><br>")}
+                        </div>
+                        `
+                        :
+                        ""
+                    }
+
+                    <hr>
+
+                    ${
+                        article.reel_url
+                        ?
+                        `
+                        <p>
+                            <a
+                                class="button"
+                                href="${article.reel_url}"
+                                target="_blank"
+                            >
+                                Watch Reel
+                            </a>
+                        </p>
+                        `
+                        :
+                        ""
+                    }
+
+                    ${
+                        article.video_url
+                        ?
+                        `
+                        <p>
+                            <a
+                                class="button"
+                                href="${article.video_url}"
+                                target="_blank"
+                            >
+                                Watch Video
+                            </a>
+                        </p>
+                        `
+                        :
+                        ""
+                    }
+
+                    ${
+                        article.podcast_url
+                        ?
+                        `
+                        <p>
+                            <a
+                                class="button"
+                                href="${article.podcast_url}"
+                                target="_blank"
+                            >
+                                Listen to Podcast
+                            </a>
+                        </p>
+                        `
+                        :
+                        ""
+                    }
+
+                `;
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                container.innerHTML =
+                    "<h2>Could not load article.</h2>";
+
+            }
+
+        }
+
+
+        loadArticle();
+
+    </script>
+
+</body>
+
+</html>
+```

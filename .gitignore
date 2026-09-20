@@ -1,0 +1,7 @@
+node_modules/
+.env
+bas.db
+uploads/
+*.log
+server/server-backup.js
+server/server-before-vercel.js

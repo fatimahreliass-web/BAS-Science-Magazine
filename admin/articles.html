@@ -1,0 +1,1942 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>BAS — Articles Manager</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f5f1e8;
+            color: #202020;
+        }
+
+        header {
+            background: #171717;
+            color: white;
+
+            padding:
+                22px
+                5%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        header p {
+            margin: 4px 0 0;
+            color: #cfcfcf;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .header-actions a,
+        .header-actions button {
+            padding: 10px 16px;
+
+            border: 1px solid #c9a45c;
+
+            background: transparent;
+            color: white;
+
+            text-decoration: none;
+
+            cursor: pointer;
+
+            font-size: 14px;
+        }
+
+        .header-actions button {
+            background: #c9a45c;
+            color: #171717;
+            font-weight: bold;
+        }
+
+        main {
+            max-width: 1250px;
+            margin: auto;
+            padding: 45px 5%;
+        }
+
+        .top-title {
+            margin-bottom: 30px;
+        }
+
+        .top-title h2 {
+            margin: 0 0 8px;
+            font-size: 38px;
+        }
+
+        .top-title p {
+            color: #666;
+            margin: 0;
+        }
+
+        .form-card,
+        .list-card {
+            background: white;
+
+            border:
+                1px solid
+                #ddd5c8;
+
+            padding: 30px;
+
+            margin-bottom: 35px;
+        }
+
+        .form-card h3,
+        .list-card h3 {
+            margin-top: 0;
+
+            font-size: 25px;
+
+            border-bottom:
+                1px solid
+                #e3ddd3;
+
+            padding-bottom: 15px;
+        }
+
+        .grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+        }
+
+        .full {
+            grid-column:
+                1 / -1;
+        }
+
+        label {
+            display: block;
+
+            font-weight: bold;
+
+            margin-bottom: 7px;
+
+            font-size: 14px;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+
+            padding: 12px;
+
+            border:
+                1px solid
+                #d5cec2;
+
+            background: #fff;
+
+            font-family: inherit;
+
+            font-size: 14px;
+        }
+
+        textarea {
+            min-height: 150px;
+
+            resize: vertical;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+
+            border-color:
+                #b38d4d;
+        }
+
+        .arabic {
+            direction: rtl;
+            text-align: right;
+        }
+
+        .checkbox-row {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-top: 10px;
+        }
+
+        .checkbox-row input {
+            width: auto;
+        }
+
+        .image-box {
+            margin-top: 12px;
+        }
+
+        .image-preview {
+            width: 180px;
+            height: 120px;
+
+            object-fit: cover;
+
+            border:
+                1px solid
+                #ddd5c8;
+
+            display: none;
+
+            background: #eee;
+        }
+
+        .current-image {
+            margin-top: 8px;
+
+            color: #777;
+
+            font-size: 13px;
+        }
+
+        .buttons {
+            display: flex;
+
+            gap: 12px;
+
+            margin-top: 25px;
+
+            flex-wrap: wrap;
+        }
+
+        .primary-btn,
+        .secondary-btn,
+        .danger-btn {
+            border: none;
+
+            padding:
+                13px
+                22px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            font-size: 14px;
+        }
+
+        .primary-btn {
+            background: #c9a45c;
+            color: #171717;
+        }
+
+        .secondary-btn {
+            background: #ddd6ca;
+            color: #222;
+        }
+
+        .danger-btn {
+            background: #9b2d2d;
+            color: white;
+        }
+
+        .primary-btn:hover,
+        .secondary-btn:hover,
+        .danger-btn:hover {
+            opacity: 0.85;
+        }
+
+        .status {
+            margin-top: 15px;
+
+            padding: 12px;
+
+            display: none;
+        }
+
+        .success {
+            display: block;
+
+            background: #e5f2e8;
+
+            color: #275b35;
+        }
+
+        .error {
+            display: block;
+
+            background: #f8e2e2;
+
+            color: #8a2222;
+        }
+
+        .article-list {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+        }
+
+        .article-item {
+            border:
+                1px solid
+                #ddd5c8;
+
+            background: #faf9f6;
+
+            overflow: hidden;
+        }
+
+        .article-image {
+            width: 100%;
+            height: 220px;
+
+            object-fit: cover;
+
+            background: #222;
+        }
+
+        .article-image-placeholder {
+            height: 220px;
+
+            background: #222;
+
+            color: #c9a45c;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 50px;
+
+            font-weight: bold;
+        }
+
+        .article-info {
+            padding: 20px;
+        }
+
+        .article-info h4 {
+            margin:
+                0
+                0
+                8px;
+
+            font-size: 21px;
+        }
+
+        .arabic-title {
+            direction: rtl;
+
+            text-align: right;
+
+            color: #555;
+
+            margin-bottom: 15px;
+        }
+
+        .meta {
+            color: #777;
+
+            font-size: 13px;
+
+            line-height: 1.8;
+        }
+
+        .article-actions {
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 18px;
+        }
+
+        .empty {
+            padding: 30px;
+
+            text-align: center;
+
+            color: #777;
+        }
+
+        .form-mode {
+            color: #9b7740;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 800px) {
+
+            .grid,
+            .article-list {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div>
+
+        <h1>
+            BAS — Articles Manager
+        </h1>
+
+        <p>
+            Bashaer Science Magazine
+        </p>
+
+    </div>
+
+
+    <div class="header-actions">
+
+        <a href="/admin/dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="/admin/issues.html">
+            Issues
+        </a>
+
+        <button
+            onclick="logout()"
+        >
+            Logout
+        </button>
+
+    </div>
+
+</header>
+
+
+<main>
+
+
+    <div class="top-title">
+
+        <h2>
+            Articles
+        </h2>
+
+        <p>
+            Create, edit and manage the scientific articles of BAS.
+        </p>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- FORM -->
+    <!-- ============================= -->
+
+    <section class="form-card">
+
+        <h3 id="formTitle">
+            Add New Article
+        </h3>
+
+        <div
+            id="formMode"
+            class="form-mode"
+        >
+            CREATE MODE
+        </div>
+
+
+        <form id="articleForm">
+
+
+            <div class="grid">
+
+
+                <!-- ENGLISH TITLE -->
+
+                <div>
+
+                    <label>
+                        English Title *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="title_en"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- ARABIC TITLE -->
+
+                <div>
+
+                    <label>
+                        Arabic Title *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="title_ar"
+                        class="arabic"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- SLUG -->
+
+                <div>
+
+                    <label>
+                        Slug *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="slug"
+                        placeholder="example-science-article"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- CLASS -->
+
+                <div>
+
+                    <label>
+                        Class
+                    </label>
+
+                    <input
+                        type="text"
+                        id="class_name"
+                        placeholder="Grade 8"
+                    >
+
+                </div>
+
+
+                <!-- ENGLISH CONTENT -->
+
+                <div class="full">
+
+                    <label>
+                        English Content
+                    </label>
+
+                    <textarea
+                        id="content_en"
+                    ></textarea>
+
+                </div>
+
+
+                <!-- ARABIC CONTENT -->
+
+                <div class="full">
+
+                    <label>
+                        Arabic Content
+                    </label>
+
+                    <textarea
+                        id="content_ar"
+                        class="arabic"
+                    ></textarea>
+
+                </div>
+
+
+                <!-- ENGLISH EXCERPT -->
+
+                <div>
+
+                    <label>
+                        English Excerpt
+                    </label>
+
+                    <textarea
+                        id="excerpt_en"
+                        style="min-height:100px"
+                    ></textarea>
+
+                </div>
+
+
+                <!-- ARABIC EXCERPT -->
+
+                <div>
+
+                    <label>
+                        Arabic Excerpt
+                    </label>
+
+                    <textarea
+                        id="excerpt_ar"
+                        class="arabic"
+                        style="min-height:100px"
+                    ></textarea>
+
+                </div>
+
+
+                <!-- IMAGE -->
+
+                <div class="full">
+
+                    <label>
+                        Main Image
+                    </label>
+
+                    <input
+                        type="file"
+                        id="imageFile"
+                        accept="image/*"
+                    >
+
+                    <div class="image-box">
+
+                        <img
+                            id="imagePreview"
+                            class="image-preview"
+                            alt="Preview"
+                        >
+
+                        <div
+                            id="currentImage"
+                            class="current-image"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STUDENT -->
+
+                <div>
+
+                    <label>
+                        Student Author
+                    </label>
+
+                    <select id="student_id">
+
+                        <option value="">
+                            Select student
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- ISSUE -->
+
+                <div>
+
+                    <label>
+                        Issue
+                    </label>
+
+                    <select id="issue_id">
+
+                        <option value="">
+                            Select issue
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- CATEGORY -->
+
+                <div>
+
+                    <label>
+                        Category
+                    </label>
+
+                    <select id="category_id">
+
+                        <option value="">
+                            Select category
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- DATE -->
+
+                <div>
+
+                    <label>
+                        Publication Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="publication_date"
+                    >
+
+                </div>
+
+
+                <!-- TAGS -->
+
+                <div>
+
+                    <label>
+                        Tags
+                    </label>
+
+                    <input
+                        type="text"
+                        id="tags"
+                        placeholder="biology, environment, AI"
+                    >
+
+                </div>
+
+
+                <!-- STATUS -->
+
+                <div>
+
+                    <label>
+                        Status
+                    </label>
+
+                    <select id="status">
+
+                        <option value="draft">
+                            Draft
+                        </option>
+
+                        <option value="published">
+                            Published
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- REEL -->
+
+                <div>
+
+                    <label>
+                        Reel URL
+                    </label>
+
+                    <input
+                        type="url"
+                        id="reel_url"
+                    >
+
+                </div>
+
+
+                <!-- VIDEO -->
+
+                <div>
+
+                    <label>
+                        Video URL
+                    </label>
+
+                    <input
+                        type="url"
+                        id="video_url"
+                    >
+
+                </div>
+
+
+                <!-- PODCAST -->
+
+                <div>
+
+                    <label>
+                        Podcast URL
+                    </label>
+
+                    <input
+                        type="url"
+                        id="podcast_url"
+                    >
+
+                </div>
+
+
+                <!-- FEATURED -->
+
+                <div class="full">
+
+                    <div class="checkbox-row">
+
+                        <input
+                            type="checkbox"
+                            id="featured"
+                        >
+
+                        <label
+                            for="featured"
+                            style="margin:0"
+                        >
+                            Featured Article
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="buttons">
+
+                <button
+                    type="submit"
+                    class="primary-btn"
+                    id="saveButton"
+                >
+                    Save Article
+                </button>
+
+
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    onclick="resetForm()"
+                >
+                    Clear / New Article
+                </button>
+
+            </div>
+
+
+            <div
+                id="statusMessage"
+                class="status"
+            ></div>
+
+
+        </form>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- ARTICLE LIST -->
+    <!-- ============================= -->
+
+    <section class="list-card">
+
+        <h3>
+            Existing Articles
+        </h3>
+
+        <div
+            id="articleList"
+            class="article-list"
+        ></div>
+
+    </section>
+
+
+</main>
+
+
+<script>
+
+
+let editingId = null;
+
+let currentImageUrl = "";
+
+
+// ======================================
+// AUTH
+// ======================================
+
+async function checkAuth() {
+
+    const response =
+        await fetch(
+            "/api/auth"
+        );
+
+
+    const data =
+        await response.json();
+
+
+    if (!data.loggedIn) {
+
+        window.location.href =
+            "/admin/login.html";
+
+    }
+
+}
+
+
+// ======================================
+// LOGOUT
+// ======================================
+
+async function logout() {
+
+    await fetch(
+        "/api/logout",
+        {
+            method: "POST"
+        }
+    );
+
+
+    window.location.href =
+        "/admin/login.html";
+
+}
+
+
+// ======================================
+// LOAD SELECT DATA
+// ======================================
+
+async function loadSelects() {
+
+    const [
+        studentsResponse,
+        issuesResponse,
+        categoriesResponse
+    ] = await Promise.all([
+
+        fetch("/api/students"),
+
+        fetch("/api/issues"),
+
+        fetch("/api/categories")
+
+    ]);
+
+
+    const students =
+        await studentsResponse.json();
+
+    const issues =
+        await issuesResponse.json();
+
+    const categories =
+        await categoriesResponse.json();
+
+
+    const studentSelect =
+        document.getElementById(
+            "student_id"
+        );
+
+
+    const issueSelect =
+        document.getElementById(
+            "issue_id"
+        );
+
+
+    const categorySelect =
+        document.getElementById(
+            "category_id"
+        );
+
+
+    students.forEach(
+        student => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value =
+                student.id;
+
+            option.textContent =
+                student.name;
+
+            studentSelect.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    issues.forEach(
+        issue => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value =
+                issue.id;
+
+            option.textContent =
+                `Issue ${issue.issue_number} — ${issue.title_en}`;
+
+            issueSelect.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    categories.forEach(
+        category => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value =
+                category.id;
+
+            option.textContent =
+                `${category.name_en} — ${category.name_ar}`;
+
+            categorySelect.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+// ======================================
+// IMAGE PREVIEW
+// ======================================
+
+document
+    .getElementById("imageFile")
+    .addEventListener(
+        "change",
+        function () {
+
+            const file =
+                this.files[0];
+
+
+            if (!file) {
+
+                return;
+
+            }
+
+
+            const preview =
+                document.getElementById(
+                    "imagePreview"
+                );
+
+
+            preview.src =
+                URL.createObjectURL(
+                    file
+                );
+
+
+            preview.style.display =
+                "block";
+
+        }
+    );
+
+
+// ======================================
+// UPLOAD IMAGE
+// ======================================
+
+async function uploadImage() {
+
+    const fileInput =
+        document.getElementById(
+            "imageFile"
+        );
+
+
+    if (
+        !fileInput.files.length
+    ) {
+
+        return currentImageUrl || "";
+
+    }
+
+
+    const formData =
+        new FormData();
+
+
+    formData.append(
+        "file",
+        fileInput.files[0]
+    );
+
+
+    const response =
+        await fetch(
+            "/api/upload",
+            {
+                method: "POST",
+                body: formData
+            }
+        );
+
+
+    const data =
+        await response.json();
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            data.message ||
+            "Image upload failed."
+        );
+
+    }
+
+
+    return data.url;
+
+}
+
+
+// ======================================
+// SAVE ARTICLE
+// ======================================
+
+document
+    .getElementById("articleForm")
+    .addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+
+            const statusMessage =
+                document.getElementById(
+                    "statusMessage"
+                );
+
+
+            statusMessage.className =
+                "status";
+
+            statusMessage.textContent =
+                "Saving...";
+
+
+            try {
+
+                const imageUrl =
+                    await uploadImage();
+
+
+                const articleData = {
+
+                    title_en:
+                        document.getElementById(
+                            "title_en"
+                        ).value.trim(),
+
+                    title_ar:
+                        document.getElementById(
+                            "title_ar"
+                        ).value.trim(),
+
+                    slug:
+                        document.getElementById(
+                            "slug"
+                        ).value.trim(),
+
+                    content_en:
+                        document.getElementById(
+                            "content_en"
+                        ).value,
+
+                    content_ar:
+                        document.getElementById(
+                            "content_ar"
+                        ).value,
+
+                    excerpt_en:
+                        document.getElementById(
+                            "excerpt_en"
+                        ).value,
+
+                    excerpt_ar:
+                        document.getElementById(
+                            "excerpt_ar"
+                        ).value,
+
+                    main_image:
+                        imageUrl,
+
+                    student_id:
+                        document.getElementById(
+                            "student_id"
+                        ).value || null,
+
+                    issue_id:
+                        document.getElementById(
+                            "issue_id"
+                        ).value || null,
+
+                    category_id:
+                        document.getElementById(
+                            "category_id"
+                        ).value || null,
+
+                    class_name:
+                        document.getElementById(
+                            "class_name"
+                        ).value,
+
+                    tags:
+                        document.getElementById(
+                            "tags"
+                        ).value,
+
+                    publication_date:
+                        document.getElementById(
+                            "publication_date"
+                        ).value || null,
+
+                    status:
+                        document.getElementById(
+                            "status"
+                        ).value,
+
+                    featured:
+                        document.getElementById(
+                            "featured"
+                        ).checked,
+
+                    reel_url:
+                        document.getElementById(
+                            "reel_url"
+                        ).value,
+
+                    video_url:
+                        document.getElementById(
+                            "video_url"
+                        ).value,
+
+                    podcast_url:
+                        document.getElementById(
+                            "podcast_url"
+                        ).value
+
+                };
+
+
+                let response;
+
+
+                if (editingId) {
+
+                    response =
+                        await fetch(
+                            `/api/articles/${editingId}`,
+                            {
+                                method: "PUT",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify(
+                                        articleData
+                                    )
+                            }
+                        );
+
+                } else {
+
+                    response =
+                        await fetch(
+                            "/api/articles",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify(
+                                        articleData
+                                    )
+                            }
+                        );
+
+                }
+
+
+                const data =
+                    await response.json();
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        "Could not save article."
+                    );
+
+                }
+
+
+                statusMessage.className =
+                    "status success";
+
+                statusMessage.textContent =
+                    editingId
+                        ? "Article updated successfully."
+                        : "Article created successfully.";
+
+
+                resetForm();
+
+                loadArticles();
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+                statusMessage.className =
+                    "status error";
+
+                statusMessage.textContent =
+                    error.message;
+
+            }
+
+        }
+    );
+
+
+// ======================================
+// LOAD ARTICLES
+// ======================================
+
+async function loadArticles() {
+
+    const response =
+        await fetch(
+            "/api/articles"
+        );
+
+
+    const articles =
+        await response.json();
+
+
+    const list =
+        document.getElementById(
+            "articleList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    if (
+        !articles.length
+    ) {
+
+        list.innerHTML = `
+            <div class="empty">
+                No articles yet.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    articles.forEach(
+        article => {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "article-item";
+
+
+            const imageHTML =
+                article.main_image
+                    ? `
+                        <img
+                            src="${article.main_image}"
+                            class="article-image"
+                            alt=""
+                        >
+                    `
+                    : `
+                        <div class="article-image-placeholder">
+                            BAS
+                        </div>
+                    `;
+
+
+            item.innerHTML = `
+
+                ${imageHTML}
+
+                <div class="article-info">
+
+                    <h4>
+                        ${escapeHtml(
+                            article.title_en || ""
+                        )}
+                    </h4>
+
+                    <div class="arabic-title">
+                        ${escapeHtml(
+                            article.title_ar || ""
+                        )}
+                    </div>
+
+                    <div class="meta">
+
+                        ${article.class_name
+                            ? `Class: ${escapeHtml(article.class_name)}<br>`
+                            : ""
+                        }
+
+                        ${article.publication_date
+                            ? `Date: ${escapeHtml(article.publication_date)}<br>`
+                            : ""
+                        }
+
+                        Status:
+                        ${escapeHtml(article.status || "draft")}
+
+                    </div>
+
+                    <div class="article-actions">
+
+                        <button
+                            class="primary-btn"
+                            onclick="editArticle(${article.id})"
+                        >
+                            Edit
+                        </button>
+
+                        <button
+                            class="danger-btn"
+                            onclick="deleteArticle(${article.id})"
+                        >
+                            Delete
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            list.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
+
+
+// ======================================
+// EDIT ARTICLE
+// ======================================
+
+async function editArticle(id) {
+
+    const response =
+        await fetch(
+            "/api/articles"
+        );
+
+
+    const articles =
+        await response.json();
+
+
+    const article =
+        articles.find(
+            item =>
+                Number(item.id) ===
+                Number(id)
+        );
+
+
+    if (!article) {
+
+        alert(
+            "Article not found."
+        );
+
+        return;
+
+    }
+
+
+    editingId =
+        article.id;
+
+
+    currentImageUrl =
+        article.main_image || "";
+
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+        "Edit Article";
+
+
+    document.getElementById(
+        "formMode"
+    ).textContent =
+        `EDIT MODE — Article #${article.id}`;
+
+
+    document.getElementById(
+        "saveButton"
+    ).textContent =
+        "Update Article";
+
+
+    document.getElementById(
+        "title_en"
+    ).value =
+        article.title_en || "";
+
+
+    document.getElementById(
+        "title_ar"
+    ).value =
+        article.title_ar || "";
+
+
+    document.getElementById(
+        "slug"
+    ).value =
+        article.slug || "";
+
+
+    document.getElementById(
+        "content_en"
+    ).value =
+        article.content_en || "";
+
+
+    document.getElementById(
+        "content_ar"
+    ).value =
+        article.content_ar || "";
+
+
+    document.getElementById(
+        "excerpt_en"
+    ).value =
+        article.excerpt_en || "";
+
+
+    document.getElementById(
+        "excerpt_ar"
+    ).value =
+        article.excerpt_ar || "";
+
+
+    document.getElementById(
+        "class_name"
+    ).value =
+        article.class_name || "";
+
+
+    document.getElementById(
+        "tags"
+    ).value =
+        article.tags || "";
+
+
+    document.getElementById(
+        "publication_date"
+    ).value =
+        article.publication_date || "";
+
+
+    document.getElementById(
+        "status"
+    ).value =
+        article.status || "draft";
+
+
+    document.getElementById(
+        "featured"
+    ).checked =
+        Boolean(
+            article.featured
+        );
+
+
+    document.getElementById(
+        "reel_url"
+    ).value =
+        article.reel_url || "";
+
+
+    document.getElementById(
+        "video_url"
+    ).value =
+        article.video_url || "";
+
+
+    document.getElementById(
+        "podcast_url"
+    ).value =
+        article.podcast_url || "";
+
+
+    document.getElementById(
+        "student_id"
+    ).value =
+        article.student_id || "";
+
+
+    document.getElementById(
+        "issue_id"
+    ).value =
+        article.issue_id || "";
+
+
+    document.getElementById(
+        "category_id"
+    ).value =
+        article.category_id || "";
+
+
+    const preview =
+        document.getElementById(
+            "imagePreview"
+        );
+
+
+    const currentImage =
+        document.getElementById(
+            "currentImage"
+        );
+
+
+    document.getElementById(
+        "imageFile"
+    ).value = "";
+
+
+    if (
+        article.main_image
+    ) {
+
+        preview.src =
+            article.main_image;
+
+        preview.style.display =
+            "block";
+
+        currentImage.textContent =
+            "Current image is being kept unless you choose a new one.";
+
+    } else {
+
+        preview.style.display =
+            "none";
+
+        currentImage.textContent =
+            "No current image.";
+
+    }
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+// ======================================
+// DELETE ARTICLE
+// ======================================
+
+async function deleteArticle(id) {
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete this article?"
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/api/articles/${id}`,
+                {
+                    method: "DELETE"
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message ||
+                "Could not delete article."
+            );
+
+        }
+
+
+        alert(
+            "Article deleted successfully."
+        );
+
+
+        loadArticles();
+
+    }
+
+    catch (error) {
+
+        alert(
+            error.message
+        );
+
+    }
+
+}
+
+
+// ======================================
+// RESET FORM
+// ======================================
+
+function resetForm() {
+
+    editingId = null;
+
+    currentImageUrl = "";
+
+
+    document.getElementById(
+        "articleForm"
+    ).reset();
+
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+        "Add New Article";
+
+
+    document.getElementById(
+        "formMode"
+    ).textContent =
+        "CREATE MODE";
+
+
+    document.getElementById(
+        "saveButton"
+    ).textContent =
+        "Save Article";
+
+
+    document.getElementById(
+        "imagePreview"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "currentImage"
+    ).textContent =
+        "";
+
+
+    document.getElementById(
+        "statusMessage"
+    ).className =
+        "status";
+
+}
+
+
+// ======================================
+// ESCAPE HTML
+// ======================================
+
+function escapeHtml(value) {
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+// ======================================
+// START
+// ======================================
+
+async function start() {
+
+    await checkAuth();
+
+    await loadSelects();
+
+    await loadArticles();
+
+}
+
+
+start();
+
+
+</script>
+
+
+</body>
+
+</html>

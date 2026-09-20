@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BAS — Category</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">BAS</div>
+
+    <div>
+
+        <h1>Bashaer Science Magazine</h1>
+
+        <p>A Student-Run Science Publication</p>
+
+    </div>
+
+    <nav>
+
+        <a href="index.html">Home</a>
+
+        <a href="archive.html">Archive</a>
+
+        <a href="students.html">Students</a>
+
+        <a href="admin/login.html">Admin</a>
+
+    </nav>
+
+</header>
+
+
+<main>
+
+<section class="section">
+
+    <a href="index.html">← Back to Home</a>
+
+    <div id="categoryHeader">
+
+        Loading...
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div
+        id="articles"
+        class="cards"
+    >
+
+        Loading articles...
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+    <h3>BAS — Bashaer Science Magazine</h3>
+
+    <p>A Student-Run Science Publication</p>
+
+    <p>Elementary Cycle • Al Bashaer</p>
+
+</footer>
+
+
+<script>
+
+async function loadCategory() {
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const slug =
+        params.get("slug");
+
+    const header =
+        document.getElementById(
+            "categoryHeader"
+        );
+
+    const container =
+        document.getElementById(
+            "articles"
+        );
+
+    if (!slug) {
+
+        header.innerHTML =
+            "<h2>Category not found.</h2>";
+
+        return;
+
+    }
+
+    try {
+
+        const categoryResponse =
+            await fetch("/api/categories");
+
+        const categories =
+            await categoryResponse.json();
+
+        const category =
+            categories.find(
+                item => item.slug === slug
+            );
+
+        if (!category) {
+
+            header.innerHTML =
+                "<h2>Category not found.</h2>";
+
+            return;
+
+        }
+
+        document.title =
+            `${category.name_en} — BAS`;
+
+        header.innerHTML = `
+
+            <p class="eyebrow">
+                SCIENCE CATEGORY
+            </p>
+
+            <h2>
+                ${category.name_en}
+            </h2>
+
+            <h3 dir="rtl">
+                ${category.name_ar}
+            </h3>
+
+            ${
+                category.description_en
+                ?
+                `
+                <p>
+                    ${category.description_en}
+                </p>
+                `
+                :
+                ""
+            }
+
+        `;
+
+
+        const articleResponse =
+            await fetch("/api/articles");
+
+        const articles =
+            await articleResponse.json();
+
+        const categoryArticles =
+            articles.filter(
+                article =>
+                    Number(article.category_id)
+                    === Number(category.id)
+            );
+
+
+        if (!categoryArticles.length) {
+
+            container.innerHTML =
+                "<p>No articles in this category yet.</p>";
+
+            return;
+
+        }
+
+
+        container.innerHTML = "";
+
+
+        categoryArticles.forEach(article => {
+
+            const card =
+                document.createElement(
+                    "article"
+                );
+
+            card.className =
+                "article-card";
+
+            card.style.cursor =
+                "pointer";
+
+            card.innerHTML = `
+
+                ${
+                    article.main_image
+                    ?
+                    `
+                    <img
+                        src="${article.main_image}"
+                        alt="${article.title_en}"
+                    >
+                    `
+                    :
+                    `
+                    <div class="article-placeholder">
+                        BAS
+                    </div>
+                    `
+                }
+
+                <div class="card-content">
+
+                    <p class="eyebrow">
+
+                        ${
+                            article.class_name ||
+                            "SCIENCE"
+                        }
+
+                    </p>
+
+                    <h3>
+                        ${article.title_en}
+                    </h3>
+
+                    ${
+                        article.title_ar
+                        ?
+                        `
+                        <p dir="rtl">
+                            ${article.title_ar}
+                        </p>
+                        `
+                        :
+                        ""
+                    }
+
+                    <p>
+                        ${article.excerpt_en || ""}
+                    </p>
+
+                    <span class="button">
+                        Read Article →
+                    </span>
+
+                </div>
+
+            `;
+
+
+            card.addEventListener(
+                "click",
+                () => {
+
+                    window.location.href =
+                        `article.html?slug=${encodeURIComponent(article.slug)}`;
+
+                }
+            );
+
+
+            container.appendChild(card);
+
+        });
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        header.innerHTML =
+            "<p>Could not load category.</p>";
+
+    }
+
+}
+
+loadCategory();
+
+</script>
+
+</body>
+
+</html>

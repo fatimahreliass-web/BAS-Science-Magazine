@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        BAS Science Magazine — Admin Login
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                #171717;
+
+            color: white;
+
+        }
+
+
+        .login-box {
+
+            width: 100%;
+
+            max-width: 430px;
+
+            margin: 20px;
+
+            padding: 45px;
+
+            background: #f7f4ee;
+
+            color: #202020;
+
+            border: 1px solid #c9a45c;
+
+            box-shadow:
+                0 20px 60px
+                rgba(0,0,0,0.35);
+
+        }
+
+
+        .logo {
+
+            width: 70px;
+
+            height: 70px;
+
+            margin-bottom: 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border: 1px solid #c9a45c;
+
+            background: #171717;
+
+            color: #c9a45c;
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+            letter-spacing: 2px;
+
+        }
+
+
+        .eyebrow {
+
+            margin: 0 0 8px;
+
+            color: #9b7740;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            letter-spacing: 2px;
+
+        }
+
+
+        h1 {
+
+            margin: 0;
+
+            font-size: 32px;
+
+        }
+
+
+        .subtitle {
+
+            margin-top: 8px;
+
+            color: #666;
+
+        }
+
+
+        label {
+
+            display: block;
+
+            margin-top: 22px;
+
+            margin-bottom: 7px;
+
+            font-weight: bold;
+
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #ccc;
+
+            background: white;
+
+            font-size: 15px;
+
+        }
+
+
+        input:focus {
+
+            outline: none;
+
+            border-color: #c9a45c;
+
+        }
+
+
+        button {
+
+            width: 100%;
+
+            margin-top: 28px;
+
+            padding: 14px;
+
+            border: none;
+
+            background: #c9a45c;
+
+            color: #171717;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        button:hover {
+
+            opacity: 0.9;
+
+        }
+
+
+        #message {
+
+            min-height: 22px;
+
+            margin-top: 18px;
+
+            color: #a33;
+
+            font-weight: bold;
+
+        }
+
+
+        .back {
+
+            display: inline-block;
+
+            margin-top: 20px;
+
+            color: #666;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="login-box">
+
+    <div class="logo">
+        BAS
+    </div>
+
+
+    <p class="eyebrow">
+        ADMINISTRATION
+    </p>
+
+
+    <h1>
+        Welcome Back
+    </h1>
+
+
+    <p class="subtitle">
+        Sign in to manage the BAS Science Magazine.
+    </p>
+
+
+    <form id="loginForm">
+
+
+        <label for="username">
+            Username
+        </label>
+
+
+        <input
+            type="text"
+            id="username"
+            autocomplete="username"
+            required
+        >
+
+
+        <label for="password">
+            Password
+        </label>
+
+
+        <input
+            type="password"
+            id="password"
+            autocomplete="current-password"
+            required
+        >
+
+
+        <button
+            type="submit"
+            id="loginButton"
+        >
+            Sign In
+        </button>
+
+
+    </form>
+
+
+    <p id="message"></p>
+
+
+    <a
+        href="../index.html"
+        class="back"
+    >
+        ← Back to Magazine
+    </a>
+
+</div>
+
+
+<script>
+
+const form =
+    document.getElementById(
+        "loginForm"
+    );
+
+
+const message =
+    document.getElementById(
+        "message"
+    );
+
+
+const button =
+    document.getElementById(
+        "loginButton"
+    );
+
+
+// ======================================
+// CHECK IF ALREADY LOGGED IN
+// ======================================
+
+fetch("/api/auth")
+
+    .then(response =>
+        response.json()
+    )
+
+    .then(data => {
+
+        if (data.loggedIn) {
+
+            window.location.href =
+                "dashboard.html";
+
+        }
+
+    })
+
+    .catch(error => {
+
+        console.error(error);
+
+    });
+
+
+// ======================================
+// LOGIN
+// ======================================
+
+form.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        const username =
+            document
+                .getElementById(
+                    "username"
+                )
+                .value
+                .trim();
+
+
+        const password =
+            document
+                .getElementById(
+                    "password"
+                )
+                .value;
+
+
+        message.textContent =
+            "";
+
+
+        button.disabled =
+            true;
+
+
+        button.textContent =
+            "Signing in...";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/login",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json"
+
+                        },
+
+                        body:
+                            JSON.stringify({
+
+                                username:
+                                    username,
+
+                                password:
+                                    password
+
+                            })
+
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message ||
+                    "Login failed."
+                );
+
+            }
+
+
+            window.location.href =
+                "dashboard.html";
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+            message.textContent =
+                error.message ||
+                "Invalid username or password.";
+
+        }
+
+        finally {
+
+            button.disabled =
+                false;
+
+            button.textContent =
+                "Sign In";
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,122 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password_hash": "$2b$12$GXz98CZNmD3GoCE6mFJwN.914rpL3rG4LPUZYhl4E8Y.eEPh7NchS",
+      "created_at": "2026-09-19 16:38:48"
+    }
+  ],
+  "students": [],
+  "categories": [
+    {
+      "id": 1,
+      "name_en": "Science Unlocked",
+      "name_ar": "العلوم بين أيدينا",
+      "description_en": "Explore surprising scientific ideas, mysteries, discoveries, and concepts that make us look at the world differently.",
+      "description_ar": "اكتشفوا أفكارًا علمية مدهشة وأسرارًا واكتشافات ومفاهيم تجعلنا ننظر إلى العالم بطريقة مختلفة.",
+      "slug": "science-unlocked",
+      "image": null,
+      "display_order": 1
+    },
+    {
+      "id": 2,
+      "name_en": "Science on a Plate",
+      "name_ar": "العلم على مائدتنا",
+      "description_en": "Discover the science behind food, nutrition, cooking, ingredients, and the fascinating chemistry and biology happening on our plates.",
+      "description_ar": "اكتشفوا العلم وراء الطعام والتغذية والطبخ والمكونات والكيمياء والبيولوجيا الرائعة التي تحدث على موائدنا.",
+      "slug": "science-on-a-plate",
+      "image": null,
+      "display_order": 2
+    },
+    {
+      "id": 3,
+      "name_en": "Future Lab",
+      "name_ar": "مختبر المستقبل",
+      "description_en": "Explore emerging technologies, artificial intelligence, robotics, medicine, space exploration, and scientific ideas shaping the future.",
+      "description_ar": "اكتشفوا التقنيات الناشئة والذكاء الاصطناعي والروبوتات والطب واستكشاف الفضاء والأفكار العلمية التي ترسم ملامح المستقبل.",
+      "slug": "future-lab",
+      "image": null,
+      "display_order": 3
+    },
+    {
+      "id": 4,
+      "name_en": "Planet Earth",
+      "name_ar": "كوكب الأرض",
+      "description_en": "Discover the science of our planet, climate, ecosystems, natural resources, environmental challenges, and solutions.",
+      "description_ar": "اكتشفوا علوم كوكبنا ومناخه وأنظمته البيئية وموارده الطبيعية والتحديات البيئية والحلول الممكنة.",
+      "slug": "planet-earth",
+      "image": null,
+      "display_order": 4
+    },
+    {
+      "id": 5,
+      "name_en": "Mind Lab",
+      "name_ar": "مختبر العقل",
+      "description_en": "Explore the fascinating science of the brain, behavior, perception, memory, emotions, learning, and the human mind.",
+      "description_ar": "اكتشفوا علم الدماغ والسلوك والإدراك والذاكرة والمشاعر والتعلّم وعالم العقل البشري.",
+      "slug": "mind-lab",
+      "image": null,
+      "display_order": 5
+    },
+    {
+      "id": 6,
+      "name_en": "Inside Life",
+      "name_ar": "داخل عالم الحياة",
+      "description_en": "Explore the hidden world of living organisms, cells, microbes, genetics, animals, plants, and the science of life.",
+      "description_ar": "اكتشفوا العالم الخفي للكائنات الحية والخلايا والميكروبات والحيوانات والنباتات وعلوم الحياة.",
+      "slug": "inside-life",
+      "image": null,
+      "display_order": 6
+    },
+    {
+      "id": 7,
+      "name_en": "Science Voices",
+      "name_ar": "أصوات علمية",
+      "description_en": "Discover the people, ideas, questions, opinions, and stories that connect science with society and everyday life.",
+      "description_ar": "اكتشفوا الأشخاص والأفكار والأسئلة والآراء والقصص التي تربط العلم بالمجتمع والحياة اليومية.",
+      "slug": "science-voices",
+      "image": null,
+      "display_order": 7
+    },
+    {
+      "id": 8,
+      "name_en": "Science in Action",
+      "name_ar": "العلم في العمل",
+      "description_en": "Explore science through real-world applications, investigations, inventions, engineering, and solutions to real problems.",
+      "description_ar": "اكتشفوا العلم من خلال تطبيقاته الواقعية والتحقيقات والاختراعات والهندسة والحلول للمشكلات الحقيقية.",
+      "slug": "science-in-action",
+      "image": null,
+      "display_order": 8
+    },
+    {
+      "id": 9,
+      "name_en": "Science Playground",
+      "name_ar": "ملعب العلوم",
+      "description_en": "A space for curiosity, scientific fun, puzzles, optical illusions, myths and facts, challenges, surprising phenomena, and interactive science.",
+      "description_ar": "مساحة للفضول والمرح العلمي والألغاز والخدع البصرية والحقائق والخرافات والتحديات والظواهر المدهشة.",
+      "slug": "science-playground",
+      "image": null,
+      "display_order": 9
+    }
+  ],
+  "issues": [
+    {
+      "id": 1,
+      "issue_number": 1,
+      "month": "September",
+      "year": 2026,
+      "title_en": "BAS Science Magazine - Issue 1",
+      "title_ar": "???? BAS ??????? - ????? ?????",
+      "description_en": "The first student-run science publication of BAS.",
+      "description_ar": "????? ????? ?? ???? BAS ??????? ?? ????? ??????.",
+      "cover_image": null,
+      "pdf_file": null,
+      "publication_date": null,
+      "status": "draft",
+      "featured": 1,
+      "created_at": "2026-09-19 10:33:26"
+    }
+  ],
+  "articles": []
+}

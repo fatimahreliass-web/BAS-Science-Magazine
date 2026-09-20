@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BAS Science Magazine — Manage Issues</title>
+</head>
+
+<body>
+
+    <h1>BAS Science Magazine</h1>
+
+    <h2>Manage Issues</h2>
+
+    <p>
+        <a href="dashboard.html">← Back to Dashboard</a>
+    </p>
+
+    <hr>
+
+    <h3>Add New Issue</h3>
+
+    <form id="issueForm">
+
+        <label>Issue Number</label><br>
+        <input type="number" id="issue_number" required>
+
+        <br><br>
+
+        <label>Month</label><br>
+        <input type="text" id="month" placeholder="September" required>
+
+        <br><br>
+
+        <label>Year</label><br>
+        <input type="number" id="year" value="2026" required>
+
+        <br><br>
+
+        <label>English Title</label><br>
+        <input type="text" id="title_en" required>
+
+        <br><br>
+
+        <label>Arabic Title</label><br>
+        <input type="text" id="title_ar" dir="rtl" required>
+
+        <br><br>
+
+        <label>English Description</label><br>
+        <textarea id="description_en" rows="4"></textarea>
+
+        <br><br>
+
+        <label>Arabic Description</label><br>
+        <textarea id="description_ar" rows="4" dir="rtl"></textarea>
+
+        <br><br>
+
+        <label>Cover Image</label><br>
+        <input type="file" id="coverFile" accept="image/*">
+
+        <br><br>
+
+        <label>Issue PDF</label><br>
+        <input type="file" id="pdfFile" accept="application/pdf">
+
+        <br><br>
+
+        <label>Publication Date</label><br>
+        <input type="date" id="publication_date">
+
+        <br><br>
+
+        <label>Status</label><br>
+
+        <select id="status">
+            <option value="draft">Draft</option>
+            <option value="published">Published</option>
+        </select>
+
+        <br><br>
+
+        <label>
+            <input type="checkbox" id="featured">
+            Featured Issue
+        </label>
+
+        <br><br>
+
+        <button type="submit">
+            Add Issue
+        </button>
+
+    </form>
+
+    <p id="message"></p>
+
+    <hr>
+
+    <h3>Existing Issues</h3>
+
+    <div id="issuesList">
+        Loading...
+    </div>
+
+
+    <script>
+
+        const form =
+            document.getElementById("issueForm");
+
+        const message =
+            document.getElementById("message");
+
+        const issuesList =
+            document.getElementById("issuesList");
+
+
+        // =====================================
+        // UPLOAD FILE
+        // =====================================
+
+        async function uploadFile(file) {
+
+            if (!file) {
+                return null;
+            }
+
+            const formData =
+                new FormData();
+
+            formData.append("file", file);
+
+            const response =
+                await fetch(
+                    "/api/upload",
+                    {
+                        method: "POST",
+                        body: formData
+                    }
+                );
+
+            const result =
+                await response.json();
+
+            if (!result.success) {
+                throw new Error(
+                    result.message ||
+                    "Upload failed."
+                );
+            }
+
+            return result.url;
+        }
+
+
+        // =====================================
+        // ADD ISSUE
+        // =====================================
+
+        form.addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+                try {
+
+                    message.textContent =
+                        "Uploading files...";
+
+
+                    const coverFile =
+                        document.getElementById(
+                            "coverFile"
+                        ).files[0];
+
+
+                    const pdfFile =
+                        document.getElementById(
+                            "pdfFile"
+                        ).files[0];
+
+
+                    const coverUrl =
+                        await uploadFile(
+                            coverFile
+                        );
+
+
+                    const pdfUrl =
+                        await uploadFile(
+                            pdfFile
+                        );
+
+
+                    message.textContent =
+                        "Saving issue...";
+
+
+                    const issue = {
+
+                        issue_number:
+                            document.getElementById(
+                                "issue_number"
+                            ).value,
+
+                        month:
+                            document.getElementById(
+                                "month"
+                            ).value,
+
+                        year:
+                            document.getElementById(
+                                "year"
+                            ).value,
+
+                        title_en:
+                            document.getElementById(
+                                "title_en"
+                            ).value,
+
+                        title_ar:
+                            document.getElementById(
+                                "title_ar"
+                            ).value,
+
+                        description_en:
+                            document.getElementById(
+                                "description_en"
+                            ).value,
+
+                        description_ar:
+                            document.getElementById(
+                                "description_ar"
+                            ).value,
+
+                        cover_image:
+                            coverUrl,
+
+                        pdf_file:
+                            pdfUrl,
+
+                        publication_date:
+                            document.getElementById(
+                                "publication_date"
+                            ).value,
+
+                        status:
+                            document.getElementById(
+                                "status"
+                            ).value,
+
+                        featured:
+                            document.getElementById(
+                                "featured"
+                            ).checked
+
+                    };
+
+
+                    const response =
+                        await fetch(
+                            "/api/issues",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify(issue)
+                            }
+                        );
+
+
+                    const result =
+                        await response.json();
+
+
+                    if (result.success) {
+
+                        message.textContent =
+                            "Issue added successfully.";
+
+                        form.reset();
+
+                        loadIssues();
+
+                    } else {
+
+                        message.textContent =
+                            result.message ||
+                            "Could not add issue.";
+
+                    }
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    message.textContent =
+                        "Error: " +
+                        error.message;
+
+                }
+
+            }
+        );
+
+
+        // =====================================
+        // LOAD ISSUES
+        // =====================================
+
+        async function loadIssues() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/issues"
+                    );
+
+                const issues =
+                    await response.json();
+
+
+                if (issues.length === 0) {
+
+                    issuesList.innerHTML =
+                        "<p>No issues yet.</p>";
+
+                    return;
+
+                }
+
+
+                issuesList.innerHTML = "";
+
+
+                issues.forEach(issue => {
+
+                    const item =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    item.innerHTML = `
+
+                        <hr>
+
+                        <h4>
+                            Issue ${issue.issue_number}
+                            — ${issue.month}
+                            ${issue.year}
+                        </h4>
+
+                        <p>
+                            ${issue.title_en}
+                        </p>
+
+                        <p>
+                            ${issue.title_ar}
+                        </p>
+
+                        <p>
+                            Status: ${issue.status}
+                        </p>
+
+                        ${
+                            issue.cover_image
+                            ? `<p>
+                                <a
+                                    href="${issue.cover_image}"
+                                    target="_blank"
+                                >
+                                    View Cover
+                                </a>
+                               </p>`
+                            : ""
+                        }
+
+                        ${
+                            issue.pdf_file
+                            ? `<p>
+                                <a
+                                    href="${issue.pdf_file}"
+                                    target="_blank"
+                                >
+                                    View PDF
+                                </a>
+                               </p>`
+                            : ""
+                        }
+
+                    `;
+
+
+                    issuesList.appendChild(item);
+
+                });
+
+            } catch (error) {
+
+                console.error(error);
+
+                issuesList.innerHTML =
+                    "<p>Could not load issues.</p>";
+
+            }
+
+        }
+
+
+        loadIssues();
+
+    </script>
+
+</body>
+
+</html>

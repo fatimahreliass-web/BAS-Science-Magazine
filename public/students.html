@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BAS — Student Scientists</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">BAS</div>
+
+    <div>
+
+        <h1>Bashaer Science Magazine</h1>
+
+        <p>A Student-Run Science Publication</p>
+
+    </div>
+
+    <nav>
+
+        <a href="index.html">Home</a>
+
+        <a href="archive.html">Archive</a>
+
+        <a href="students.html">Students</a>
+
+        <a href="admin/login.html">Admin</a>
+
+    </nav>
+
+</header>
+
+
+<main>
+
+<section class="section">
+
+    <p class="eyebrow">
+        OUR SCIENTISTS
+    </p>
+
+    <h2>
+        Student Voices
+    </h2>
+
+    <p>
+        Meet the students behind BAS Science Magazine.
+    </p>
+
+</section>
+
+
+<section class="section">
+
+    <div
+        id="students"
+        class="cards"
+    >
+
+        Loading students...
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+    <h3>BAS — Bashaer Science Magazine</h3>
+
+    <p>A Student-Run Science Publication</p>
+
+    <p>Elementary Cycle • Al Bashaer</p>
+
+</footer>
+
+
+<script>
+
+async function loadStudents() {
+
+    const container =
+        document.getElementById(
+            "students"
+        );
+
+    try {
+
+        const response =
+            await fetch("/api/students");
+
+        const students =
+            await response.json();
+
+
+        if (!students.length) {
+
+            container.innerHTML =
+                "<p>No student profiles yet.</p>";
+
+            return;
+
+        }
+
+
+        container.innerHTML = "";
+
+
+        students.forEach(student => {
+
+            const card =
+                document.createElement(
+                    "article"
+                );
+
+            card.className =
+                "student-card";
+
+            card.style.cursor =
+                "pointer";
+
+
+            card.innerHTML = `
+
+                ${
+                    student.photo
+                    ?
+                    `
+                    <img
+                        src="${student.photo}"
+                        alt="${student.name}"
+                    >
+                    `
+                    :
+                    `
+                    <div class="student-placeholder">
+
+                        ${student.name
+                            .charAt(0)
+                            .toUpperCase()
+                        }
+
+                    </div>
+                    `
+                }
+
+
+                <h3>
+                    ${student.name}
+                </h3>
+
+
+                <p>
+                    ${student.class_name || ""}
+                </p>
+
+
+                ${
+                    student.quote_en
+                    ?
+                    `
+                    <blockquote>
+                        “${student.quote_en}”
+                    </blockquote>
+                    `
+                    :
+                    ""
+                }
+
+            `;
+
+
+            card.addEventListener(
+                "click",
+                () => {
+
+                    window.location.href =
+                        `student.html?id=${student.id}`;
+
+                }
+            );
+
+
+            container.appendChild(card);
+
+        });
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        container.innerHTML =
+            "<p>Could not load students.</p>";
+
+    }
+
+}
+
+loadStudents();
+
+</script>
+
+</body>
+
+</html>

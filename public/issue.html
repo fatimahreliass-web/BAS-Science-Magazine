@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BAS — Issue</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">BAS</div>
+
+    <div>
+        <h1>Bashaer Science Magazine</h1>
+        <p>A Student-Run Science Publication</p>
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="archive.html">Archive</a>
+        <a href="students.html">Students</a>
+        <a href="admin/login.html">Admin</a>
+    </nav>
+
+</header>
+
+<main>
+
+    <section class="section">
+
+        <a href="archive.html">← Back to Archive</a>
+
+        <div id="issue">
+            Loading issue...
+        </div>
+
+        <div id="articles" class="cards">
+            Loading articles...
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+
+    <h3>BAS — Bashaer Science Magazine</h3>
+
+    <p>A Student-Run Science Publication</p>
+
+    <p>Elementary Cycle • Al Bashaer</p>
+
+</footer>
+
+<script>
+
+async function loadIssue() {
+
+    const params = new URLSearchParams(window.location.search);
+
+    const id = params.get("id");
+
+    const issueContainer =
+        document.getElementById("issue");
+
+    const articlesContainer =
+        document.getElementById("articles");
+
+    if (!id) {
+
+        issueContainer.innerHTML =
+            "<h2>Issue not found.</h2>";
+
+        return;
+
+    }
+
+    try {
+
+        const issueResponse =
+            await fetch("/api/issues");
+
+        const issues =
+            await issueResponse.json();
+
+        const issue =
+            issues.find(item =>
+                Number(item.id) === Number(id)
+            );
+
+        if (!issue) {
+
+            issueContainer.innerHTML =
+                "<h2>Issue not found.</h2>";
+
+            return;
+
+        }
+
+        document.title =
+            `${issue.title_en} — BAS`;
+
+        issueContainer.innerHTML = `
+
+            <article class="featured-issue">
+
+                ${
+                    issue.cover_image
+                    ?
+                    `
+                    <div class="issue-cover">
+
+                        <img
+                            src="${issue.cover_image}"
+                            alt="${issue.title_en}"
+                        >
+
+                    </div>
+                    `
+                    :
+                    `
+                    <div class="issue-cover placeholder">
+                        BAS
+                    </div>
+                    `
+                }
+
+                <div class="issue-info">
+
+                    <p class="eyebrow">
+
+                        ISSUE ${issue.issue_number}
+                        •
+                        ${issue.month}
+                        ${issue.year}
+
+                    </p>
+
+                    <h2>
+                        ${issue.title_en}
+                    </h2>
+
+                    ${
+                        issue.title_ar
+                        ?
+                        `
+                        <h3 dir="rtl">
+                            ${issue.title_ar}
+                        </h3>
+                        `
+                        :
+                        ""
+                    }
+
+                    ${
+                        issue.description_en
+                        ?
+                        `
+                        <p>
+                            ${issue.description_en}
+                        </p>
+                        `
+                        :
+                        ""
+                    }
+
+                    ${
+                        issue.description_ar
+                        ?
+                        `
+                        <p dir="rtl">
+                            ${issue.description_ar}
+                        </p>
+                        `
+                        :
+                        ""
+                    }
+
+                    ${
+                        issue.pdf_file
+                        ?
+                        `
+                        <a
+                            class="button"
+                            href="${issue.pdf_file}"
+                            target="_blank"
+                        >
+                            Read Full Issue
+                        </a>
+                        `
+                        :
+                        ""
+                    }
+
+                </div>
+
+            </article>
+
+        `;
+
+
+        const articlesResponse =
+            await fetch("/api/articles");
+
+        const articles =
+            await articlesResponse.json();
+
+        const issueArticles =
+            articles.filter(article =>
+                Number(article.issue_id) === Number(issue.id)
+            );
+
+        if (!issueArticles.length) {
+
+            articlesContainer.innerHTML =
+                "<p>No articles have been added to this issue yet.</p>";
+
+            return;
+
+        }
+
+        articlesContainer.innerHTML = "";
+
+        issueArticles.forEach(article => {
+
+            const card =
+                document.createElement("article");
+
+            card.className =
+                "article-card";
+
+            card.style.cursor =
+                "pointer";
+
+            card.innerHTML = `
+
+                ${
+                    article.main_image
+                    ?
+                    `
+                    <img
+                        src="${article.main_image}"
+                        alt="${article.title_en}"
+                    >
+                    `
+                    :
+                    `
+                    <div class="article-placeholder">
+                        BAS
+                    </div>
+                    `
+                }
+
+                <div class="card-content">
+
+                    <p class="eyebrow">
+
+                        ${
+                            article.class_name ||
+                            "SCIENCE"
+                        }
+
+                    </p>
+
+                    <h3>
+                        ${article.title_en}
+                    </h3>
+
+                    ${
+                        article.title_ar
+                        ?
+                        `
+                        <p dir="rtl">
+                            ${article.title_ar}
+                        </p>
+                        `
+                        :
+                        ""
+                    }
+
+                    <p>
+                        ${article.excerpt_en || ""}
+                    </p>
+
+                    <span class="button">
+                        Read Article →
+                    </span>
+
+                </div>
+
+            `;
+
+            card.addEventListener("click", () => {
+
+                window.location.href =
+                    `article.html?slug=${encodeURIComponent(article.slug)}`;
+
+            });
+
+            articlesContainer.appendChild(card);
+
+        });
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        issueContainer.innerHTML =
+            "<p>Could not load issue.</p>";
+
+    }
+
+}
+
+loadIssue();
+
+</script>
+
+</body>
+
+</html>

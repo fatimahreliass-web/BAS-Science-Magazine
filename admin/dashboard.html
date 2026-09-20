@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        BAS — Admin Dashboard
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f7f4ee;
+
+            color: #202020;
+
+        }
+
+
+        header {
+
+            background: #171717;
+
+            color: white;
+
+            padding: 22px 5%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            border-bottom:
+                1px solid #c9a45c;
+
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+        }
+
+
+        .logo {
+
+            width: 52px;
+
+            height: 52px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border:
+                1px solid #c9a45c;
+
+            color: #c9a45c;
+
+            font-weight: bold;
+
+            letter-spacing: 2px;
+
+        }
+
+
+        .brand h1 {
+
+            margin: 0;
+
+            font-size: 20px;
+
+        }
+
+
+        .brand p {
+
+            margin: 3px 0 0;
+
+            color: #aaa;
+
+            font-size: 13px;
+
+        }
+
+
+        .logout {
+
+            border: 1px solid #555;
+
+            background: transparent;
+
+            color: white;
+
+            padding: 10px 18px;
+
+            cursor: pointer;
+
+        }
+
+
+        .logout:hover {
+
+            border-color: #c9a45c;
+
+            color: #c9a45c;
+
+        }
+
+
+        main {
+
+            max-width: 1250px;
+
+            margin: auto;
+
+            padding: 55px 5%;
+
+        }
+
+
+        .intro {
+
+            margin-bottom: 40px;
+
+        }
+
+
+        .eyebrow {
+
+            color: #9b7740;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .intro h2 {
+
+            margin: 0;
+
+            font-size: 42px;
+
+        }
+
+
+        .intro p {
+
+            color: #666;
+
+            max-width: 650px;
+
+        }
+
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 45px;
+
+        }
+
+
+        .stat {
+
+            background: white;
+
+            border:
+                1px solid #e0d9ce;
+
+            padding: 25px;
+
+        }
+
+
+        .stat-number {
+
+            display: block;
+
+            font-size: 36px;
+
+            font-weight: bold;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .stat-label {
+
+            color: #777;
+
+            font-size: 14px;
+
+        }
+
+
+        .management {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+
+        }
+
+
+        .management-card {
+
+            display: block;
+
+            background: white;
+
+            border:
+                1px solid #e0d9ce;
+
+            padding: 30px;
+
+            text-decoration: none;
+
+            color: #202020;
+
+            transition:
+                transform .2s,
+                border-color .2s;
+
+        }
+
+
+        .management-card:hover {
+
+            transform:
+                translateY(-3px);
+
+            border-color:
+                #c9a45c;
+
+        }
+
+
+        .card-number {
+
+            color: #c9a45c;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            letter-spacing: 2px;
+
+        }
+
+
+        .management-card h3 {
+
+            margin:
+                12px 0 7px;
+
+            font-size: 25px;
+
+        }
+
+
+        .management-card p {
+
+            color: #777;
+
+            margin: 0;
+
+            line-height: 1.6;
+
+        }
+
+
+        .arrow {
+
+            display: inline-block;
+
+            margin-top: 20px;
+
+            color: #9b7740;
+
+            font-weight: bold;
+
+        }
+
+
+        .quick {
+
+            margin-top: 45px;
+
+            background: #171717;
+
+            color: white;
+
+            padding: 30px;
+
+        }
+
+
+        .quick h3 {
+
+            margin-top: 0;
+
+            color: #c9a45c;
+
+        }
+
+
+        .quick a {
+
+            color: white;
+
+            margin-right: 25px;
+
+        }
+
+
+        @media (max-width: 800px) {
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+
+            .management {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            header {
+
+                gap: 20px;
+
+                flex-wrap: wrap;
+
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .stats {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="brand">
+
+        <div class="logo">
+            BAS
+        </div>
+
+        <div>
+
+            <h1>
+                Bashaer Science Magazine
+            </h1>
+
+            <p>
+                Administration Dashboard
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="logout"
+        id="logoutButton"
+    >
+        Logout
+    </button>
+
+</header>
+
+
+<main>
+
+
+<section class="intro">
+
+    <div class="eyebrow">
+        BAS ADMINISTRATION
+    </div>
+
+    <h2>
+        Welcome back.
+    </h2>
+
+    <p>
+        Manage the magazine's issues,
+        articles, student scientists and
+        science categories from one place.
+    </p>
+
+</section>
+
+
+<section class="stats">
+
+
+    <div class="stat">
+
+        <span
+            class="stat-number"
+            id="issueCount"
+        >
+            —
+        </span>
+
+        <span class="stat-label">
+            Issues
+        </span>
+
+    </div>
+
+
+    <div class="stat">
+
+        <span
+            class="stat-number"
+            id="articleCount"
+        >
+            —
+        </span>
+
+        <span class="stat-label">
+            Articles
+        </span>
+
+    </div>
+
+
+    <div class="stat">
+
+        <span
+            class="stat-number"
+            id="studentCount"
+        >
+            —
+        </span>
+
+        <span class="stat-label">
+            Student Scientists
+        </span>
+
+    </div>
+
+
+    <div class="stat">
+
+        <span
+            class="stat-number"
+            id="categoryCount"
+        >
+            —
+        </span>
+
+        <span class="stat-label">
+            Categories
+        </span>
+
+    </div>
+
+
+</section>
+
+
+<section class="management">
+
+
+    <a
+        href="issues.html"
+        class="management-card"
+    >
+
+        <span class="card-number">
+            01
+        </span>
+
+        <h3>
+            Issues
+        </h3>
+
+        <p>
+            Create and manage monthly
+            magazine issues, covers,
+            descriptions and PDF files.
+        </p>
+
+        <span class="arrow">
+            Manage Issues →
+        </span>
+
+    </a>
+
+
+    <a
+        href="articles.html"
+        class="management-card"
+    >
+
+        <span class="card-number">
+            02
+        </span>
+
+        <h3>
+            Articles
+        </h3>
+
+        <p>
+            Add student articles,
+            images, bilingual content,
+            reels, videos and podcasts.
+        </p>
+
+        <span class="arrow">
+            Manage Articles →
+        </span>
+
+    </a>
+
+
+    <a
+        href="students.html"
+        class="management-card"
+    >
+
+        <span class="card-number">
+            03
+        </span>
+
+        <h3>
+            Student Scientists
+        </h3>
+
+        <p>
+            Create student profiles,
+            photos, biographies and
+            scientific quotes.
+        </p>
+
+        <span class="arrow">
+            Manage Students →
+        </span>
+
+    </a>
+
+
+    <a
+        href="categories.html"
+        class="management-card"
+    >
+
+        <span class="card-number">
+            04
+        </span>
+
+        <h3>
+            Science Categories
+        </h3>
+
+        <p>
+            Organize the magazine into
+            its official scientific sections.
+        </p>
+
+        <span class="arrow">
+            Manage Categories →
+        </span>
+
+    </a>
+
+
+</section>
+
+
+<section class="quick">
+
+    <h3>
+        Quick Access
+    </h3>
+
+    <a href="../index.html">
+        View Magazine
+    </a>
+
+    <a href="../archive.html">
+        View Archive
+    </a>
+
+    <a href="issues.html">
+        Add New Issue
+    </a>
+
+    <a href="articles.html">
+        Add Article
+    </a>
+
+</section>
+
+
+</main>
+
+
+<script>
+
+
+// ======================================
+// CHECK AUTHENTICATION
+// ======================================
+
+async function checkAuth() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/auth"
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.loggedIn) {
+
+            window.location.href =
+                "login.html";
+
+            return false;
+
+        }
+
+
+        return true;
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        window.location.href =
+            "login.html";
+
+        return false;
+
+    }
+
+}
+
+
+// ======================================
+// LOAD STATISTICS
+// ======================================
+
+async function loadStats() {
+
+    try {
+
+        const [
+            issuesResponse,
+            articlesResponse,
+            studentsResponse,
+            categoriesResponse
+        ] = await Promise.all([
+
+            fetch("/api/issues"),
+
+            fetch("/api/articles"),
+
+            fetch("/api/students"),
+
+            fetch("/api/categories")
+
+        ]);
+
+
+        const issues =
+            await issuesResponse.json();
+
+        const articles =
+            await articlesResponse.json();
+
+        const students =
+            await studentsResponse.json();
+
+        const categories =
+            await categoriesResponse.json();
+
+
+        document.getElementById(
+            "issueCount"
+        ).textContent =
+            issues.length;
+
+
+        document.getElementById(
+            "articleCount"
+        ).textContent =
+            articles.length;
+
+
+        document.getElementById(
+            "studentCount"
+        ).textContent =
+            students.length;
+
+
+        document.getElementById(
+            "categoryCount"
+        ).textContent =
+            categories.length;
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
+
+// ======================================
+// LOGOUT
+// ======================================
+
+document
+    .getElementById(
+        "logoutButton"
+    )
+    .addEventListener(
+        "click",
+        async function() {
+
+            try {
+
+                await fetch(
+                    "/api/logout",
+                    {
+                        method: "POST"
+                    }
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+            }
+
+
+            window.location.href =
+                "login.html";
+
+        }
+    );
+
+
+// ======================================
+// START
+// ======================================
+
+async function start() {
+
+    const authenticated =
+        await checkAuth();
+
+
+    if (!authenticated) {
+
+        return;
+
+    }
+
+
+    await loadStats();
+
+}
+
+
+start();
+
+</script>
+
+
+</body>
+
+</html>
