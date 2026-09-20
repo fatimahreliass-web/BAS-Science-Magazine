@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,11 +25,19 @@
             margin-top: 0;
         }
 
+        a {
+            color: #222;
+        }
+
         form {
             background: white;
             padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        label {
+            font-weight: bold;
         }
 
         input,
@@ -41,6 +48,12 @@
             padding: 10px;
             margin-top: 5px;
             box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        input[type="checkbox"] {
+            width: auto;
         }
 
         button {
@@ -49,6 +62,7 @@
             border-radius: 6px;
             cursor: pointer;
             margin-right: 8px;
+            margin-top: 5px;
         }
 
         .save-btn {
@@ -73,6 +87,13 @@
 
         .cancel-btn {
             background: #ddd;
+            color: #222;
+        }
+
+        .logout-btn {
+            float: right;
+            background: #222;
+            color: white;
         }
 
         .issue-card {
@@ -80,7 +101,7 @@
             padding: 20px;
             margin: 20px 0;
             border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
         }
 
         .status {
@@ -98,815 +119,1317 @@
         #message {
             font-weight: bold;
             margin: 15px 0;
+            min-height: 20px;
+        }
+
+        .top-bar {
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .current-user {
+            color: #666;
+            font-size: 14px;
         }
     </style>
 </head>
 
 <body>
 
-    <h1>BAS Science Magazine</h1>
+    <div class="top-bar">
+
+        <button
+            type="button"
+            class="logout-btn"
+            onclick="logout()">
+            Logout
+        </button>
+
+        <h1>BAS Science Magazine</h1>
+
+        <div class="current-user" id="currentUser">
+            Checking login...
+        </div>
+
+    </div>
 
     <h2>Manage Issues</h2>
 
     <p>
-        <a href="dashboard.html">← Back to Dashboard</a>
+        <a href="/admin/dashboard.html">
+            ← Back to Dashboard
+        </a>
     </p>
 
     <hr>
 
-    <h3 id="formTitle">Add New Issue</h3>
+    <h3 id="formTitle">
+        Add New Issue
+    </h3>
 
     <form id="issueForm">
 
-        <input type="hidden" id="editingId">
+        <input
+            type="hidden"
+            id="editingId">
 
-        <label>Issue Number</label><br>
-        <input type="number" id="issue_number" required>
+        <input
+            type="hidden"
+            id="existingCover">
 
-        <br><br>
+        <input
+            type="hidden"
+            id="existingPdf">
 
-        <label>Month</label><br>
-        <input type="text" id="month" placeholder="September" required>
-
-        <br><br>
-
-        <label>Year</label><br>
-        <input type="number" id="year" value="2026" required>
-
-        <br><br>
-
-        <label>English Title</label><br>
-        <input type="text" id="title_en" required>
-
-        <br><br>
-
-        <label>Arabic Title</label><br>
-        <input type="text" id="title_ar" dir="rtl" required>
-
-        <br><br>
-
-        <label>English Description</label><br>
-        <textarea id="description_en" rows="4"></textarea>
-
-        <br><br>
-
-        <label>Arabic Description</label><br>
-        <textarea id="description_ar" rows="4" dir="rtl"></textarea>
-
-        <br><br>
-
-        <label>Cover Image</label><br>
-        <input type="file" id="coverFile" accept="image/*">
-
-        <br>
-        <small>Leave empty when editing to keep the existing cover.</small>
-
-        <br><br>
-
-        <label>Issue PDF</label><br>
-        <input type="file" id="pdfFile" accept="application/pdf">
-
-        <br>
-        <small>Leave empty when editing to keep the existing PDF.</small>
-
-        <br><br>
-
-        <label>Publication Date</label><br>
-        <input type="date" id="publication_date">
-
-        <br><br>
-
-        <label>Status</label><br>
-
-        <select id="status">
-            <option value="draft">Draft</option>
-            <option value="published">Published</option>
-        </select>
-
-        <br><br>
 
         <label>
-            <input type="checkbox" id="featured">
-            Featured Issue
+            Issue Number
         </label>
+
+        <br>
+
+        <input
+            type="number"
+            id="issue_number"
+            required>
+
 
         <br><br>
 
-        <button type="submit" class="save-btn" id="saveButton">
+
+        <label>
+            Month
+        </label>
+
+        <br>
+
+        <input
+            type="text"
+            id="month"
+            placeholder="September"
+            required>
+
+
+        <br><br>
+
+
+        <label>
+            Year
+        </label>
+
+        <br>
+
+        <input
+            type="number"
+            id="year"
+            value="2026"
+            required>
+
+
+        <br><br>
+
+
+        <label>
+            English Title
+        </label>
+
+        <br>
+
+        <input
+            type="text"
+            id="title_en"
+            required>
+
+
+        <br><br>
+
+
+        <label>
+            Arabic Title
+        </label>
+
+        <br>
+
+        <input
+            type="text"
+            id="title_ar"
+            dir="rtl"
+            required>
+
+
+        <br><br>
+
+
+        <label>
+            English Description
+        </label>
+
+        <br>
+
+        <textarea
+            id="description_en"
+            rows="4">
+        </textarea>
+
+
+        <br><br>
+
+
+        <label>
+            Arabic Description
+        </label>
+
+        <br>
+
+        <textarea
+            id="description_ar"
+            rows="4"
+            dir="rtl">
+        </textarea>
+
+
+        <br><br>
+
+
+        <label>
+            Cover Image
+        </label>
+
+        <br>
+
+        <input
+            type="file"
+            id="coverFile"
+            accept="image/*">
+
+        <br>
+
+        <small>
+            Leave empty when editing to keep the existing cover.
+        </small>
+
+
+        <br><br>
+
+
+        <label>
+            Issue PDF
+        </label>
+
+        <br>
+
+        <input
+            type="file"
+            id="pdfFile"
+            accept="application/pdf">
+
+        <br>
+
+        <small>
+            Leave empty when editing to keep the existing PDF.
+        </small>
+
+
+        <br><br>
+
+
+        <label>
+            Publication Date
+        </label>
+
+        <br>
+
+        <input
+            type="date"
+            id="publication_date">
+
+
+        <br><br>
+
+
+        <label>
+            Status
+        </label>
+
+        <br>
+
+        <select id="status">
+
+            <option value="draft">
+                Draft
+            </option>
+
+            <option value="published">
+                Published
+            </option>
+
+        </select>
+
+
+        <br><br>
+
+
+        <label>
+
+            <input
+                type="checkbox"
+                id="featured">
+
+            Featured Issue
+
+        </label>
+
+
+        <br><br>
+
+
+        <button
+            type="submit"
+            class="save-btn"
+            id="saveButton">
+
             Add Issue
+
         </button>
+
 
         <button
             type="button"
             class="cancel-btn"
             id="cancelButton"
             style="display:none;">
+
             Cancel Edit
+
         </button>
 
     </form>
 
+
     <p id="message"></p>
+
 
     <hr>
 
-    <h3>Existing Issues</h3>
+
+    <h3>
+        Existing Issues
+    </h3>
+
 
     <div id="issuesList">
         Loading...
     </div>
 
 
-    <script>
+<script>
 
-        const form =
-            document.getElementById("issueForm");
+/* =========================================================
+   ELEMENTS
+========================================================= */
 
-        const message =
-            document.getElementById("message");
+const form =
+    document.getElementById("issueForm");
 
-        const issuesList =
-            document.getElementById("issuesList");
+const message =
+    document.getElementById("message");
 
-        const editingId =
-            document.getElementById("editingId");
+const issuesList =
+    document.getElementById("issuesList");
 
-        const formTitle =
-            document.getElementById("formTitle");
+const editingId =
+    document.getElementById("editingId");
 
-        const saveButton =
-            document.getElementById("saveButton");
+const existingCover =
+    document.getElementById("existingCover");
 
-        const cancelButton =
-            document.getElementById("cancelButton");
+const existingPdf =
+    document.getElementById("existingPdf");
+
+const formTitle =
+    document.getElementById("formTitle");
+
+const saveButton =
+    document.getElementById("saveButton");
+
+const cancelButton =
+    document.getElementById("cancelButton");
+
+const currentUser =
+    document.getElementById("currentUser");
 
 
-        // =====================================
-        // UPLOAD FILE
-        // =====================================
+/* =========================================================
+   CHECK LOGIN
+========================================================= */
 
-        async function uploadFile(file) {
+async function checkAuth() {
 
-            if (!file) {
-                return null;
-            }
+    try {
 
-            const formData =
-                new FormData();
+        const response =
+            await fetch("/api/auth", {
+                credentials: "same-origin"
+            });
 
-            formData.append("file", file);
+        const result =
+            await response.json();
 
-            const response =
-                await fetch(
-                    "/api/upload",
-                    {
-                        method: "POST",
-                        body: formData
-                    }
-                );
 
-            const result =
-                await response.json();
+        if (!result.loggedIn) {
 
-            if (!result.success) {
-                throw new Error(
-                    result.message ||
-                    "Upload failed."
-                );
-            }
+            window.location.href =
+                "/admin/login.html";
 
-            return result.url;
+            return false;
         }
 
 
-        // =====================================
-        // FORM SUBMIT
-        // =====================================
-
-        form.addEventListener(
-            "submit",
-            async function(event) {
-
-                event.preventDefault();
-
-                try {
-
-                    const isEditing =
-                        editingId.value !== "";
+        currentUser.textContent =
+            "Logged in as: " +
+            result.user.username;
 
 
-                    message.textContent =
-                        isEditing
-                        ? "Saving changes..."
-                        : "Uploading files...";
+        return true;
+
+    } catch (error) {
+
+        console.error(error);
+
+        window.location.href =
+            "/admin/login.html";
+
+        return false;
+    }
+}
 
 
-                    const coverFile =
-                        document.getElementById(
-                            "coverFile"
-                        ).files[0];
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+async function logout() {
+
+    try {
+
+        await fetch(
+            "/api/logout",
+            {
+                method: "POST",
+                credentials: "same-origin"
+            }
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
 
 
-                    const pdfFile =
-                        document.getElementById(
-                            "pdfFile"
-                        ).files[0];
+    window.location.href =
+        "/admin/login.html";
+}
 
 
-                    let coverUrl = null;
-                    let pdfUrl = null;
+/* =========================================================
+   UPLOAD FILE
+========================================================= */
+
+async function uploadFile(file) {
+
+    if (!file) {
+        return null;
+    }
 
 
-                    if (coverFile) {
+    const formData =
+        new FormData();
 
-                        coverUrl =
-                            await uploadFile(
-                                coverFile
-                            );
-
-                    }
-
-
-                    if (pdfFile) {
-
-                        pdfUrl =
-                            await uploadFile(
-                                pdfFile
-                            );
-
-                    }
+    formData.append(
+        "file",
+        file
+    );
 
 
-                    const issue = {
-
-                        issue_number:
-                            document.getElementById(
-                                "issue_number"
-                            ).value,
-
-                        month:
-                            document.getElementById(
-                                "month"
-                            ).value,
-
-                        year:
-                            document.getElementById(
-                                "year"
-                            ).value,
-
-                        title_en:
-                            document.getElementById(
-                                "title_en"
-                            ).value,
-
-                        title_ar:
-                            document.getElementById(
-                                "title_ar"
-                            ).value,
-
-                        description_en:
-                            document.getElementById(
-                                "description_en"
-                            ).value,
-
-                        description_ar:
-                            document.getElementById(
-                                "description_ar"
-                            ).value,
-
-                        publication_date:
-                            document.getElementById(
-                                "publication_date"
-                            ).value,
-
-                        status:
-                            document.getElementById(
-                                "status"
-                            ).value,
-
-                        featured:
-                            document.getElementById(
-                                "featured"
-                            ).checked
-
-                    };
-
-
-                    if (coverUrl) {
-                        issue.cover_image =
-                            coverUrl;
-                    }
-
-
-                    if (pdfUrl) {
-                        issue.pdf_file =
-                            pdfUrl;
-                    }
-
-
-                    const url =
-                        isEditing
-                        ? "/api/issues/" + editingId.value
-                        : "/api/issues";
-
-
-                    const method =
-                        isEditing
-                        ? "PUT"
-                        : "POST";
-
-
-                    const response =
-                        await fetch(
-                            url,
-                            {
-                                method: method,
-
-                                headers: {
-                                    "Content-Type":
-                                        "application/json"
-                                },
-
-                                body:
-                                    JSON.stringify(issue)
-                            }
-                        );
-
-
-                    const result =
-                        await response.json();
-
-
-                    if (!response.ok) {
-
-                        throw new Error(
-                            result.message ||
-                            "Could not save issue."
-                        );
-
-                    }
-
-
-                    message.textContent =
-                        isEditing
-                        ? "Issue updated successfully."
-                        : "Issue added successfully.";
-
-
-                    resetForm();
-
-                    loadIssues();
-
-
-                } catch (error) {
-
-                    console.error(error);
-
-                    message.textContent =
-                        "Error: " +
-                        error.message;
-
-                }
-
+    const response =
+        await fetch(
+            "/api/upload",
+            {
+                method: "POST",
+                body: formData,
+                credentials: "same-origin"
             }
         );
 
 
-        // =====================================
-        // LOAD ISSUES
-        // =====================================
+    const result =
+        await response.json();
 
-        async function loadIssues() {
 
-            try {
+    if (!response.ok ||
+        !result.success) {
 
-                const response =
-                    await fetch(
-                        "/api/issues"
-                    );
+        throw new Error(
+            result.message ||
+            "Upload failed."
+        );
+    }
 
-                const issues =
-                    await response.json();
-
 
-                if (!Array.isArray(issues) ||
-                    issues.length === 0) {
-
-                    issuesList.innerHTML =
-                        "<p>No issues yet.</p>";
-
-                    return;
-
-                }
-
-
-                issuesList.innerHTML = "";
-
-
-                issues.forEach(issue => {
+    return result.url;
+}
 
-                    const item =
-                        document.createElement(
-                            "div"
-                        );
 
-                    item.className =
-                        "issue-card";
+/* =========================================================
+   FORM SUBMIT
+========================================================= */
 
+form.addEventListener(
+    "submit",
+    async function(event) {
 
-                    const statusClass =
-                        issue.status === "published"
-                        ? "published"
-                        : "draft";
+        event.preventDefault();
 
 
-                    item.innerHTML = `
+        const isEditing =
+            editingId.value !== "";
 
-                        <h4>
-                            Issue ${issue.issue_number}
-                            — ${issue.month}
-                            ${issue.year}
-                        </h4>
 
-                        <p>
-                            <strong>
-                                ${issue.title_en || ""}
-                            </strong>
-                        </p>
+        try {
 
-                        <p dir="rtl">
-                            ${issue.title_ar || ""}
-                        </p>
+            const loggedIn =
+                await checkAuth();
 
-                        <p>
-                            <span class="status ${statusClass}">
-                                Status: ${issue.status || "draft"}
-                            </span>
-                        </p>
 
-                        ${
-                            issue.featured
-                            ? `<p>⭐ Featured Issue</p>`
-                            : ""
-                        }
-
-                        ${
-                            issue.cover_image
-                            ? `<p>
-                                <a
-                                    href="${issue.cover_image}"
-                                    target="_blank"
-                                >
-                                    View Cover
-                                </a>
-                               </p>`
-                            : ""
-                        }
-
-                        ${
-                            issue.pdf_file
-                            ? `<p>
-                                <a
-                                    href="${issue.pdf_file}"
-                                    target="_blank"
-                                >
-                                    View PDF
-                                </a>
-                               </p>`
-                            : ""
-                        }
-
-                        <button
-                            class="edit-btn"
-                            onclick="editIssue(${issue.id})">
-                            Edit
-                        </button>
-
-                        <button
-                            class="delete-btn"
-                            onclick="deleteIssue(${issue.id})">
-                            Delete
-                        </button>
-
-                        ${
-                            issue.status === "published"
-                            ? ""
-                            : `<button
-                                class="publish-btn"
-                                onclick="publishIssue(${issue.id})">
-                                Publish
-                               </button>`
-                        }
-
-                    `;
-
-
-                    issuesList.appendChild(item);
-
-                });
-
-            } catch (error) {
-
-                console.error(error);
-
-                issuesList.innerHTML =
-                    "<p>Could not load issues.</p>";
-
-            }
-
-        }
-
-
-        // =====================================
-        // EDIT ISSUE
-        // =====================================
-
-        async function editIssue(id) {
-
-            try {
-
-                const response =
-                    await fetch(
-                        "/api/issues"
-                    );
-
-                const issues =
-                    await response.json();
-
-                const issue =
-                    issues.find(
-                        item =>
-                            Number(item.id) ===
-                            Number(id)
-                    );
-
-
-                if (!issue) {
-
-                    alert(
-                        "Issue not found."
-                    );
-
-                    return;
-
-                }
-
-
-                editingId.value =
-                    issue.id;
-
-                document.getElementById(
-                    "issue_number"
-                ).value =
-                    issue.issue_number || "";
-
-                document.getElementById(
-                    "month"
-                ).value =
-                    issue.month || "";
-
-                document.getElementById(
-                    "year"
-                ).value =
-                    issue.year || "";
-
-                document.getElementById(
-                    "title_en"
-                ).value =
-                    issue.title_en || "";
-
-                document.getElementById(
-                    "title_ar"
-                ).value =
-                    issue.title_ar || "";
-
-                document.getElementById(
-                    "description_en"
-                ).value =
-                    issue.description_en || "";
-
-                document.getElementById(
-                    "description_ar"
-                ).value =
-                    issue.description_ar || "";
-
-                document.getElementById(
-                    "publication_date"
-                ).value =
-                    issue.publication_date || "";
-
-                document.getElementById(
-                    "status"
-                ).value =
-                    issue.status || "draft";
-
-                document.getElementById(
-                    "featured"
-                ).checked =
-                    !!issue.featured;
-
-
-                formTitle.textContent =
-                    "Edit Issue";
-
-                saveButton.textContent =
-                    "Save Changes";
-
-                cancelButton.style.display =
-                    "inline-block";
-
-
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-
-
-            } catch (error) {
-
-                console.error(error);
-
-                alert(
-                    "Could not open issue."
-                );
-
-            }
-
-        }
-
-
-        // =====================================
-        // DELETE ISSUE
-        // =====================================
-
-        async function deleteIssue(id) {
-
-            const confirmed =
-                confirm(
-                    "Are you sure you want to delete this issue?"
-                );
-
-
-            if (!confirmed) {
+            if (!loggedIn) {
                 return;
             }
 
 
-            try {
-
-                const response =
-                    await fetch(
-                        "/api/issues/" + id,
-                        {
-                            method: "DELETE"
-                        }
-                    );
+            message.textContent =
+                isEditing
+                ? "Saving changes..."
+                : "Saving issue...";
 
 
-                const result =
-                    await response.json();
+            saveButton.disabled =
+                true;
 
 
-                if (!response.ok) {
-
-                    throw new Error(
-                        result.message ||
-                        "Could not delete issue."
-                    );
-
-                }
+            const coverFile =
+                document.getElementById(
+                    "coverFile"
+                ).files[0];
 
 
-                message.textContent =
-                    "Issue deleted successfully.";
+            const pdfFile =
+                document.getElementById(
+                    "pdfFile"
+                ).files[0];
 
-                loadIssues();
+
+            let coverUrl = null;
+            let pdfUrl = null;
 
 
-            } catch (error) {
-
-                console.error(error);
+            if (coverFile) {
 
                 message.textContent =
-                    "Error: " +
-                    error.message;
+                    "Uploading cover...";
 
+
+                coverUrl =
+                    await uploadFile(
+                        coverFile
+                    );
             }
 
+
+            if (pdfFile) {
+
+                message.textContent =
+                    "Uploading PDF...";
+
+
+                pdfUrl =
+                    await uploadFile(
+                        pdfFile
+                    );
+            }
+
+
+            const issue = {
+
+                issue_number:
+                    Number(
+                        document.getElementById(
+                            "issue_number"
+                        ).value
+                    ),
+
+                month:
+                    document.getElementById(
+                        "month"
+                    ).value.trim(),
+
+                year:
+                    Number(
+                        document.getElementById(
+                            "year"
+                        ).value
+                    ),
+
+                title_en:
+                    document.getElementById(
+                        "title_en"
+                    ).value.trim(),
+
+                title_ar:
+                    document.getElementById(
+                        "title_ar"
+                    ).value.trim(),
+
+                description_en:
+                    document.getElementById(
+                        "description_en"
+                    ).value.trim(),
+
+                description_ar:
+                    document.getElementById(
+                        "description_ar"
+                    ).value.trim(),
+
+                publication_date:
+                    document.getElementById(
+                        "publication_date"
+                    ).value || null,
+
+                status:
+                    document.getElementById(
+                        "status"
+                    ).value,
+
+                featured:
+                    document.getElementById(
+                        "featured"
+                    ).checked
+            };
+
+
+            /*
+             * When editing:
+             * keep old files unless
+             * a new file was uploaded.
+             */
+
+            if (coverUrl) {
+
+                issue.cover_image =
+                    coverUrl;
+
+            } else if (isEditing &&
+                       existingCover.value) {
+
+                issue.cover_image =
+                    existingCover.value;
+            }
+
+
+            if (pdfUrl) {
+
+                issue.pdf_file =
+                    pdfUrl;
+
+            } else if (isEditing &&
+                       existingPdf.value) {
+
+                issue.pdf_file =
+                    existingPdf.value;
+            }
+
+
+            const url =
+                isEditing
+                ? "/api/issues/" +
+                  editingId.value
+                : "/api/issues";
+
+
+            const method =
+                isEditing
+                ? "PUT"
+                : "POST";
+
+
+            message.textContent =
+                isEditing
+                ? "Saving changes..."
+                : "Adding issue...";
+
+
+            const response =
+                await fetch(
+                    url,
+                    {
+                        method,
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+                        credentials:
+                            "same-origin",
+                        body:
+                            JSON.stringify(issue)
+                    }
+                );
+
+
+            const result =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    result.message ||
+                    "Could not save issue."
+                );
+            }
+
+
+            message.textContent =
+                isEditing
+                ? "Issue updated successfully."
+                : "Issue added successfully.";
+
+
+            resetForm();
+
+            await loadIssues();
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            message.textContent =
+                "Error: " +
+                error.message;
+
+        } finally {
+
+            saveButton.disabled =
+                false;
+        }
+
+    }
+);
+
+
+/* =========================================================
+   LOAD ISSUES
+========================================================= */
+
+async function loadIssues() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/issues",
+                {
+                    credentials:
+                        "same-origin"
+                }
+            );
+
+
+        const issues =
+            await response.json();
+
+
+        if (!Array.isArray(issues) ||
+            issues.length === 0) {
+
+            issuesList.innerHTML =
+                "<p>No issues yet.</p>";
+
+            return;
         }
 
 
-        // =====================================
-        // PUBLISH ISSUE
-        // =====================================
-
-        async function publishIssue(id) {
-
-            try {
-
-                const response =
-                    await fetch(
-                        "/api/issues/" + id,
-                        {
-                            method: "PUT",
-
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
-
-                            body:
-                                JSON.stringify({
-                                    status: "published"
-                                })
-                        }
-                    );
+        issuesList.innerHTML = "";
 
 
-                const result =
-                    await response.json();
+        issues.forEach(issue => {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
 
 
-                if (!response.ok) {
+            item.className =
+                "issue-card";
 
-                    throw new Error(
-                        result.message ||
-                        "Could not publish issue."
-                    );
 
+            const statusClass =
+                issue.status === "published"
+                ? "published"
+                : "draft";
+
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.innerHTML = `
+
+                <h4>
+                    Issue ${escapeHtml(issue.issue_number)}
+                    — ${escapeHtml(issue.month)}
+                    ${escapeHtml(issue.year)}
+                </h4>
+
+                <p>
+                    <strong>
+                        ${escapeHtml(issue.title_en || "")}
+                    </strong>
+                </p>
+
+                <p dir="rtl">
+                    ${escapeHtml(issue.title_ar || "")}
+                </p>
+
+                <p>
+                    <span class="status ${statusClass}">
+                        Status:
+                        ${escapeHtml(issue.status || "draft")}
+                    </span>
+                </p>
+
+                ${
+                    issue.featured
+                    ? "<p>⭐ Featured Issue</p>"
+                    : ""
                 }
 
-
-                message.textContent =
-                    "Issue published successfully.";
-
-                loadIssues();
+            `;
 
 
-            } catch (error) {
+            item.appendChild(card);
 
-                console.error(error);
 
-                message.textContent =
-                    "Error: " +
-                    error.message;
+            if (issue.cover_image) {
 
+                const coverLink =
+                    document.createElement(
+                        "p"
+                    );
+
+                coverLink.innerHTML =
+                    `<a href="${escapeAttribute(issue.cover_image)}"
+                        target="_blank"
+                        rel="noopener">
+                        View Cover
+                    </a>`;
+
+                item.appendChild(
+                    coverLink
+                );
             }
 
+
+            if (issue.pdf_file) {
+
+                const pdfLink =
+                    document.createElement(
+                        "p"
+                    );
+
+                pdfLink.innerHTML =
+                    `<a href="${escapeAttribute(issue.pdf_file)}"
+                        target="_blank"
+                        rel="noopener">
+                        View PDF
+                    </a>`;
+
+                item.appendChild(
+                    pdfLink
+                );
+            }
+
+
+            const editButton =
+                document.createElement(
+                    "button"
+                );
+
+            editButton.className =
+                "edit-btn";
+
+            editButton.textContent =
+                "Edit";
+
+            editButton.onclick =
+                () => editIssue(issue.id);
+
+
+            const deleteButton =
+                document.createElement(
+                    "button"
+                );
+
+            deleteButton.className =
+                "delete-btn";
+
+            deleteButton.textContent =
+                "Delete";
+
+            deleteButton.onclick =
+                () => deleteIssue(issue.id);
+
+
+            item.appendChild(
+                editButton
+            );
+
+            item.appendChild(
+                deleteButton
+            );
+
+
+            if (issue.status !== "published") {
+
+                const publishButton =
+                    document.createElement(
+                        "button"
+                    );
+
+                publishButton.className =
+                    "publish-btn";
+
+                publishButton.textContent =
+                    "Publish";
+
+                publishButton.onclick =
+                    () =>
+                        publishIssue(
+                            issue.id
+                        );
+
+                item.appendChild(
+                    publishButton
+                );
+            }
+
+
+            issuesList.appendChild(
+                item
+            );
+
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        issuesList.innerHTML =
+            "<p>Could not load issues.</p>";
+    }
+}
+
+
+/* =========================================================
+   EDIT ISSUE
+========================================================= */
+
+async function editIssue(id) {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/issues/" + id,
+                {
+                    credentials:
+                        "same-origin"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Could not load issue."
+            );
         }
 
 
-        // =====================================
-        // CANCEL EDIT
-        // =====================================
+        const issue =
+            await response.json();
 
-        cancelButton.addEventListener(
-            "click",
-            function() {
 
-                resetForm();
+        editingId.value =
+            issue.id;
 
-            }
+
+        existingCover.value =
+            issue.cover_image || "";
+
+
+        existingPdf.value =
+            issue.pdf_file || "";
+
+
+        document.getElementById(
+            "issue_number"
+        ).value =
+            issue.issue_number || "";
+
+
+        document.getElementById(
+            "month"
+        ).value =
+            issue.month || "";
+
+
+        document.getElementById(
+            "year"
+        ).value =
+            issue.year || "";
+
+
+        document.getElementById(
+            "title_en"
+        ).value =
+            issue.title_en || "";
+
+
+        document.getElementById(
+            "title_ar"
+        ).value =
+            issue.title_ar || "";
+
+
+        document.getElementById(
+            "description_en"
+        ).value =
+            issue.description_en || "";
+
+
+        document.getElementById(
+            "description_ar"
+        ).value =
+            issue.description_ar || "";
+
+
+        document.getElementById(
+            "publication_date"
+        ).value =
+            issue.publication_date || "";
+
+
+        document.getElementById(
+            "status"
+        ).value =
+            issue.status || "draft";
+
+
+        document.getElementById(
+            "featured"
+        ).checked =
+            !!issue.featured;
+
+
+        /*
+         * File inputs cannot be filled
+         * programmatically.
+         * Existing URLs are stored
+         * separately above.
+         */
+
+        document.getElementById(
+            "coverFile"
+        ).value = "";
+
+
+        document.getElementById(
+            "pdfFile"
+        ).value = "";
+
+
+        formTitle.textContent =
+            "Edit Issue";
+
+
+        saveButton.textContent =
+            "Save Changes";
+
+
+        cancelButton.style.display =
+            "inline-block";
+
+
+        message.textContent =
+            "Editing Issue " +
+            issue.issue_number;
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Could not open issue."
+        );
+    }
+}
+
+
+/* =========================================================
+   DELETE ISSUE
+========================================================= */
+
+async function deleteIssue(id) {
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete this issue?"
         );
 
 
-        // =====================================
-        // RESET FORM
-        // =====================================
+    if (!confirmed) {
+        return;
+    }
 
-        function resetForm() {
 
-            form.reset();
+    try {
 
-            editingId.value = "";
+        const response =
+            await fetch(
+                "/api/issues/" + id,
+                {
+                    method: "DELETE",
+                    credentials:
+                        "same-origin"
+                }
+            );
 
-            formTitle.textContent =
-                "Add New Issue";
 
-            saveButton.textContent =
-                "Add Issue";
+        const result =
+            await response.json();
 
-            cancelButton.style.display =
-                "none";
 
-            document.getElementById(
-                "year"
-            ).value = "2026";
+        if (!response.ok) {
 
-            message.textContent = "";
-
+            throw new Error(
+                result.message ||
+                "Could not delete issue."
+            );
         }
 
 
-        // =====================================
-        // START
-        // =====================================
+        message.textContent =
+            "Issue deleted successfully.";
 
-        loadIssues();
 
-    </script>
+        await loadIssues();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+            "Error: " +
+            error.message;
+    }
+}
+
+
+/* =========================================================
+   PUBLISH ISSUE
+========================================================= */
+
+async function publishIssue(id) {
+
+    const confirmed =
+        confirm(
+            "Publish this issue?"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/issues/" + id,
+                {
+                    method: "PUT",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    credentials:
+                        "same-origin",
+
+                    body:
+                        JSON.stringify({
+                            status:
+                                "published"
+                        })
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.message ||
+                "Could not publish issue."
+            );
+        }
+
+
+        message.textContent =
+            "Issue published successfully.";
+
+
+        await loadIssues();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+            "Error: " +
+            error.message;
+    }
+}
+
+
+/* =========================================================
+   CANCEL EDIT
+========================================================= */
+
+cancelButton.addEventListener(
+    "click",
+    function() {
+
+        resetForm();
+
+    }
+);
+
+
+/* =========================================================
+   RESET FORM
+========================================================= */
+
+function resetForm() {
+
+    form.reset();
+
+
+    editingId.value =
+        "";
+
+
+    existingCover.value =
+        "";
+
+
+    existingPdf.value =
+        "";
+
+
+    formTitle.textContent =
+        "Add New Issue";
+
+
+    saveButton.textContent =
+        "Add Issue";
+
+
+    cancelButton.style.display =
+        "none";
+
+
+    document.getElementById(
+        "year"
+    ).value =
+        "2026";
+
+
+    message.textContent =
+        "";
+}
+
+
+/* =========================================================
+   SECURITY HELPERS
+========================================================= */
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+
+function escapeAttribute(value) {
+
+    return escapeHtml(value);
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+(async function() {
+
+    const loggedIn =
+        await checkAuth();
+
+
+    if (!loggedIn) {
+        return;
+    }
+
+
+    await loadIssues();
+
+})();
+
+</script>
 
 </body>
 
 </html>
-```
