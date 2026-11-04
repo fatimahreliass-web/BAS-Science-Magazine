@@ -1,0 +1,44 @@
+/* BAS admin visual system — shared with the magazine's pastel identity.
+   Presentation only: authentication, forms, APIs and data are unchanged. */
+:root{--bas-forest:#254b3c;--bas-green:#dcebd7;--bas-mint:#eef7e9;--bas-yellow:#f7e8a4;--bas-cream:#fcfaf0;--bas-ink:#263b32;--bas-line:#d5e3d2;--bas-shadow:0 14px 36px rgba(38,75,60,.09)}
+html{scroll-behavior:smooth}
+body{background:linear-gradient(145deg,#f1f8ed 0%,#fffdf3 55%,#f7f8eb 100%)!important;color:var(--bas-ink)!important;font-family:Arial,Helvetica,sans-serif}
+header{background:var(--bas-forest)!important;color:#fff!important;border-bottom:4px solid var(--bas-yellow)!important;box-shadow:0 6px 20px rgba(30,65,48,.12)}
+header .logo,.logo{border-color:var(--bas-yellow)!important;color:var(--bas-yellow)!important}
+header .brand p,header p{color:#e1eee2!important}
+header a,header button{border-color:#a6c8ac!important}
+header .header-actions button{background:var(--bas-yellow)!important;color:var(--bas-forest)!important}
+main{max-width:1280px}
+.intro,.top-title{position:relative}
+.eyebrow,.form-mode,.card-number{color:#628b61!important}
+.intro h2,.top-title h2,.intro h1,.top-title h1{font-family:Georgia,'Times New Roman',serif;color:var(--bas-forest);letter-spacing:-.025em}
+.intro p,.top-title p{color:#5b7164!important}
+.stat,.management-card,.form-card,.list-card,form,.card,.panel{border:1px solid var(--bas-line)!important;border-radius:18px!important;box-shadow:var(--bas-shadow);background:#fffef9!important}
+.stat{border-top:5px solid #a9cfa9!important}
+.stat:nth-child(even){border-top-color:#f0d97d!important}
+.stat-number{color:var(--bas-forest)!important}
+.management-card{transition:transform .2s,box-shadow .2s,border-color .2s!important;overflow:hidden}
+.management-card:hover{transform:translateY(-5px)!important;box-shadow:0 18px 42px rgba(38,75,60,.16)!important;border-color:#a8cda7!important}
+.management-card h3{color:var(--bas-forest)!important}
+.arrow{color:#4b8062!important}
+.quick{background:var(--bas-forest)!important;border-radius:18px!important}
+.quick h3{color:var(--bas-yellow)!important}
+input,textarea,select{border-color:#cbdccb!important;background:#fff!important;color:var(--bas-ink)!important}
+input:focus,textarea:focus,select:focus{outline:2px solid #a6cda5!important;outline-offset:1px}
+button,.save-btn,.edit-btn,.publish-btn{transition:filter .2s,transform .2s}
+button:hover{filter:brightness(1.04)}
+.save-btn,.publish-btn{background:var(--bas-forest)!important;color:white!important}
+.edit-btn{background:#f2d97b!important;color:var(--bas-forest)!important}
+.delete-btn{background:#a84747!important;color:#fff!important}
+.cancel-btn{background:#e8f0e4!important;color:var(--bas-forest)!important}
+a{transition:color .2s}
+a:hover{color:#4e8463}
+body:has(.login-box){background:radial-gradient(circle at 15% 15%,#dcebd7,transparent 36%),radial-gradient(circle at 90% 85%,#f7e8a4,transparent 38%),#f9fbf3!important}
+.login-box{background:#fffef9!important;border:1px solid #cfe1cc!important;border-radius:22px!important;box-shadow:0 24px 70px rgba(38,75,60,.17)!important}
+.login-box .logo{background:var(--bas-forest)!important;color:var(--bas-yellow)!important;border:0!important;border-radius:14px!important}
+.login-box h1{font-family:Georgia,'Times New Roman',serif;color:var(--bas-forest)!important}
+.login-box .eyebrow{color:#648c63!important}
+.login-box .subtitle,.login-box .back{color:#5c7465!important}
+.login-box button[type=submit]{background:var(--bas-forest)!important;color:#fff!important;border-radius:10px!important}
+.login-box input{border-radius:10px!important}
+@media(max-width:720px){main{padding:30px 5%!important}header{flex-wrap:wrap;gap:12px}.management,.stats{grid-template-columns:1fr!important}.login-box{padding:30px 24px!important}}
