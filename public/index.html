@@ -1075,55 +1075,10 @@ async function loadStudents() {
                         "student-card";
 
 
-                    let photo = "";
-
-
-                    if (student.photo) {
-
-                        let imageUrl =
-                            student.photo;
-
-                        if (
-                            !imageUrl.startsWith("/")
-                            &&
-                            !imageUrl.startsWith("http")
-                        ) {
-
-                            imageUrl =
-                                "/" + imageUrl;
-
-                        }
-
-
-                        photo = `
-                            <img
-                                src="${imageUrl}"
-                                alt="${escapeHtml(
-                                    student.name || "Student"
-                                )}"
-                            >
-                        `;
-
-                    } else {
-
-                        const initial =
-                            student.name
-                                ? student.name.charAt(0)
-                                : "B";
-
-
-                        photo = `
-                            <div class="student-placeholder">
-
-                                ${escapeHtml(
-                                    initial
-                                )}
-
-                            </div>
-                        `;
-
-                    }
-
+                    // Public profiles use illustrated avatars, never student photos.
+                    const gender = String(student.gender || student.sex || "").toLowerCase();
+                    const avatarType = /^(female|f|girl|أنثى|بنت)$/.test(gender) ? "girl" : /^(male|m|boy|ذكر|ولد)$/.test(gender) ? "boy" : "neutral";
+                    const photo = `<div class="student-avatar student-avatar--${avatarType}" role="img" aria-label="Student avatar"><span class="student-avatar-head"></span><span class="student-avatar-face"></span><span class="student-avatar-body"></span></div>`;
 
                     card.innerHTML = `
 
