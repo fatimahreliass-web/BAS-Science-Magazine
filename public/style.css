@@ -1154,3 +1154,105 @@ body>header:not(.site-header) a{color:#155e39}body>header:not(.site-header) .log
 .hero-cover{min-height:0;border-left:0}.hero-cover img{border-radius:22px;border:9px solid #fffdf2;box-shadow:0 18px 42px #21653b22;max-height:480px;object-fit:cover}.hero-cover-placeholder{aspect-ratio:auto;letter-spacing:-4px}.section-dark .section-heading>a,.section-heading>a{color:#257849}.issue-cover-placeholder,.article-placeholder{background:linear-gradient(145deg,#e4f5d9,#fff5c7);color:#28764c}.article-image-wrap{background:#edf8df}.issue-description{color:#50705a}.section-dark .section-inner{color:#1b5b3a}
 @media(max-width:900px){.hero{grid-template-columns:1fr 1fr}.hero-cover{padding:25px}.hero-copy{padding:50px 6%}.hero h1{font-size:clamp(42px,5vw,75px)}}
 @media(max-width:720px){.hero{grid-template-columns:1fr}.hero-cover{min-height:0}.hero-cover img{max-height:310px;width:auto;max-width:90%}.cards{grid-template-columns:1fr}.issue-feature{grid-template-columns:1fr;gap:25px}.header-inner{flex-wrap:wrap}.main-nav{margin-left:0;gap:7px}.main-nav a{font-size:11px;padding:6px}.section{padding:50px 6%}.section-heading{align-items:start}}
+
+
+/* BAS bilingual editorial typography — all published articles and previews.
+   Visual-only update: article data, language text, links and APIs are untouched. */
+:root {
+  --bas-reading-ink: #214b36;
+  --bas-reading-muted: #536f5b;
+  --bas-reading-mint: #eff8e9;
+  --bas-reading-yellow: #fff4c5;
+}
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+}
+:lang(ar), [dir="rtl"], .card-ar, .category-ar {
+  font-family: Tahoma, "Segoe UI", Arial, sans-serif;
+  letter-spacing: normal !important;
+  overflow-wrap: break-word;
+}
+:lang(en), [dir="ltr"] {
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+}
+#article.section {
+  width: min(100% - 32px, 1000px);
+  max-width: 1000px;
+  margin: 36px auto 70px;
+  padding: clamp(22px, 5vw, 58px) !important;
+  border: 1px solid #d8e9d5;
+  border-radius: 24px;
+  background: linear-gradient(145deg, #fffefa 0%, #f8fcf4 100%);
+  box-shadow: 0 14px 38px rgba(20,87,50,.08);
+  color: var(--bas-reading-ink);
+}
+#article h1 {
+  font-family: "Segoe UI", Tahoma, Arial, sans-serif !important;
+  font-size: clamp(1.9rem, 4vw, 2.7rem) !important;
+  line-height: 1.3;
+  font-weight: 750;
+  color: #155b3b;
+  letter-spacing: normal;
+  overflow-wrap: anywhere;
+}
+#article h1 + p[dir="rtl"] {
+  font-size: clamp(1.55rem, 3vw, 2.1rem) !important;
+  line-height: 1.65;
+  color: #286747 !important;
+  font-weight: 700;
+  text-align: right;
+}
+#article > p[style] {
+  font-size: clamp(1.05rem, 2vw, 1.2rem) !important;
+  line-height: 1.85;
+  color: var(--bas-reading-muted) !important;
+}
+#article > div[style] {
+  max-width: 100% !important;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: clamp(1.05rem, 1.6vw, 1.16rem) !important;
+  line-height: 1.95 !important;
+  color: #284a37;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+#article > div[dir="rtl"] {
+  font-family: Tahoma, "Segoe UI", Arial, sans-serif !important;
+  font-size: clamp(1.12rem, 1.75vw, 1.24rem) !important;
+  line-height: 2.1 !important;
+  direction: rtl;
+  text-align: right;
+  unicode-bidi: plaintext;
+  color: #284a37;
+}
+#article hr {
+  border: 0;
+  height: 2px;
+  margin: 30px 0;
+  background: linear-gradient(90deg, #d7edcf, #f5df80, #d7edcf);
+}
+#article img { max-width: 100%; height: auto; border-radius: 16px; }
+#article a { color: #176d42; text-decoration: underline; text-underline-offset: 3px; }
+.card-content h3, .card-content p, .card-ar,
+#categoryHeader h2, #categoryHeader h3,
+.student-card h3, .student-card p {
+  overflow-wrap: break-word;
+  letter-spacing: normal;
+}
+.card-content h3 { font-size: clamp(1.25rem, 2vw, 1.55rem); line-height: 1.4; }
+.card-content p { font-size: 1rem; line-height: 1.75; }
+.card-ar, .card-content [dir="rtl"], #categoryHeader [dir="rtl"] {
+  font-family: Tahoma, "Segoe UI", Arial, sans-serif;
+  font-size: 1.1rem !important;
+  line-height: 1.9;
+  text-align: right;
+}
+#categoryHeader h3[dir="rtl"] { color: #236a44; font-size: clamp(1.35rem, 3vw, 1.8rem) !important; }
+@media (max-width: 720px) {
+  #article.section { width: calc(100% - 20px); margin: 14px auto 40px; padding: 22px 18px !important; border-radius: 16px; }
+  #article > div[style] { font-size: 1.06rem !important; line-height: 1.9 !important; }
+  #article > div[dir="rtl"] { font-size: 1.12rem !important; line-height: 2 !important; }
+}
