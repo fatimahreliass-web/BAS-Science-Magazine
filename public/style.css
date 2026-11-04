@@ -1273,3 +1273,68 @@ body {
 html[lang="ar"] .editors-note-arabic{display:block}
 html[lang="ar"] .editors-note-english{display:none}
 @media(max-width:720px){.editors-note{padding-top:22px;padding-bottom:24px}.editors-note-shell{padding:26px 21px;border-radius:18px}}
+
+
+/* BAS homepage 2026 — reference-inspired light green/yellow layout */
+body:has(.home-category-strip){background:#fffef8;color:#064d2c}
+body:has(.home-category-strip) .site-header{position:relative;background:#fff!important;box-shadow:none!important;border-bottom:0!important}
+body:has(.home-category-strip) .header-inner{max-width:1700px;padding:12px 4.5%;min-height:120px;gap:25px}
+body:has(.home-category-strip) .brand{min-width:0;gap:20px;flex:1}
+.mabarrat-logo-holder{width:96px;height:100px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mabarrat-logo{width:85px;height:96px;object-fit:contain}
+.brand-divider{height:70px;width:2px;background:#247343;flex-shrink:0}
+body:has(.home-category-strip) .brand-copy strong{font-family:Georgia,serif;font-size:clamp(2.6rem,5vw,4.6rem);line-height:.8;font-style:italic;letter-spacing:-.055em;text-transform:none}
+.brand-leaves{color:#70b75b;font-size:.6em;vertical-align:top}
+body:has(.home-category-strip) .brand-copy>span{font-size:clamp(.9rem,1.5vw,1.5rem);font-weight:800;letter-spacing:-.025em;text-transform:none;color:#086039}
+body:has(.home-category-strip) .brand-copy small{display:block;font-size:clamp(.8rem,1.1vw,1rem);color:#267444;text-align:center}
+body:has(.home-category-strip) .main-nav{gap:12px;margin-left:auto;flex-shrink:0}
+body:has(.home-category-strip) .main-nav a{font-size:clamp(.8rem,1vw,1rem);font-weight:700;text-transform:none;letter-spacing:0;padding:11px 15px;white-space:nowrap}
+body:has(.home-category-strip) .main-nav .nav-current{color:#fff;background:linear-gradient(135deg,#61ba67,#147441);box-shadow:0 4px 9px #1a754126}
+body:has(.home-category-strip) .language-switch{border:0}
+body:has(.home-category-strip) .language-switch button{font-size:.8rem;border-radius:16px}
+body:has(.home-category-strip) .hero{display:flex;align-items:center;position:relative;min-height:330px;border:0;background:radial-gradient(circle at 62% 15%,#fffae1,transparent 24%),linear-gradient(110deg,#f5fcf0,#d5edd9 49%,#b5dfc5 100%);border-top:12px solid #f6dc52;border-bottom:10px solid #f5d94e;border-radius:0 0 42% 3% / 0 0 8% 1%;overflow:hidden}
+body:has(.home-category-strip) .hero:before{content:'';position:absolute;top:-115px;left:-60px;width:330px;height:240px;background:#8dcb88;opacity:.35;border-radius:50%;transform:rotate(-20deg)}
+body:has(.home-category-strip) .hero-copy{padding:40px 4% 40px 6%;width:50%;position:relative;z-index:2;align-items:flex-start}
+.hero-brand-leaf{color:#5caf62;font-size:clamp(45px,6vw,90px);height:65px;line-height:.8}
+body:has(.home-category-strip) .hero h1{font-family:Georgia,serif;font-style:italic;font-size:clamp(4rem,8vw,8.5rem);letter-spacing:-.06em;line-height:.82;margin:4px 0 12px}
+body:has(.home-category-strip) .hero-title{font-size:clamp(1.8rem,3.1vw,3.6rem);font-weight:850;line-height:1.03;color:#08603a;max-width:620px}
+body:has(.home-category-strip) .hero-description{font-size:clamp(.95rem,1.6vw,1.45rem);font-style:italic;font-weight:650;color:#145d3c;background:linear-gradient(90deg,#ffe77a,#fff2a8);padding:8px 24px;margin:14px 0;border-radius:40% 7% 20% 8%}
+.hero-read-link{font-weight:800;color:#0d703e;font-size:1rem}
+.hero-science{position:relative;width:50%;min-height:330px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.hero-science:before{content:'';position:absolute;width:430px;height:430px;border-radius:50%;background:radial-gradient(circle,#fff9d7 0%,#caeacb 58%,transparent 72%);opacity:.7}
+.hero-science-globe{font-size:clamp(7rem,16vw,16rem);filter:drop-shadow(0 10px 15px #257b4250);z-index:1}
+.hero-science-sprout{font-size:clamp(3rem,6vw,6rem);position:absolute;left:24%;bottom:3%;z-index:2}
+.dna-symbol{font-size:clamp(3rem,6vw,6rem);position:absolute;left:6%;top:0;transform:rotate(-25deg);opacity:.85}
+.atom-symbol{font-size:clamp(3rem,6vw,6rem);position:absolute;right:25%;top:0;color:#e8c841}
+.hero-lab{font-size:clamp(3rem,7vw,7rem);position:absolute;left:13%;bottom:0;color:#e7ba3e;z-index:2}
+.hero-microscope{font-size:clamp(3.5rem,8vw,8rem);position:absolute;right:3%;bottom:0;z-index:2}
+.hero-books{position:absolute;bottom:4%;right:20%;color:#257d4b;letter-spacing:-4px;font-size:4rem}
+.science-orbit{position:absolute;border:2px solid #fff8a7;border-radius:50%;width:75%;height:55%;transform:rotate(-22deg)}
+.orbit-two{transform:rotate(40deg);width:55%;height:75%;opacity:.5}
+.hero-dots{position:absolute;bottom:14px;left:50%;display:flex;gap:8px}.hero-dots span{width:10px;height:10px;border:2px solid #287949;border-radius:50%}.hero-dots span:first-child{background:#0a7040}
+.home-category-strip{max-width:1600px;margin:14px auto 10px;padding:16px 20px;display:grid;grid-template-columns:repeat(9,minmax(0,1fr));border-radius:28px;background:linear-gradient(110deg,#fbfff9,#f0f8f0);box-shadow:0 7px 25px #135e3020}
+.home-category-strip a{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:95px;font-weight:750;font-size:clamp(.78rem,1vw,1rem);line-height:1.2;color:#0b5635;border-right:1px solid #d3e4d4}
+.home-category-strip a:last-child{border:0}.home-category-strip a:hover{background:#e6f5dc;border-radius:16px}
+.home-category-strip span{font-size:clamp(1.3rem,2vw,2rem);margin-bottom:8px}
+.home-issue-club{max-width:1600px;margin:auto;padding:22px 5% 45px;display:grid;grid-template-columns:200px minmax(250px,1.25fr) minmax(250px,1fr);gap:34px;align-items:center;background:linear-gradient(165deg,#fff,#fbfff8)}
+.home-featured-cover{max-width:180px;padding:8px;border-radius:16px;background:white;box-shadow:0 8px 22px #125b322b}
+.home-featured-cover img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:8px;display:block}
+.home-featured-cover .hero-cover-placeholder{min-height:200px;aspect-ratio:3/4;transform:none;border-radius:8px;font-size:3rem}
+.home-label{display:inline-block;background:#ffe57c;border-radius:12px;padding:6px 13px;font-size:.95rem;font-weight:800;color:#174a2e}
+.home-issue-copy h2{color:#07542f;font-size:clamp(1.5rem,2.5vw,2.5rem);line-height:1.2;margin:10px 0}
+.home-issue-copy p{font-size:clamp(.95rem,1.3vw,1.2rem);color:#4d6354;line-height:1.6}
+.home-issue-copy .button-gold{font-size:1rem;letter-spacing:0;text-transform:none;min-height:42px}
+.home-club-card{position:relative;background:linear-gradient(120deg,#f7faed,#f4f9df);padding:25px 28px;border:1px solid #e6efdc;border-radius:25px;min-height:205px}
+.home-club-card h2{font-size:clamp(1.5rem,2vw,2rem);margin:0;color:#0b6038}
+.home-club-card p{font-size:1rem;max-width:260px;line-height:1.55}
+.home-club-link{display:inline-block;padding:7px 20px;border:2px solid #0e693c;border-radius:40px;font-weight:800}
+.home-club-icon{position:absolute;right:20px;bottom:20px;font-size:3rem;color:#31945d}
+body:has(.home-category-strip) .editors-note{padding-top:30px}
+body:has(.home-category-strip) .section-dark{background:#e9f5e5!important;color:#115638!important}
+body:has(.home-category-strip) .section-dark .eyebrow{color:#368c54}
+body:has(.home-category-strip) .category-card{background:#fffef8;color:#0c5733;border-radius:16px}
+body:has(.home-category-strip) .category-card h3{color:#0b5b34}
+body:has(.home-category-strip) .category-card p{color:#51735a}
+body:has(.home-category-strip) .category-ar{color:#377a4d}
+@media(max-width:1200px){body:has(.home-category-strip) .header-inner{flex-wrap:wrap}.home-category-strip{grid-template-columns:repeat(5,1fr)}.home-category-strip a:nth-child(5){border:0}}
+@media(max-width:760px){body:has(.home-category-strip) .header-inner{padding:10px 4%}.mabarrat-logo-holder{width:55px;height:70px}.mabarrat-logo{width:55px;height:65px}.brand-divider{height:45px}body:has(.home-category-strip) .brand-copy strong{font-size:2.4rem}body:has(.home-category-strip) .brand-copy>span{font-size:.8rem}body:has(.home-category-strip) .main-nav{order:3;width:100%;overflow-x:auto;justify-content:flex-start}body:has(.home-category-strip) .hero{flex-direction:column;min-height:0}body:has(.home-category-strip) .hero-copy{width:100%;padding:28px 6% 5px}body:has(.home-category-strip) .hero h1{font-size:5rem}body:has(.home-category-strip) .hero-title{font-size:2rem}.hero-science{width:100%;min-height:230px}.hero-science-globe{font-size:9rem}.home-category-strip{grid-template-columns:repeat(3,1fr);padding:12px}.home-category-strip a{min-height:90px;border:0;border-bottom:1px solid #e3ede1}.home-issue-club{grid-template-columns:115px 1fr;gap:18px;padding:25px 5%}.home-club-card{grid-column:1/-1}.home-featured-cover{max-width:115px}}
