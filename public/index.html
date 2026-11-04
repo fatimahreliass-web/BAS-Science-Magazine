@@ -85,12 +85,12 @@
   </div>
 </section>
 
-<!-- EDITOR'S NOTE — ISSUE ONE -->
+<!-- EDITOR'S NOTE -->
 <section class="editors-note section" id="editors-note" aria-label="Editor's Note">
   <div class="editors-note-shell">
     <div class="editors-note-accent" aria-hidden="true">✦ BAS ✦</div>
     <div class="editors-note-english" lang="en" dir="ltr">
-      <p class="eyebrow">FROM THE EDITORIAL TEAM · ISSUE 01</p>
+      <p class="eyebrow">FROM THE EDITORIAL TEAM</p>
       <h2>EDITOR’S NOTE</h2>
       <p>Welcome to the very first issue of BAS, a science magazine created by curious students who believe that science is not just something we learn in the classroom—it is all around us.</p>
       <p>In this issue, our young scientists invite you to explore fascinating questions, discover surprising facts, and look at the world through a scientific lens. From the human body and nature to space, technology, and the mysteries of everyday life, each article is a journey of curiosity and discovery.</p>
@@ -100,7 +100,7 @@
       <p class="editors-note-signoff">Welcome to BAS — where curiosity becomes discovery.</p>
     </div>
     <div class="editors-note-arabic" lang="ar" dir="rtl">
-      <p class="eyebrow">من فريق التحرير · العدد الأول</p>
+      <p class="eyebrow">من فريق التحرير</p>
       <h2>كلمة المحرّر</h2>
       <p>مرحبًا بكم في العدد الأول من BAS، المجلة العلمية التي أبدعها طلاب شغوفون بالمعرفة ويؤمنون بأن العلم ليس مجرد مادة نتعلمها في الصف، بل هو موجود من حولنا في كل مكان.</p>
       <p>في هذا العدد، يدعوكم علماؤنا الصغار إلى استكشاف أسئلة شيّقة، واكتشاف حقائق مفاجئة، والنظر إلى العالم من منظور علمي. من جسم الإنسان والطبيعة إلى الفضاء والتكنولوجيا وأسرار حياتنا اليومية، كل مقال هو رحلة في عالم الفضول والاكتشاف.</p>
@@ -1077,7 +1077,7 @@ async function loadStudents() {
 
                     // Public profiles use illustrated avatars, never student photos.
                     const gender = String(student.gender || student.sex || "").toLowerCase();
-                    const avatarType = /^(female|f|girl|أنثى|بنت)$/.test(gender) ? "girl" : /^(male|m|boy|ذكر|ولد)$/.test(gender) ? "boy" : "neutral";
+                    const avatarType = /^(female|f|girl|أنثى|بنت)$/.test(gender) ? "girl" : /^(male|m|boy|ذكر|ولد)$/.test(gender) ? "boy" : "boy";
                     const photo = `<div class="student-avatar student-avatar--${avatarType}" role="img" aria-label="Student avatar"><span class="student-avatar-head"></span><span class="student-avatar-face"></span><span class="student-avatar-body"></span></div>`;
 
                     card.innerHTML = `

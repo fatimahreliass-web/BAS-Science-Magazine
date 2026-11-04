@@ -134,7 +134,7 @@ async function loadStudents() {
 
             card.innerHTML = `
 
-                <div class="student-avatar student-avatar--${/^(female|f|girl|أنثى|بنت)$/.test(String(student.gender || student.sex || "").toLowerCase()) ? "girl" : /^(male|m|boy|ذكر|ولد)$/.test(String(student.gender || student.sex || "").toLowerCase()) ? "boy" : "neutral"}" role="img" aria-label="Student avatar">
+                <div class="student-avatar student-avatar--${/^(female|f|girl|أنثى|بنت)$/.test(String(student.gender || student.sex || "").toLowerCase()) ? "girl" : /^(male|m|boy|ذكر|ولد)$/.test(String(student.gender || student.sex || "").toLowerCase()) ? "boy" : "boy"}" role="img" aria-label="Student avatar">
                     <span class="student-avatar-head"></span><span class="student-avatar-face"></span><span class="student-avatar-body"></span>
                 </div>
 
