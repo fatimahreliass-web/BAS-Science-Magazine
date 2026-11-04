@@ -1256,3 +1256,20 @@ body {
   #article > div[style] { font-size: 1.06rem !important; line-height: 1.9 !important; }
   #article > div[dir="rtl"] { font-size: 1.12rem !important; line-height: 2 !important; }
 }
+
+
+/* First issue editor's note: pastel BAS bilingual editorial spread */
+.editors-note{padding-top:46px;padding-bottom:48px}
+.editors-note-shell{position:relative;max-width:1080px;margin:auto;padding:clamp(28px,5vw,60px);border:1px solid #d8e8cd;border-radius:28px;background:linear-gradient(135deg,#f2faec 0%,#fffef5 55%,#fff4c9 100%);box-shadow:0 15px 40px rgba(22,91,54,.09)}
+.editors-note-accent{color:#3b9059;font-family:Georgia,serif;font-size:1.15rem;letter-spacing:.2em;margin-bottom:14px}
+.editors-note h2{font-size:clamp(1.8rem,4vw,2.55rem);line-height:1.3;color:#145d3a;margin:8px 0 22px;font-weight:750}
+.editors-note p{font-size:clamp(1.05rem,1.6vw,1.17rem);line-height:1.95;color:#2a4d38;margin:0 0 16px}
+.editors-note .eyebrow{font-size:.78rem;font-weight:800;letter-spacing:.09em;color:#397e50!important}
+.editors-note-signoff{font-weight:800;color:#17643e!important;margin-top:22px!important}
+.editors-note-arabic{font-family:Tahoma,"Segoe UI",Arial,sans-serif;text-align:right}
+.editors-note-arabic p{font-size:clamp(1.1rem,1.75vw,1.22rem);line-height:2.1}
+.editors-note-english{font-family:"Segoe UI",Arial,sans-serif;text-align:left}
+.editors-note-arabic{display:none}
+html[lang="ar"] .editors-note-arabic{display:block}
+html[lang="ar"] .editors-note-english{display:none}
+@media(max-width:720px){.editors-note{padding-top:22px;padding-bottom:24px}.editors-note-shell{padding:26px 21px;border-radius:18px}}
