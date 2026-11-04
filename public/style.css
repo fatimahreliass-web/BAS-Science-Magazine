@@ -1383,3 +1383,28 @@ html[dir=rtl] .club-application-confirm{flex-direction:row}
 .student-avatar--neutral .student-avatar-head{background:#c6d9ba}
 .student-avatar--neutral .student-avatar-body{background:#9bc7ad}
 @media(max-width:650px){.student-card .student-avatar{height:170px}}
+
+
+/* BAS animated student greeting: illustrated school uniform, hijab, and waving hand. */
+.bas-greeting[hidden]{display:none!important}
+.bas-greeting{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:18px;background:rgba(12,55,36,.38);backdrop-filter:blur(5px)}
+.bas-greeting-card{position:relative;width:min(94vw,420px);padding:20px 22px 25px;text-align:center;border:3px solid #e9c84c;border-radius:28px;background:linear-gradient(155deg,#fffefa,#f0f9e9);box-shadow:0 20px 70px #123e2a55;animation:bas-pop .65s both}
+.bas-greeting-close{position:absolute;top:10px;right:15px;border:0;background:transparent;color:#155b38;font-size:29px;cursor:pointer}
+.bas-greeting-stars{color:#d2a719;font-size:23px;letter-spacing:12px}
+.bas-greeting-character{position:relative;width:180px;height:192px;margin:5px auto 0}
+.bas-greeting-hijab{position:absolute;top:5px;left:32px;width:116px;height:150px;border-radius:55% 55% 35% 35%;background:#f4f1df;border:3px solid #2b7250;box-shadow:inset -12px 0 #d7e3cb}
+.bas-greeting-face{position:absolute;top:32px;left:58px;width:65px;height:87px;background:#e8b98d;border-radius:48% 48% 45% 45%;z-index:2}
+.bas-greeting-eyes{position:absolute;top:36px;left:16px;width:6px;height:6px;border-radius:50%;background:#45392f;box-shadow:27px 0 #45392f}
+.bas-greeting-smile{position:absolute;top:58px;left:26px;width:17px;height:8px;border-bottom:2px solid #a35c4f;border-radius:50%;animation:bas-talk 1.1s infinite}
+.bas-greeting-uniform{position:absolute;bottom:0;left:20px;width:140px;height:87px;background:#1b7850;border-radius:65% 65% 16px 16px;border:3px solid #f2d454}
+.bas-greeting-uniform::after{content:"";position:absolute;top:10px;left:61px;width:18px;height:45px;background:#f7f6e7;clip-path:polygon(0 0,100% 0,50% 100%)}
+.bas-greeting-hand{position:absolute;right:0;bottom:63px;font-size:42px;transform-origin:75% 85%;animation:bas-wave 1.15s ease-in-out infinite alternate}
+.bas-greeting-text{font-size:1.32rem;line-height:1.5;font-weight:800;color:#095b36;margin:8px 0 17px}
+.bas-greeting-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:9px}
+.bas-greeting-actions button{border:0;border-radius:30px;padding:10px 13px;font:inherit;font-weight:700;cursor:pointer;background:#f6e18a;color:#155734}
+.bas-greeting-actions #basGreetingEnter{background:#167848;color:#fff}
+.bas-greeting-card small{display:block;color:#55715f;margin-top:12px}
+@keyframes bas-wave{from{transform:rotate(-18deg)}to{transform:rotate(22deg)}}
+@keyframes bas-pop{from{opacity:0;transform:translateY(20px) scale(.92)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes bas-talk{50%{height:5px;border-radius:50%;border:2px solid #a35c4f}}
+@media(prefers-reduced-motion:reduce){.bas-greeting-card,.bas-greeting-hand,.bas-greeting-smile{animation:none}}
