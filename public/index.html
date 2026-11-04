@@ -11,6 +11,21 @@
 </head>
 
 <body>
+<div class="bas-greeting" id="basGreeting" role="dialog" aria-label="BAS welcome" aria-modal="false" hidden>
+  <div class="bas-greeting-card">
+    <button class="bas-greeting-close" type="button" id="basGreetingClose" aria-label="Close welcome">×</button>
+    <div class="bas-greeting-stars" aria-hidden="true">✦ ⚛ ✧</div>
+    <div class="bas-greeting-character" aria-hidden="true">
+      <div class="bas-greeting-hijab"></div>
+      <div class="bas-greeting-face"><span class="bas-greeting-eyes"></span><span class="bas-greeting-smile"></span></div>
+      <div class="bas-greeting-uniform"></div>
+      <div class="bas-greeting-hand">👋</div>
+    </div>
+    <p class="bas-greeting-text">Assalamu Alaikum!<br>Welcome to BAS Science Magazine!</p>
+    <div class="bas-greeting-actions"><button type="button" id="basGreetingListen">🔊 Hear the welcome</button><button type="button" id="basGreetingEnter">Explore BAS →</button></div>
+    <small>Tap the speaker to hear the greeting.</small>
+  </div>
+</div>
 
 <!-- =========================================
      HEADER
@@ -1254,6 +1269,25 @@ async function start() {
 
 
 start();
+
+
+(function(){
+  const panel=document.getElementById("basGreeting");
+  const dismiss=()=>{panel.hidden=true;window.speechSynthesis?.cancel();};
+  const speak=()=>{
+    if(!("speechSynthesis" in window))return;
+    window.speechSynthesis.cancel();
+    const msg=new SpeechSynthesisUtterance("Assalamu Alaikum! Welcome to BAS Science Magazine!");
+    msg.lang="en-US";msg.rate=.88;msg.pitch=1.2;
+    const voices=window.speechSynthesis.getVoices();
+    msg.voice=voices.find(v=>/^en/i.test(v.lang)&&/female|samantha|zira|aria|jenny|susan|victoria/i.test(v.name))||voices.find(v=>/^en/i.test(v.lang))||null;
+    window.speechSynthesis.speak(msg);
+  };
+  document.getElementById("basGreetingClose").addEventListener("click",dismiss);
+  document.getElementById("basGreetingEnter").addEventListener("click",dismiss);
+  document.getElementById("basGreetingListen").addEventListener("click",speak);
+  panel.hidden=false;
+})();
 
 </script>
 
