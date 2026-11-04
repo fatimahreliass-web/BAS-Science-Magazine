@@ -1338,3 +1338,10 @@ body:has(.home-category-strip) .category-card p{color:#51735a}
 body:has(.home-category-strip) .category-ar{color:#377a4d}
 @media(max-width:1200px){body:has(.home-category-strip) .header-inner{flex-wrap:wrap}.home-category-strip{grid-template-columns:repeat(5,1fr)}.home-category-strip a:nth-child(5){border:0}}
 @media(max-width:760px){body:has(.home-category-strip) .header-inner{padding:10px 4%}.mabarrat-logo-holder{width:55px;height:70px}.mabarrat-logo{width:55px;height:65px}.brand-divider{height:45px}body:has(.home-category-strip) .brand-copy strong{font-size:2.4rem}body:has(.home-category-strip) .brand-copy>span{font-size:.8rem}body:has(.home-category-strip) .main-nav{order:3;width:100%;overflow-x:auto;justify-content:flex-start}body:has(.home-category-strip) .hero{flex-direction:column;min-height:0}body:has(.home-category-strip) .hero-copy{width:100%;padding:28px 6% 5px}body:has(.home-category-strip) .hero h1{font-size:5rem}body:has(.home-category-strip) .hero-title{font-size:2rem}.hero-science{width:100%;min-height:230px}.hero-science-globe{font-size:9rem}.home-category-strip{grid-template-columns:repeat(3,1fr);padding:12px}.home-category-strip a{min-height:90px;border:0;border-bottom:1px solid #e3ede1}.home-issue-club{grid-template-columns:115px 1fr;gap:18px;padding:25px 5%}.home-club-card{grid-column:1/-1}.home-featured-cover{max-width:115px}}
+
+
+/* Use the supplied BAS Science Club emblem instead of hero emoji illustrations. */
+body:has(.home-category-strip) .hero-science.hero-club-emblem{display:flex;align-items:center;justify-content:center;overflow:visible;padding:18px 22px}
+body:has(.home-category-strip) .hero-science.hero-club-emblem::before{display:none}
+body:has(.home-category-strip) .hero-club-emblem img{position:relative;z-index:3;display:block;width:min(100%,350px);height:auto;aspect-ratio:1;object-fit:contain;border-radius:50%;filter:drop-shadow(0 9px 13px rgba(19,91,48,.2))}
+@media(max-width:760px){body:has(.home-category-strip) .hero-science.hero-club-emblem{min-height:220px;padding:6px 12px 28px}body:has(.home-category-strip) .hero-club-emblem img{width:min(65vw,235px)}}
