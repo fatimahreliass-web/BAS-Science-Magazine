@@ -1408,3 +1408,5 @@ html[dir=rtl] .club-application-confirm{flex-direction:row}
 @keyframes bas-pop{from{opacity:0;transform:translateY(20px) scale(.92)}to{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes bas-talk{50%{height:5px;border-radius:50%;border:2px solid #a35c4f}}
 @media(prefers-reduced-motion:reduce){.bas-greeting-card,.bas-greeting-hand,.bas-greeting-smile{animation:none}}
+
+.bas-greeting-photo-wrap{width:170px;height:240px;margin:8px auto;overflow:hidden;border-radius:20px;animation:bas-pop .7s both}.bas-greeting-photo{width:100%;height:100%;object-fit:contain;display:block}.bas-greeting-card{max-height:92vh;overflow:auto}
