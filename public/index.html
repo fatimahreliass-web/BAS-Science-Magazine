@@ -64,7 +64,7 @@
 <section class="home-issue-club" aria-label="Latest issue and Science Club">
   <div class="home-featured-cover"><div id="heroCover" class="hero-cover-placeholder">BAS</div></div>
   <div class="home-issue-copy"><span class="home-label" data-en="Latest Issue" data-ar="العدد الأخير">Latest Issue</span><h2 data-en="Issue 1 – September 2026" data-ar="العدد الأول – أيلول ٢٠٢٦">Issue 1 – September 2026</h2><p data-en="Our first issue is out! Discover fascinating topics, real-life science, creative ideas, and the inspiring voices of our young scientists." data-ar="صدر عددنا الأول! اكتشفوا موضوعات علمية شيّقة وتجارب من الحياة اليومية وأفكار علمائنا الصغار.">Our first issue is out! Discover fascinating topics, real-life science, creative ideas, and the inspiring voices of our young scientists.</p><a class="button-gold" href="archive.html" data-en="Read Now →" data-ar="اقرأ الآن ←">Read Now →</a></div>
-  <div class="home-club-card" id="science-club"><h2>🌱 <span data-en="Science Club" data-ar="نادي العلوم">Science Club</span></h2><p data-en="Join our Science Club and be part of our next issues!" data-ar="انضموا إلى نادي العلوم وكونوا جزءًا من أعدادنا القادمة!">Join our Science Club and be part of our next issues!</p><a href="#club-invite" class="home-club-link" data-en="Join the Club →" data-ar="انضم إلى النادي ←">Join the Club →</a><div class="home-club-icon">⚗</div></div>
+  <div class="home-club-card" id="science-club"><h2>🌱 <span data-en="Science Club" data-ar="نادي العلوم">Science Club</span></h2><p data-en="Join our Science Club and be part of our next issues!" data-ar="انضموا إلى نادي العلوم وكونوا جزءًا من أعدادنا القادمة!">Join our Science Club and be part of our next issues!</p><a href="#science-club" class="home-club-link" data-en="Join the Club →" data-ar="انضم إلى النادي ←">Join the Club →</a><div class="home-club-icon">⚗</div><p class="club-signup-info" data-en="To join, write your name and place it in the Science Club registration box at school." data-ar="للانتساب، اكتب اسمك وضعه في صندوق التسجيل بنادي العلوم في المدرسة.">To join, write your name and place it in the Science Club registration box at school.</p></div>
 </section>
 
 <!-- EDITOR'S NOTE — ISSUE ONE -->
@@ -278,13 +278,6 @@
 <div class="science-rule"></div>
 
 
-<section id="club-invite" class="club-invite" aria-label="Science Club invitation">
-  <div class="club-invite-icon" aria-hidden="true">✦</div>
-  <div><span class="eyebrow">BE PART OF THE DISCOVERY</span><h2>Join the BAS Science Club!</h2>
-  <p>Love science, experiments and creative ideas? Write your name and place it in the Science Club registration box at school.</p>
-  <p class="club-ar" lang="ar" dir="rtl">حابب تنتسب لنادي العلوم؟ سجّل اسمك وحطّه بصندوق الانتساب بالمدرسة!</p></div>
-  <div class="club-invite-badge">β · Α · Σ<br><span>SCIENCE CLUB</span></div>
-</section>
 <footer class="site-footer">
 
     <div class="footer-inner">
@@ -708,6 +701,17 @@ async function loadArticles() {
 
                     card.className =
                         "article-card";
+                    card.style.cursor = "pointer";
+                    card.setAttribute("role", "link");
+                    card.setAttribute("tabindex", "0");
+                    const articleUrl = "article.html?slug=" + encodeURIComponent(article.slug || "");
+                    card.addEventListener("click", () => { window.location.href = articleUrl; });
+                    card.addEventListener("keydown", (event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                            event.preventDefault();
+                            window.location.href = articleUrl;
+                        }
+                    });
 
 
                     let image = "";
