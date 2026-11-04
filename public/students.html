@@ -134,28 +134,9 @@ async function loadStudents() {
 
             card.innerHTML = `
 
-                ${
-                    student.photo
-                    ?
-                    `
-                    <img
-                        src="${student.photo}"
-                        alt="${student.name}"
-                    >
-                    `
-                    :
-                    `
-                    <div class="student-placeholder">
-
-                        ${student.name
-                            .charAt(0)
-                            .toUpperCase()
-                        }
-
-                    </div>
-                    `
-                }
-
+                <div class="student-avatar student-avatar--${/^(female|f|girl|أنثى|بنت)$/.test(String(student.gender || student.sex || "").toLowerCase()) ? "girl" : /^(male|m|boy|ذكر|ولد)$/.test(String(student.gender || student.sex || "").toLowerCase()) ? "boy" : "neutral"}" role="img" aria-label="Student avatar">
+                    <span class="student-avatar-head"></span><span class="student-avatar-face"></span><span class="student-avatar-body"></span>
+                </div>
 
                 <h3>
                     ${student.name}
