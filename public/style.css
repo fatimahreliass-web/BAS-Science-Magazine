@@ -1345,3 +1345,22 @@ body:has(.home-category-strip) .hero-science.hero-club-emblem{display:flex;align
 body:has(.home-category-strip) .hero-science.hero-club-emblem::before{display:none}
 body:has(.home-category-strip) .hero-club-emblem img{position:relative;z-index:3;display:block;width:min(100%,350px);height:auto;aspect-ratio:1;object-fit:contain;border-radius:50%;filter:drop-shadow(0 9px 13px rgba(19,91,48,.2))}
 @media(max-width:760px){body:has(.home-category-strip) .hero-science.hero-club-emblem{min-height:220px;padding:6px 12px 28px}body:has(.home-category-strip) .hero-club-emblem img{width:min(65vw,235px)}}
+
+
+/* Science Club: compact bilingual student application in the existing homepage card */
+.home-club-card:has(.club-application){min-height:220px}
+.home-club-card .club-application{margin-top:14px}
+.club-application summary{list-style:none;cursor:pointer;width:max-content;max-width:100%;background:#fffef5;color:#0e693c}
+.club-application summary::-webkit-details-marker{display:none}
+.club-application[open] summary{margin-bottom:15px;background:#e3f2d8}
+.club-application-form{display:grid;grid-template-columns:1fr;gap:8px;max-width:100%}
+.club-application-form>label{font-size:.9rem;font-weight:700;color:#16583b;margin-top:5px}
+.club-application-form input:not([type=checkbox]),.club-application-form select,.club-application-form textarea{width:100%;box-sizing:border-box;min-width:0;border:1px solid #a9cbb0;border-radius:10px;background:white;color:#153c28;padding:10px 11px;font:inherit;font-size:1rem}
+.club-application-form input:focus,.club-application-form select:focus,.club-application-form textarea:focus{outline:2px solid #78b66d;outline-offset:1px}
+.club-application-confirm{display:flex;align-items:flex-start;gap:9px;line-height:1.5;font-size:.9rem}
+.club-application-confirm input{margin-top:5px;accent-color:#16864c;flex-shrink:0}
+.club-application-submit{border:0;border-radius:25px;padding:11px 16px;background:linear-gradient(135deg,#4daf63,#137e45);color:#fff;font:inherit;font-weight:800;cursor:pointer;margin-top:5px}
+.club-application-submit:hover{filter:brightness(.95)}
+.home-club-card .club-application-notice{font-size:.78rem;line-height:1.5;color:#516b59;max-width:none;margin:5px 0 0}
+html[dir=rtl] .club-application-form{text-align:right}
+html[dir=rtl] .club-application-confirm{flex-direction:row}
