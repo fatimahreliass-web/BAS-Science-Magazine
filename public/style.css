@@ -1410,3 +1410,6 @@ html[dir=rtl] .club-application-confirm{flex-direction:row}
 @media(prefers-reduced-motion:reduce){.bas-greeting-card,.bas-greeting-hand,.bas-greeting-smile{animation:none}}
 
 .bas-greeting-photo-wrap{width:170px;height:240px;margin:8px auto;overflow:hidden;border-radius:20px;animation:bas-pop .7s both}.bas-greeting-photo{width:100%;height:100%;object-fit:contain;display:block}.bas-greeting-card{max-height:92vh;overflow:auto}
+
+/* Welcome: illustrated schoolgirl in the original beige vest, pale-blue sleeves and white hijab. */
+.bas-greeting-avatar-wrap{width:220px;height:255px;margin:5px auto 9px;animation:bas-pop .7s both}.bas-greeting-avatar{width:100%;height:100%;display:block}.bas-avatar-wave{transform-origin:45px 153px;animation:bas-wave 1.1s ease-in-out infinite alternate}.brand-cycle3{font-weight:800!important;letter-spacing:1.8px;color:#cf9b10!important;font-size:.7rem!important;margin-top:2px}@media(prefers-reduced-motion:reduce){.bas-avatar-wave,.bas-greeting-avatar-wrap{animation:none}}
