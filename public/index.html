@@ -15,12 +15,23 @@
   <div class="bas-greeting-card">
     <button class="bas-greeting-close" type="button" id="basGreetingClose" aria-label="Close welcome">×</button>
     <div class="bas-greeting-stars" aria-hidden="true">✦ ⚛ ✧</div>
-    <div class="bas-greeting-avatar-wrap"><img class="bas-greeting-avatar" src="images/welcome-girl.jpg" alt="Welcome to BAS" loading="eager"></div>
+    <div class="bas-greeting-avatar-wrap"><img class="bas-greeting-avatar" src="/images/welcome-girl.jpg?v=3" alt="Welcome to BAS" loading="eager"></div>
     <p class="bas-greeting-text">Assalamu Alaikum!<br>Welcome to BAS Science Magazine!</p>
     <div class="bas-greeting-actions"><button type="button" id="basGreetingEnter">Explore BAS →</button></div>
 
   </div>
 </div>
+
+<script>
+(function(){
+ const panel=document.getElementById('basGreeting');
+ if(!panel)return;
+ panel.hidden=false;
+ const close=()=>{panel.hidden=true;};
+ document.getElementById('basGreetingClose')?.addEventListener('click',close);
+ document.getElementById('basGreetingEnter')?.addEventListener('click',close);
+})();
+</script>
 
 <!-- =========================================
      HEADER
@@ -1266,13 +1277,7 @@ async function start() {
 start();
 
 
-(function(){
-  const panel=document.getElementById("basGreeting");
-  const dismiss=()=>{panel.hidden=true;window.speechSynthesis?.cancel();};
-  document.getElementById("basGreetingClose").addEventListener("click",dismiss);
-  document.getElementById("basGreetingEnter").addEventListener("click",dismiss);
-  panel.hidden=false;
-})();
+;
 
 </script>
 
