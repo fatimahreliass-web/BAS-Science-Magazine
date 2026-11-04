@@ -17,132 +17,55 @@
 ========================================= -->
 
 <header class="site-header">
-
-    <div class="header-inner">
-
-        <a href="index.html" class="brand">
-
-            <div class="brand-mark">BAS<span class="brand-leaf">✦</span></div>
-
-            <div class="brand-copy">
-                <strong>Bashaer Science</strong>
-                <span>Student-Run Science Publication · Cycle 3</span>
-            </div>
-
-        </a>
-
-
-        <nav class="main-nav">
-
-            <a href="index.html"
-               data-en="Home"
-               data-ar="الرئيسية">
-                Home
-            </a>
-
-            <a href="archive.html"
-               data-en="Archive"
-               data-ar="الأرشيف">
-                Archive
-            </a>
-
-            <a href="students.html"
-               data-en="Students"
-               data-ar="التلاميذ">
-                Students
-            </a>
-
-            <a href="admin/login.html"
-               data-en="Admin"
-               data-ar="الإدارة">
-                Admin
-            </a>
-
-            <div class="language-switch">
-
-                <button
-                    id="enButton"
-                    class="active"
-                    onclick="setLanguage('en')">
-                    EN
-                </button>
-
-                <button
-                    id="arButton"
-                    onclick="setLanguage('ar')">
-                    العربية
-                </button>
-
-            </div>
-
-        </nav>
-
-    </div>
-
+  <div class="header-inner">
+    <a href="index.html" class="brand" aria-label="BAS home">
+      <div class="mabarrat-logo-holder"><img class="mabarrat-logo" src="https://cdn.prod.website-files.com/5ab25784c7fcbff004fa8dca/66c737fdbff514bd3be9375f_Al%20Marrabat%20Al%20Kawthar%20school%20logo.webp" alt="Al Mabarrat Association" onerror="this.style.display='none'"></div>
+      <div class="brand-divider"></div>
+      <div class="brand-copy"><strong><span class="brand-leaves">❧</span> BAS</strong><span>Bashaer Science School Magazine</span><small>Al Bashaer Highschool</small></div>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a class="nav-current" href="index.html" data-en="⌂ Home" data-ar="⌂ الرئيسية">⌂ Home</a>
+      <a href="archive.html" data-en="▤ Issues" data-ar="▤ الأعداد">▤ Issues</a>
+      <a href="#categories-showcase" data-en="▱ Categories" data-ar="▱ الأقسام">▱ Categories</a>
+      <a href="students.html" data-en="♧ About" data-ar="♧ من نحن">♧ About</a>
+      <a href="#science-club" data-en="⚗ Club" data-ar="⚗ النادي">⚗ Club</a>
+      <div class="language-switch"><button id="enButton" class="active" onclick="setLanguage('en')">EN</button><button id="arButton" onclick="setLanguage('ar')">العربية</button></div>
+    </nav>
+  </div>
 </header>
-
-
-<!-- =========================================
-     HERO
-========================================= -->
-
 <section class="hero">
-
-    <div class="hero-copy">
-
-        <div class="hero-kicker">
-            BAS • CYCLE 3 · GRADES 7–9
-        </div>
-
-        <h1>
-            Science<br>
-            through <span>curiosity.</span>
-        </h1>
-
-        <div class="hero-title"
-             data-en="Young minds. Big questions. Real science."
-             data-ar="عقول صغيرة، أسئلة كبيرة، وعلوم حقيقية.">
-            Young minds. Big questions. Real science.
-        </div>
-
-        <p class="hero-description"
-           data-en="BAS is a student-run science publication where young scientists explore discoveries, ideas and the science behind everyday life."
-           data-ar="BAS مجلة علمية من إعداد التلاميذ، يكتشف فيها العلماء الصغار الأفكار والاكتشافات والعلوم الموجودة خلف تفاصيل حياتنا اليومية.">
-            BAS is a student-run science publication where young scientists
-            explore discoveries, ideas and the science behind everyday life.
-        </p>
-
-        <div class="hero-actions">
-
-            <a
-                href="archive.html"
-                class="button-gold"
-                data-en="Explore the Magazine"
-                data-ar="استكشف المجلة">
-                Explore the Magazine
-            </a>
-
-            <a
-                href="#latest"
-                class="button-outline"
-                data-en="Discover Articles"
-                data-ar="اكتشف المقالات">
-                Discover Articles
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <div class="hero-cover">
-
-        <div id="heroCover" class="hero-cover-placeholder">BAS</div>
-
-    </div>
-
+  <div class="hero-copy">
+    <div class="hero-brand-leaf">❧</div>
+    <h1>BAS</h1>
+    <div class="hero-title" data-en="Bashaer Science<br>School Magazine" data-ar="مجلة بشائر<br>العلمية">Bashaer Science School Magazine</div>
+    <p class="hero-description" data-en="A student-run science publication." data-ar="مجلة علمية من إعداد التلاميذ.">A student-run science publication.</p>
+    <a class="hero-read-link" href="archive.html" data-en="Explore Issue 1 →" data-ar="استكشف العدد الأول ←">Explore Issue 1 →</a>
+  </div>
+  <div class="hero-science" aria-hidden="true">
+    <div class="science-orbit orbit-one"></div><div class="science-orbit orbit-two"></div>
+    <div class="dna-symbol">🧬</div><div class="atom-symbol">⚛</div>
+    <div class="hero-science-globe">🌎</div><div class="hero-science-sprout">🌱</div>
+    <div class="hero-lab">⚗</div><div class="hero-microscope">🔬</div>
+    <div class="hero-books">▰ ▰ ▰</div>
+  </div>
+  <div class="hero-dots" aria-hidden="true"><span></span><span></span><span></span></div>
 </section>
-
+<section class="home-category-strip" id="categories-showcase" aria-label="Science categories">
+  <a href="category.html?slug=science-unlocked"><span>🔓</span>Science<br>Unlocked</a>
+  <a href="category.html?slug=science-on-a-plate"><span>🍴</span>Science<br>on a Plate</a>
+  <a href="category.html?slug=future-lab"><span>🚀</span>Future<br>Lab</a>
+  <a href="category.html?slug=planet-earth"><span>🌐</span>Planet<br>Earth</a>
+  <a href="category.html?slug=mind-lab"><span>🧠</span>Mind<br>Lab</a>
+  <a href="category.html?slug=inside-life"><span>🌿</span>Inside<br>Life</a>
+  <a href="category.html?slug=science-voices"><span>📣</span>Science<br>Voices</a>
+  <a href="category.html?slug=science-in-action"><span>⚙</span>Science<br>in Action</a>
+  <a href="category.html?slug=science-playground"><span>🎮</span>Science<br>Playground</a>
+</section>
+<section class="home-issue-club" aria-label="Latest issue and Science Club">
+  <div class="home-featured-cover"><div id="heroCover" class="hero-cover-placeholder">BAS</div></div>
+  <div class="home-issue-copy"><span class="home-label" data-en="Latest Issue" data-ar="العدد الأخير">Latest Issue</span><h2 data-en="Issue 1 – September 2026" data-ar="العدد الأول – أيلول ٢٠٢٦">Issue 1 – September 2026</h2><p data-en="Our first issue is out! Discover fascinating topics, real-life science, creative ideas, and the inspiring voices of our young scientists." data-ar="صدر عددنا الأول! اكتشفوا موضوعات علمية شيّقة وتجارب من الحياة اليومية وأفكار علمائنا الصغار.">Our first issue is out! Discover fascinating topics, real-life science, creative ideas, and the inspiring voices of our young scientists.</p><a class="button-gold" href="archive.html" data-en="Read Now →" data-ar="اقرأ الآن ←">Read Now →</a></div>
+  <div class="home-club-card" id="science-club"><h2>🌱 <span data-en="Science Club" data-ar="نادي العلوم">Science Club</span></h2><p data-en="Join our Science Club and be part of our next issues!" data-ar="انضموا إلى نادي العلوم وكونوا جزءًا من أعدادنا القادمة!">Join our Science Club and be part of our next issues!</p><a href="#club-invite" class="home-club-link" data-en="Join the Club →" data-ar="انضم إلى النادي ←">Join the Club →</a><div class="home-club-icon">⚗</div></div>
+</section>
 
 <!-- EDITOR'S NOTE — ISSUE ONE -->
 <section class="editors-note section" id="editors-note" aria-label="Editor's Note">
@@ -355,7 +278,7 @@
 <div class="science-rule"></div>
 
 
-<section class="club-invite" aria-label="Science Club invitation">
+<section id="club-invite" class="club-invite" aria-label="Science Club invitation">
   <div class="club-invite-icon" aria-hidden="true">✦</div>
   <div><span class="eyebrow">BE PART OF THE DISCOVERY</span><h2>Join the BAS Science Club!</h2>
   <p>Love science, experiments and creative ideas? Write your name and place it in the Science Club registration box at school.</p>
@@ -482,7 +405,7 @@ function setLanguage(language) {
 
         if (text) {
 
-            element.textContent = text;
+            element.innerHTML = text;
 
         }
 
