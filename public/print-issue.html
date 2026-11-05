@@ -1,0 +1,36 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BAS — Issue 1 — English Print Edition</title><style>
+@page{size:A4;margin:14mm 15mm}*{box-sizing:border-box}body{margin:0;background:#e8efe9;color:#153a2a;font:16px/1.65 Georgia,serif}.toolbar{position:sticky;top:0;z-index:10;background:#124d33;color:#fff;padding:12px 20px;display:flex;justify-content:center;align-items:center;gap:18px;font:14px Arial,sans-serif}.toolbar button{border:0;border-radius:7px;background:#f2d76a;color:#16462f;padding:10px 20px;font-weight:700;cursor:pointer}.page{background:white;max-width:210mm;margin:18px auto;padding:19mm 17mm;min-height:275mm;box-shadow:0 8px 26px #20472c24}.cover{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:linear-gradient(165deg,#fff 55%,#edf7e9);border:9px solid #d6e7c5}.cover .mark{font:bold 100px Arial,sans-serif;color:#117445;letter-spacing:7px}.cover h1{font:700 31px Arial,sans-serif;line-height:1.25}.cover .issue{font:bold 18px Arial;color:#a57a12;letter-spacing:3px}.cover img{max-width:100%;max-height:135mm;object-fit:contain}.eyebrow{font:700 11px Arial,sans-serif;letter-spacing:2px;color:#c29621;text-transform:uppercase}.page h2{font:700 28px Arial,sans-serif;color:#155c3d;border-bottom:3px solid #e7cb60;padding-bottom:12px}.article{break-before:page;page-break-before:always}.article h2{font-size:27px}.article .image{display:block;max-width:100%;max-height:115mm;object-fit:contain;margin:20px auto}.article .excerpt{font-size:17px;color:#57665b}.article .content{white-space:pre-line;overflow-wrap:anywhere}.article .content img{max-width:100%;height:auto}.article .content p{margin:0 0 1em}.status{max-width:210mm;margin:20px auto;background:#fff4cf;padding:14px;border-radius:8px}.article .category{font:700 12px Arial;color:#5b805d}.article .byline{font:13px Arial;color:#657368}.page,.article{break-inside:auto}.page img{break-inside:avoid}@media print{body{background:white}.toolbar,.status{display:none!important}.page{max-width:none;min-height:0;margin:0;padding:0;box-shadow:none}.cover{height:265mm;break-after:page;page-break-after:always}.article{break-before:page}.article h2{break-after:avoid}a{color:inherit;text-decoration:none}}@media(max-width:650px){.page{padding:22px;min-height:auto;margin:10px}.cover .mark{font-size:70px}.toolbar{flex-wrap:wrap;text-align:center}}
+</style></head><body>
+<div class="toolbar"><strong>BAS · English Print Edition</strong><span id="count">Loading all published articles…</span><button id="print" disabled onclick="window.print()">Print / Save as PDF</button></div>
+<div id="status" class="status">Loading the original published texts from the BAS website. Please wait before printing.</div>
+<main id="magazine">
+<section class="page cover" id="cover"><div class="mark">BAS</div><p class="eyebrow">AL BASHAER HIGHSCHOOL · CYCLE 3</p><h1>Bashaer Science<br>School Magazine</h1><p>A student-run science publication.</p><p class="issue">ISSUE 1 · NOVEMBER 2026</p><div id="cover-image"></div></section>
+<section class="page" id="editor"><p class="eyebrow">FROM THE EDITORIAL TEAM</p><h2>EDITOR’S NOTE</h2>
+<p>Welcome to the very first issue of BAS, a science magazine created by curious students who believe that science is not just something we learn in the classroom—it is all around us.</p>
+<p>In this issue, our young scientists invite you to explore fascinating questions, discover surprising facts, and look at the world through a scientific lens. From the human body and nature to space, technology, and the mysteries of everyday life, each article is a journey of curiosity and discovery.</p>
+<p>BAS is more than a magazine. It is a space where students can ask questions, investigate ideas, share knowledge, and turn their curiosity into scientific stories.</p>
+<p>We hope that every page makes you wonder, “Why?”, “How?”, or simply “What if?”—because every great scientific discovery begins with a question.</p>
+<p>So, turn the page, stay curious, and enjoy discovering science with us!</p>
+<p><strong>Welcome to BAS — where curiosity becomes discovery.</strong></p></section>
+<section class="page" id="about"><p class="eyebrow">BAS SCIENCE MAGAZINE</p><h2>ABOUT BAS</h2><p>Bashaer Science School Magazine</p><p>A student-run science publication.</p></section>
+</main>
+<script>
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const imgSrc=s=>{if(!s)return'';try{return new URL(s,location.origin).href}catch{return''}};
+async function load(){
+const status=document.getElementById('status');
+try{
+const [ar,ir]=await Promise.all([fetch('/api/articles',{cache:'no-store'}),fetch('/api/issues',{cache:'no-store'}).catch(()=>null)]);
+if(!ar.ok)throw Error('Articles could not be loaded ('+ar.status+').');
+const articles=await ar.json();if(!Array.isArray(articles)||!articles.length)throw Error('No published articles were returned. No incomplete PDF will be printed.');
+if(ir&&ir.ok){const issues=await ir.json();const first=Array.isArray(issues)?issues.find(x=>Number(x.issue_number)===1):null;if(first?.cover_image){const im=document.createElement('img');im.src=imgSrc(first.cover_image);im.alt='Original Issue 1 cover';document.getElementById('cover-image').append(im)}}
+const main=document.getElementById('magazine');
+articles.forEach((a,i)=>{const sec=document.createElement('section');sec.className='page article';const title=esc(a.title_en||'');const image=a.main_image?'<img class="image" src="'+esc(imgSrc(a.main_image))+'" alt="'+title+'">':'';const content=esc(a.content_en||'');sec.innerHTML='<p class="eyebrow">BAS SCIENCE MAGAZINE · ARTICLE '+(i+1)+'</p>'+image+'<p class="category">'+esc(a.class_name||'')+'</p><h2>'+title+'</h2>'+(a.excerpt_en?'<p class="excerpt">'+esc(a.excerpt_en)+'</p>':'')+'<div class="content">'+content+'</div>';main.append(sec)});
+document.getElementById('count').textContent=articles.length+' original articles loaded';
+document.getElementById('print').disabled=false;
+status.textContent='All '+articles.length+' original English articles loaded from the website, without rewriting. Press Print / Save as PDF, choose A4 and Save as PDF. Images may take a moment to load.';
+await Promise.all(Array.from(document.images).map(im=>im.complete?Promise.resolve():new Promise(done=>{im.onload=done;im.onerror=done;setTimeout(done,8000)})));
+status.textContent='Ready: '+articles.length+' articles. Click Print / Save as PDF.';
+}catch(e){status.textContent='Could not build the complete issue: '+e.message;document.getElementById('count').textContent='Not ready';}
+}load();
+</script></body></html>
