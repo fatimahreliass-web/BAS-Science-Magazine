@@ -744,7 +744,7 @@ async function loadArticles() {
                     card.style.cursor = "pointer";
                     card.setAttribute("role", "link");
                     card.setAttribute("tabindex", "0");
-                    const articleUrl = "article.html?slug=" + encodeURIComponent(article.slug || "");
+                    const articleUrl = article.id != null ? "article.html?id=" + encodeURIComponent(article.id) : "article.html?slug=" + encodeURIComponent(article.slug || "");
                     card.addEventListener("click", () => { window.location.href = articleUrl; });
                     card.addEventListener("keydown", (event) => {
                         if (event.key === "Enter" || event.key === " ") {
