@@ -1,0 +1,37 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BAS — العدد الأول — النسخة العربية للطباعة</title><style>
+@page{size:A4;margin:10mm 11mm}*{box-sizing:border-box}body{margin:0;background:#e8efe9;color:#153a2a;font:12px/1.55 Tahoma,Arial,sans-serif}.toolbar{position:sticky;top:0;z-index:10;background:#124d33;color:#fff;padding:12px 20px;display:flex;justify-content:center;align-items:center;gap:18px;font:14px Arial,sans-serif}.toolbar button{border:0;border-radius:7px;background:#f2d76a;color:#16462f;padding:10px 20px;font-weight:700;cursor:pointer}.page{background:white;max-width:210mm;margin:18px auto;padding:12mm 12mm;min-height:275mm;box-shadow:0 8px 26px #20472c24}.cover{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:linear-gradient(165deg,#fff 55%,#edf7e9);border:9px solid #d6e7c5}.cover .mark{font:bold 100px Arial,sans-serif;color:#117445;letter-spacing:7px}.cover h1{font:700 31px Arial,sans-serif;line-height:1.25}.cover .issue{font:bold 18px Arial;color:#a57a12;letter-spacing:3px}.cover img{max-width:100%;max-height:135mm;object-fit:contain}.eyebrow{font:700 11px Tahoma,Arial,sans-serif;letter-spacing:0;color:#c29621;text-transform:uppercase}.page h2{font:700 21px Tahoma,Arial,sans-serif;color:#155c3d;border-bottom:3px solid #e7cb60;padding-bottom:7px}.article{break-before:page;page-break-before:always}.article h2{font-size:20px}.article .image{display:block;max-width:100%;max-height:75mm;object-fit:contain;margin:10px auto}.article .excerpt{font-size:12px;color:#57665b}.article .content{white-space:pre-line;overflow-wrap:anywhere}.article .content img{max-width:100%;height:auto}.article .content p{margin:0 0 .55em}.status{max-width:210mm;margin:20px auto;background:#fff4cf;padding:14px;border-radius:8px}.article .category{font:700 10px Arial;color:#5b805d}.article .byline{font:13px Arial;color:#657368}.page,.article{break-inside:auto}.page img{break-inside:avoid}@media print{body{background:white}.toolbar,.status{display:none!important}.page{max-width:none;min-height:0;margin:0;padding:0;box-shadow:none}.cover{height:265mm;break-after:page;page-break-after:always}.article{break-before:page}.article h2{break-after:avoid}a{color:inherit;text-decoration:none}}@media(max-width:650px){.page{padding:22px;min-height:auto;margin:10px}.cover .mark{font-size:70px}.toolbar{flex-wrap:wrap;text-align:center}}
+ .page{text-align:right}.cover{text-align:center}.article .content{direction:rtl;text-align:right}.toolbar{direction:rtl}.cover .mark{direction:ltr}</style></head><body>
+<div class="toolbar"><strong>BAS · النسخة العربية للطباعة</strong><span id="count">جارٍ تحميل المقالات المنشورة…</span><button id="print" disabled onclick="window.print()">طباعة / حفظ PDF</button></div>
+<div id="status" class="status">جارٍ تحميل النصوص العربية الأصلية من موقع BAS. يرجى الانتظار.</div>
+<main id="magazine">
+<section class="page cover" id="cover"><div class="mark">BAS</div><p class="eyebrow">ثانوية البشائر · الحلقة الثالثة</p><h1>مجلة بشائر<br>العلمية</h1><p>مجلة علمية من إعداد التلاميذ.</p><p class="issue">العدد الأول · تشرين الثاني ٢٠٢٦</p><div id="cover-image"></div></section>
+<section class="page" id="editor" dir="rtl"><p class="eyebrow">من فريق التحرير</p>
+      <h2>كلمة المحرّر</h2>
+      <p>مرحبًا بكم في العدد الأول من BAS، المجلة العلمية التي أبدعها طلاب شغوفون بالمعرفة ويؤمنون بأن العلم ليس مجرد مادة نتعلمها في الصف، بل هو موجود من حولنا في كل مكان.</p>
+      <p>في هذا العدد، يدعوكم علماؤنا الصغار إلى استكشاف أسئلة شيّقة، واكتشاف حقائق مفاجئة، والنظر إلى العالم من منظور علمي. من جسم الإنسان والطبيعة إلى الفضاء والتكنولوجيا وأسرار حياتنا اليومية، كل مقال هو رحلة في عالم الفضول والاكتشاف.</p>
+      <p>BAS ليست مجرد مجلة، بل هي مساحة يستطيع فيها الطلاب طرح الأسئلة، واستكشاف الأفكار، ومشاركة المعرفة، وتحويل فضولهم إلى قصص علمية.</p>
+      <p>نأمل أن تجعلكم كل صفحة تتساءلون: «لماذا؟» أو «كيف؟» أو ببساطة «ماذا لو؟»، لأن كل اكتشاف علمي عظيم يبدأ بسؤال.</p>
+      <p>لذلك، اقلبوا الصفحة، حافظوا على فضولكم، واستمتعوا باكتشاف العلم معنا!</p>
+      <p class="editors-note-signoff">أهلًا بكم في BAS — حيث يتحول الفضول إلى اكتشاف.</p></section>
+
+</main>
+<script>
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const imgSrc=s=>{if(!s)return'';try{return new URL(s,location.origin).href}catch{return''}};
+async function load(){
+const status=document.getElementById('status');
+try{
+const [ar,ir]=await Promise.all([fetch('/api/articles',{cache:'no-store'}),fetch('/api/issues',{cache:'no-store'}).catch(()=>null)]);
+if(!ar.ok)throw Error('Articles could not be loaded ('+ar.status+').');
+const articles=await ar.json();if(!Array.isArray(articles)||!articles.length)throw Error('No published articles were returned. No incomplete PDF will be printed.');
+if(ir&&ir.ok){const issues=await ir.json();const first=Array.isArray(issues)?issues.find(x=>Number(x.issue_number)===1):null;if(first?.cover_image){const im=document.createElement('img');im.src=imgSrc(first.cover_image);im.alt='Original Issue 1 cover';document.getElementById('cover-image').append(im)}}
+const main=document.getElementById('magazine');
+articles.forEach((a,i)=>{const sec=document.createElement('section');sec.className='page article';const title=esc(a.title_ar||'');const image=a.main_image?'<img class="image" src="'+esc(imgSrc(a.main_image))+'" alt="'+title+'">':'';const content=esc(a.content_ar||'');sec.innerHTML='<p class="eyebrow">BAS SCIENCE MAGAZINE · ARTICLE '+(i+1)+'</p>'+image+'<p class="category">'+esc(a.class_name||'')+'</p><h2>'+title+'</h2>'+(a.excerpt_ar?'<p class="excerpt">'+esc(a.excerpt_ar)+'</p>':'')+'<div class="content">'+content+'</div>';main.append(sec)});
+document.getElementById('count').textContent=articles.length+' مقالًا أصليًا تم تحميلها';
+document.getElementById('print').disabled=false;
+status.textContent='تم تحميل '+articles.length+' مقالًا باللغة العربية من الموقع دون تعديل. اضغطي طباعة / حفظ PDF واختاري A4. قد تحتاج الصور إلى بعض الوقت.';
+await Promise.all(Array.from(document.images).map(im=>im.complete?Promise.resolve():new Promise(done=>{im.onload=done;im.onerror=done;setTimeout(done,8000)})));
+status.textContent='جاهزة للطباعة: '+articles.length+' مقالًا. اضغطي طباعة / حفظ PDF.';
+}catch(e){status.textContent='تعذّر إعداد المجلة: '+e.message;document.getElementById('count').textContent='غير جاهزة';}
+}load();
+</script></body></html>
