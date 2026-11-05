@@ -1420,3 +1420,6 @@ html[dir=rtl] .club-application-confirm{flex-direction:row}
 .bas-greeting-card{width:min(95vw,460px);max-height:95dvh;overflow-y:auto}
 .bas-greeting-avatar-wrap{width:min(75vw,300px);height:auto;max-height:57dvh;min-height:180px;display:flex;align-items:center;justify-content:center;margin:8px auto;animation:bas-pop .7s both}
 .bas-greeting-avatar{display:block!important;width:100%!important;height:auto!important;max-height:55dvh;object-fit:contain!important;opacity:1!important;visibility:visible!important}
+
+/* Welcome screen — clear Cycle 3 publication identity */
+.bas-greeting-cycle{display:block;margin:10px auto 18px;padding:10px 16px;width:fit-content;max-width:95%;border:2px solid #e7c34f;border-radius:999px;background:#fff8d8;color:#145b3a;font-family:Arial,sans-serif;font-size:clamp(15px,3.8vw,21px);font-weight:800;line-height:1.3;letter-spacing:.4px;text-align:center;box-shadow:0 3px 12px rgba(20,91,58,.1)}
