@@ -213,7 +213,7 @@ async function loadIssue() {
 
         const issueArticles =
             articles.filter(article =>
-                Number(article.issue_id) === Number(issue.id)
+                String(article.issue_id) === String(issue.id) || (article.issue_id == null && Number(issue.issue_number) === 1)
             );
 
         if (!issueArticles.length) {
@@ -237,6 +237,8 @@ async function loadIssue() {
 
             card.style.cursor =
                 "pointer";
+            card.tabIndex = 0;
+            card.setAttribute("role", "link");
 
             card.innerHTML = `
 
@@ -299,10 +301,11 @@ async function loadIssue() {
             card.addEventListener("click", () => {
 
                 window.location.href =
-                    `article.html?slug=${encodeURIComponent(article.slug)}`;
+                    `article.html?id=${encodeURIComponent(article.id)}`;
 
             });
 
+            card.addEventListener("keydown", event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); card.click(); } });
             articlesContainer.appendChild(card);
 
         });
