@@ -74,11 +74,11 @@
                     window.location.search
                 );
 
-            const slug =
-                params.get("slug");
+            const slug = params.get("slug");
+            const articleId = params.get("id");
 
 
-            if (!slug) {
+            if (!slug && !articleId) {
 
                 container.innerHTML =
                     "<h2>Article not found.</h2>";
@@ -98,9 +98,8 @@
 
 
                 const article =
-                    articles.find(
-                        item => item.slug === slug
-                    );
+                    articles.find(item => articleId && String(item.id) === String(articleId)) ||
+                    articles.find(item => slug && String(item.slug || "").trim() === String(slug).trim());
 
 
                 if (!article) {
