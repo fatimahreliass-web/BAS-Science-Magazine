@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BAS — Issue 1 — English Print Edition</title><style>
 @page{size:A4;margin:10mm 11mm}*{box-sizing:border-box}body{margin:0;background:#e8efe9;color:#153a2a;font:12px/1.38 Georgia,serif}.toolbar{position:sticky;top:0;z-index:10;background:#124d33;color:#fff;padding:12px 20px;display:flex;justify-content:center;align-items:center;gap:18px;font:14px Arial,sans-serif}.toolbar button{border:0;border-radius:7px;background:#f2d76a;color:#16462f;padding:10px 20px;font-weight:700;cursor:pointer}.page{background:white;max-width:210mm;margin:18px auto;padding:12mm 12mm;min-height:275mm;box-shadow:0 8px 26px #20472c24}.cover{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:linear-gradient(165deg,#fff 55%,#edf7e9);border:9px solid #d6e7c5}.cover .mark{font:bold 100px Arial,sans-serif;color:#117445;letter-spacing:7px}.cover h1{font:700 31px Arial,sans-serif;line-height:1.25}.cover .issue{font:bold 18px Arial;color:#a57a12;letter-spacing:3px}.cover img{max-width:100%;max-height:135mm;object-fit:contain}.eyebrow{font:700 11px Arial,sans-serif;letter-spacing:2px;color:#c29621;text-transform:uppercase}.page h2{font:700 21px Arial,sans-serif;color:#155c3d;border-bottom:3px solid #e7cb60;padding-bottom:7px}.article{break-before:page;page-break-before:always}.article h2{font-size:20px}.article .image{display:block;max-width:100%;max-height:75mm;object-fit:contain;margin:10px auto}.article .excerpt{font-size:12px;color:#57665b}.article .content{white-space:pre-line;overflow-wrap:anywhere}.article .content img{max-width:100%;height:auto}.article .content p{margin:0 0 .55em}.status{max-width:210mm;margin:20px auto;background:#fff4cf;padding:14px;border-radius:8px}.article .category{font:700 10px Arial;color:#5b805d}.article .byline{font:13px Arial;color:#657368}.page,.article{break-inside:auto}.page img{break-inside:avoid}@media print{body{background:white}.toolbar,.status{display:none!important}.page{max-width:none;min-height:0;margin:0;padding:0;box-shadow:none}.cover{height:265mm;break-after:page;page-break-after:always}.article{break-before:page}.article h2{break-after:avoid}a{color:inherit;text-decoration:none}}@media(max-width:650px){.page{padding:22px;min-height:auto;margin:10px}.cover .mark{font-size:70px}.toolbar{flex-wrap:wrap;text-align:center}}
-</style></head><body>
-<div class="toolbar"><strong>BAS · English Print Edition</strong><span id="count">Loading all published articles…</span><button id="print" disabled onclick="window.print()">Print / Save as PDF</button></div>
+ .article{width:188mm;height:277mm;min-height:0;max-width:188mm;padding:7mm 8mm;overflow:hidden;break-inside:avoid;page-break-inside:avoid}.article .article-inner{transform-origin:top left;width:100%}.article .article-inner> :first-child{margin-top:0}.article .article-inner> :last-child{margin-bottom:0}@media print{.article{width:188mm!important;height:277mm!important;max-width:none!important;min-height:0!important;padding:7mm 8mm!important;overflow:hidden!important;break-before:page!important;page-break-before:always!important;break-inside:avoid!important;page-break-inside:avoid!important}.article .article-inner{transform-origin:top left!important}}  .article .image{max-height:38mm!important;max-width:78%!important;width:auto!important;height:auto!important;object-fit:contain!important;margin:4px auto 7px!important}.article .content img{max-height:38mm!important;max-width:78%!important;object-fit:contain!important}.article h2{margin:5px 0 7px!important}.article .excerpt{margin:4px 0 7px!important}@media print{@page{size:210mm 297mm;margin:10mm 11mm}.article .image{max-height:38mm!important;max-width:78%!important}.article .content img{max-height:38mm!important;max-width:78%!important}}  </style></head><body>
+<div class="toolbar"><strong>BAS · English Print Edition</strong><span id="count">Loading all published articles…</span><button id="print" disabled onclick="fitArticlesToA4();window.print()">Print / Save as PDF</button></div>
 <div id="status" class="status">Loading the original published texts from the BAS website. Please wait before printing.</div>
 <main id="magazine">
 <section class="page cover" id="cover"><div class="mark">BAS</div><p class="eyebrow">AL BASHAER HIGHSCHOOL · CYCLE 3</p><h1>Bashaer Science<br>School Magazine</h1><p>A student-run science publication.</p><p class="issue">ISSUE 1 · NOVEMBER 2026</p><div id="cover-image"></div></section>
@@ -17,6 +17,24 @@
 <script>
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const imgSrc=s=>{if(!s)return'';try{return new URL(s,location.origin).href}catch{return''}};
+// Measure at actual A4 print width, even when the page is opened on a phone.
+// Scale the whole article uniformly so no original text or image is removed.
+function fitArticlesToA4(){
+const pages=[...document.querySelectorAll('.article')];
+for(const page of pages){
+const inner=page.querySelector('.article-inner');
+inner.style.transform='none';inner.style.width='100%';
+const target=page.clientHeight-parseFloat(getComputedStyle(page).paddingTop)-parseFloat(getComputedStyle(page).paddingBottom)-3;
+const natural=inner.scrollHeight;
+if(natural>target){
+const scale=Math.min(1,target/natural);
+inner.style.width=(100/scale)+'%';
+inner.style.transform='scale('+scale+')';
+}
+}
+}
+
+
 async function load(){
 const status=document.getElementById('status');
 try{
@@ -25,12 +43,12 @@ if(!ar.ok)throw Error('Articles could not be loaded ('+ar.status+').');
 const articles=await ar.json();if(!Array.isArray(articles)||!articles.length)throw Error('No published articles were returned. No incomplete PDF will be printed.');
 if(ir&&ir.ok){const issues=await ir.json();const first=Array.isArray(issues)?issues.find(x=>Number(x.issue_number)===1):null;if(first?.cover_image){const im=document.createElement('img');im.src=imgSrc(first.cover_image);im.alt='Original Issue 1 cover';document.getElementById('cover-image').append(im)}}
 const main=document.getElementById('magazine');
-articles.forEach((a,i)=>{const sec=document.createElement('section');sec.className='page article';const title=esc(a.title_en||'');const image=a.main_image?'<img class="image" src="'+esc(imgSrc(a.main_image))+'" alt="'+title+'">':'';const content=esc(a.content_en||'');sec.innerHTML='<p class="eyebrow">BAS SCIENCE MAGAZINE · ARTICLE '+(i+1)+'</p>'+image+'<p class="category">'+esc(a.class_name||'')+'</p><h2>'+title+'</h2>'+(a.excerpt_en?'<p class="excerpt">'+esc(a.excerpt_en)+'</p>':'')+'<div class="content">'+content+'</div>';main.append(sec)});
+articles.forEach((a,i)=>{const sec=document.createElement('section');sec.className='page article';const title=esc(a.title_en||'');const image=a.main_image?'<img class="image" src="'+esc(imgSrc(a.main_image))+'" alt="'+title+'">':'';const content=esc(a.content_en||'');sec.innerHTML='<div class="article-inner"><p class="eyebrow">BAS SCIENCE MAGAZINE · ARTICLE '+(i+1)+'</p>'+image+'<p class="category">'+esc(a.class_name||'')+'</p><h2>'+title+'</h2>'+(a.excerpt_en?'<p class="excerpt">'+esc(a.excerpt_en)+'</p>':'')+'<div class="content">'+content+'</div></div>';main.append(sec)});
 document.getElementById('count').textContent=articles.length+' original articles loaded';
-document.getElementById('print').disabled=false;
+// Wait for images and A4 fitting before enabling print.
 status.textContent='All '+articles.length+' original English articles loaded from the website, without rewriting. Press Print / Save as PDF, choose A4 and Save as PDF. Images may take a moment to load.';
 await Promise.all(Array.from(document.images).map(im=>im.complete?Promise.resolve():new Promise(done=>{im.onload=done;im.onerror=done;setTimeout(done,8000)})));
-status.textContent='Ready: '+articles.length+' articles. Click Print / Save as PDF.';
+fitArticlesToA4();window.addEventListener('beforeprint',fitArticlesToA4);document.getElementById('print').disabled=false;status.textContent='Ready: '+articles.length+' articles, one article per A4 page. Click Print / Save as PDF.';
 }catch(e){status.textContent='Could not build the complete issue: '+e.message;document.getElementById('count').textContent='Not ready';}
 }load();
 </script></body></html>
