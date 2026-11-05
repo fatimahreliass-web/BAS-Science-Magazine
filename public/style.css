@@ -1413,3 +1413,10 @@ html[dir=rtl] .club-application-confirm{flex-direction:row}
 
 /* Welcome: illustrated schoolgirl in the original beige vest, pale-blue sleeves and white hijab. */
 .bas-greeting-avatar-wrap{width:220px;height:255px;margin:5px auto 9px;animation:bas-pop .7s both}.bas-greeting-avatar{width:100%;height:100%;display:block}.bas-avatar-wave{transform-origin:45px 153px;animation:bas-wave 1.1s ease-in-out infinite alternate}.brand-cycle3{font-weight:800!important;letter-spacing:1.8px;color:#cf9b10!important;font-size:.7rem!important;margin-top:2px}@media(prefers-reduced-motion:reduce){.bas-avatar-wave,.bas-greeting-avatar-wrap{animation:none}}
+
+/* Keep the welcome portrait visible on every viewport. */
+.bas-greeting{display:flex!important;align-items:center;justify-content:center;overflow-y:auto;padding:12px;z-index:2147483000}
+.bas-greeting[hidden]{display:none!important}
+.bas-greeting-card{width:min(95vw,460px);max-height:95dvh;overflow-y:auto}
+.bas-greeting-avatar-wrap{width:min(75vw,300px);height:auto;max-height:57dvh;min-height:180px;display:flex;align-items:center;justify-content:center;margin:8px auto;animation:bas-pop .7s both}
+.bas-greeting-avatar{display:block!important;width:100%!important;height:auto!important;max-height:55dvh;object-fit:contain!important;opacity:1!important;visibility:visible!important}
