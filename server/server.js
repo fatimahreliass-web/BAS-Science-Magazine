@@ -815,6 +815,9 @@ app.get(
             // Replace Aya's previous portrait while preserving future admin uploads.
             const previousAyaPhoto = "https://bxrzebqvfekqncrjdmyf.supabase.co/storage/v1/object/public/bas-media/1793899754434-Smiling-Student-in-School-Uniform.png";
             return res.json(students.map(student =>
+                String(student.id) === "20" && student.name === "Yara Zouhair Mortada" && !student.photo
+                    ? { ...student, photo: "/images/yara-mortada.svg" }
+                    :
                 String(student.id) === "9" && student.name === "Chahed Mohammad Rifai" && !student.photo
                     ? { ...student, photo: "/images/chahed-rifai.svg" }
                     :
