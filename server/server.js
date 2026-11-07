@@ -812,7 +812,14 @@ app.get(
                 );
 
 
-            return res.json(students);
+            // Replace Aya's previous portrait while preserving future admin uploads.
+            const previousAyaPhoto = "https://bxrzebqvfekqncrjdmyf.supabase.co/storage/v1/object/public/bas-media/1793899754434-Smiling-Student-in-School-Uniform.png";
+            return res.json(students.map(student =>
+                String(student.id) === "1" && student.name === "Aya Ahmad Saalouk" &&
+                (!student.photo || student.photo === previousAyaPhoto)
+                    ? { ...student, photo: "/images/aya-saalouk.svg" }
+                    : student
+            ));
 
         } catch (error) {
 
