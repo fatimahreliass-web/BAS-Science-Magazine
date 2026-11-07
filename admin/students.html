@@ -1102,7 +1102,9 @@ async function loadStudents() {
         );
 
     const students =
-        await response.json();
+        (await response.json()).sort((a, b) =>
+            String(a.name || "").localeCompare(String(b.name || ""), "en", { sensitivity: "base", numeric: true })
+        );
 
     const list =
         document.getElementById(
