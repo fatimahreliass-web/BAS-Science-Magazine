@@ -180,7 +180,7 @@ async function loadStudents() {
                         const portrait = document.createElement("img");
                         portrait.alt = student.name || "Student";
                         portrait.loading = "lazy";
-                        portrait.style.cssText = "width:56px;height:56px;min-width:56px;object-fit:cover;border-radius:50%;";
+                        portrait.style.cssText = "width:56px;height:56px;min-width:56px;object-fit:cover;object-position:top;border-radius:50%;";
                         const heading = card.querySelector("h3");
                         portrait.addEventListener("load", () => {
                             const avatar = card.querySelector(".student-avatar");
