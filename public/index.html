@@ -859,6 +859,25 @@ async function loadArticles() {
                     `;
 
 
+                    // Show the saved portrait beside the student's name.
+                    if (student.photo) {
+                        const portrait = document.createElement("img");
+                        portrait.alt = student.name || "Student";
+                        portrait.loading = "lazy";
+                        portrait.style.cssText = "width:56px;height:56px;min-width:56px;object-fit:cover;border-radius:50%;";
+                        const heading = card.querySelector("h3");
+                        portrait.addEventListener("load", () => {
+                            const avatar = card.querySelector(".student-avatar");
+                            if (avatar) avatar.remove();
+                            heading.style.display = "flex";
+                            heading.style.alignItems = "center";
+                            heading.style.gap = "12px";
+                            heading.prepend(portrait);
+                        });
+                        portrait.src = student.photo;
+                    }
+
+
                     container.appendChild(
                         card
                     );
@@ -1097,7 +1116,7 @@ async function loadStudents() {
                         "student-card";
 
 
-                    // Public profiles use illustrated avatars, never student photos.
+                    // Illustrated fallback for students without a working photo.
                     const gender = String(student.gender || student.sex || "").toLowerCase();
                     const avatarType = /^(female|f|girl|أنثى|بنت)$/.test(gender) ? "girl" : /^(male|m|boy|ذكر|ولد)$/.test(gender) ? "boy" : "boy";
                     const photo = `<div class="student-avatar student-avatar--${avatarType}" role="img" aria-label="Student avatar"><span class="student-avatar-head"></span><span class="student-avatar-face"></span><span class="student-avatar-body"></span></div>`;
