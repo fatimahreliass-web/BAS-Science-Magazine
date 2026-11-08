@@ -136,9 +136,10 @@ async function loadStudents() {
 
             card.innerHTML = `
 
-                <div class="student-avatar student-avatar--${/^(female|f|girl|أنثى|بنت)$/.test(String(student.gender || student.sex || "").toLowerCase()) ? "girl" : /^(male|m|boy|ذكر|ولد)$/.test(String(student.gender || student.sex || "").toLowerCase()) ? "boy" : "boy"}" role="img" aria-label="Student avatar">
-                    <span class="student-avatar-head"></span><span class="student-avatar-face"></span><span class="student-avatar-body"></span>
-                </div>
+                ${student.photo && String(student.photo).trim()
+                    ? `<img class="student-real-photo" src="${String(student.photo).replace(/"/g, '&quot;')}" alt="${String(student.name || 'Student').replace(/"/g, '&quot;')}" loading="eager" style="display:block;width:100%;height:190px;object-fit:cover;object-position:center 25%;border-radius:0;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="student-avatar" style="display:none"><span class="student-avatar-head"></span><span class="student-avatar-face"></span><span class="student-avatar-body"></span></div>`
+                    : `<div class="student-avatar"><span class="student-avatar-head"></span><span class="student-avatar-face"></span><span class="student-avatar-body"></span></div>`
+                }
 
                 <h3>
                     ${student.name}
@@ -177,23 +178,6 @@ async function loadStudents() {
 
 
             
-                    // Display the real student photo in the card, preserving the original file.
-                    if (student.photo && String(student.photo).trim()) {
-                        const avatar = card.querySelector(".student-avatar");
-                        const portrait = document.createElement("img");
-                        portrait.alt = student.name || "Student";
-                        portrait.loading = "lazy";
-                        portrait.decoding = "async";
-                        portrait.style.cssText = "display:block;width:100%;height:190px;object-fit:cover;object-position:center 25%;border-radius:0;";
-                        portrait.addEventListener("load", () => {
-                            if (avatar) avatar.replaceWith(portrait);
-                        });
-                        portrait.addEventListener("error", () => {
-                            console.warn("Student photo unavailable:", student.id);
-                        });
-                        portrait.src = student.photo;
-                    }
-
 container.appendChild(card);
 
         });
