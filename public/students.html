@@ -137,7 +137,7 @@ async function loadStudents() {
             card.innerHTML = `
 
                 ${student.photo && String(student.photo).trim()
-                    ? `<img class="student-real-photo" src="${String(student.photo).replace(/"/g, '&quot;')}" alt="${String(student.name || 'Student').replace(/"/g, '&quot;')}" loading="eager" style="display:block;width:100%;height:190px;object-fit:cover;object-position:center 25%;border-radius:0;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="student-avatar" style="display:none"><span class="student-avatar-head"></span><span class="student-avatar-face"></span><span class="student-avatar-body"></span></div>`
+                    ? `<img class="student-real-photo" src="${String(student.photo).replace(/"/g, '&quot;')}" alt="${String(student.name || 'Student').replace(/"/g, '&quot;')}" loading="eager" style="display:block;width:100%;height:230px;object-fit:contain;object-position:center center;background:#f4f5ed;border-radius:0;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="student-avatar" style="display:none"><span class="student-avatar-head"></span><span class="student-avatar-face"></span><span class="student-avatar-body"></span></div>`
                     : `<div class="student-avatar"><span class="student-avatar-head"></span><span class="student-avatar-face"></span><span class="student-avatar-body"></span></div>`
                 }
 
