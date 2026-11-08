@@ -1083,7 +1083,8 @@ async function loadStudents() {
 
 
         students
-            .slice(0, 6)
+            .slice()
+            .sort((a, b) => String(a.name || "").localeCompare(String(b.name || ""), "en", { sensitivity: "base", numeric: true }))
             .forEach(
                 student => {
 
@@ -1156,24 +1157,34 @@ async function loadStudents() {
                     `;
 
 
-                    // Show the saved portrait beside the student's name.
-                    if (student.photo) {
+                    // Attach portraits before lazy loading so they can enter the viewport.
+                    if (student.photo && String(student.photo).trim()) {
                         const portrait = document.createElement("img");
                         portrait.alt = student.name || "Student";
                         portrait.loading = "lazy";
-                        portrait.style.cssText = "width:56px;height:56px;min-width:56px;object-fit:cover;object-position:top;border-radius:50%;";
-                        const heading = card.querySelector("h3");
-                        portrait.addEventListener("load", () => {
-                            const avatar = card.querySelector(".student-avatar");
-                            if (avatar) avatar.remove();
-                            heading.style.display = "flex";
-                            heading.style.alignItems = "center";
-                            heading.style.gap = "12px";
-                            heading.prepend(portrait);
+                        portrait.decoding = "async";
+                        portrait.style.cssText = "display:block;width:100%;height:230px;object-fit:contain;object-position:center;background:#f4f5ed;border-radius:0;";
+                        const avatar = card.querySelector(".student-avatar");
+                        avatar.style.display = "none";
+                        portrait.addEventListener("error", () => {
+                            portrait.remove();
+                            avatar.style.display = "flex";
                         });
-                        portrait.src = student.photo;
+                        card.prepend(portrait);
+                        portrait.src = String(student.photo).trim();
                     }
 
+                    const profileUrl = "student.html?id=" + encodeURIComponent(student.id);
+                    card.style.cursor = "pointer";
+                    card.setAttribute("role", "link");
+                    card.setAttribute("tabindex", "0");
+                    card.addEventListener("click", () => { window.location.href = profileUrl; });
+                    card.addEventListener("keydown", (event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                            event.preventDefault();
+                            window.location.href = profileUrl;
+                        }
+                    });
 
                     container.appendChild(
                         card
