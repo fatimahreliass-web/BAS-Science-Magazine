@@ -1170,7 +1170,17 @@ async function loadStudents() {
                             portrait.remove();
                             avatar.style.display = "flex";
                         });
-                        card.prepend(portrait);
+                        if (String(student.name || "").trim().toLowerCase() === "aya hicham raad") {
+                            // Crop the lower trousers area in the card without changing the saved photo.
+                            const frame = document.createElement("div");
+                            frame.style.cssText = "height:230px;overflow:hidden;background:#f4f5ed;";
+                            portrait.style.height = "300px";
+                            portrait.style.objectPosition = "center top";
+                            frame.appendChild(portrait);
+                            card.prepend(frame);
+                        } else {
+                            card.prepend(portrait);
+                        }
                         portrait.src = String(student.photo).trim();
                     }
 
