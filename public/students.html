@@ -177,20 +177,19 @@ async function loadStudents() {
 
 
             
-                    // Show the saved portrait beside the student's name.
-                    if (student.photo) {
+                    // Display the real student photo in the card, preserving the original file.
+                    if (student.photo && String(student.photo).trim()) {
+                        const avatar = card.querySelector(".student-avatar");
                         const portrait = document.createElement("img");
                         portrait.alt = student.name || "Student";
                         portrait.loading = "lazy";
-                        portrait.style.cssText = "width:56px;height:56px;min-width:56px;object-fit:cover;object-position:top;border-radius:50%;";
-                        const heading = card.querySelector("h3");
+                        portrait.decoding = "async";
+                        portrait.style.cssText = "display:block;width:100%;height:190px;object-fit:cover;object-position:center 25%;border-radius:0;";
                         portrait.addEventListener("load", () => {
-                            const avatar = card.querySelector(".student-avatar");
-                            if (avatar) avatar.remove();
-                            heading.style.display = "flex";
-                            heading.style.alignItems = "center";
-                            heading.style.gap = "12px";
-                            heading.prepend(portrait);
+                            if (avatar) avatar.replaceWith(portrait);
+                        });
+                        portrait.addEventListener("error", () => {
+                            console.warn("Student photo unavailable:", student.id);
                         });
                         portrait.src = student.photo;
                     }
