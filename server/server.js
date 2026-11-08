@@ -1176,6 +1176,25 @@ app.get("/admin", (req, res) => {
    STATIC FILES
 ========================================================= */
 
+// Always serve the current homepage at the shared URL, without conditional
+// responses that could keep an older HTML layout in browsers or CDN caches.
+app.get(["/", "/index.html"], (req, res) => {
+    delete req.headers["if-none-match"];
+    delete req.headers["if-modified-since"];
+    res.set({
+        "Cache-Control": "no-store, no-cache, must-revalidate",
+        "CDN-Cache-Control": "no-store",
+        "Vercel-CDN-Cache-Control": "no-store",
+        "Pragma": "no-cache",
+        "Expires": "0"
+    });
+    res.sendFile(path.resolve(__dirname, "../public/index.html"), {
+        etag: false,
+        lastModified: false,
+        cacheControl: false
+    });
+});
+
 app.use(
     express.static(
         path.resolve(
