@@ -11,9 +11,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400..800&amp;family=Fraunces:opsz,wght@9..144,500..800&amp;family=Noto+Naskh+Arabic:wght@500..700&amp;family=Noto+Sans+Arabic:wght@400..800&amp;display=swap">
-  <link rel="stylesheet" href="/welcome.css?v=conference-notice">
+  <link rel="stylesheet" href="/welcome.css?v=animated-conference-notice">
   <script src="/editorial.js?v=orbiting-students" defer></script>
-  <script src="/welcome.js?v=living-illustration" defer></script>
+  <script src="/welcome.js?v=animated-conference-notice" defer></script>
   <script src="/conference-date.js" defer></script>
 </head>
 <body>
@@ -42,11 +42,6 @@
           <a class="welcome-entry welcome-entry-club" href="/science-club.html" data-en="Open the Science Club" data-ar="افتحوا نادي العلوم">Open the Science Club</a>
         </div>
         <a class="welcome-issue" href="/index.html#latest" data-en="Explore Issue 1" data-ar="استكشفوا العدد الأول">Explore Issue 1</a>
-        <a class="welcome-conference" href="/science-club.html#health-conference">
-          <span data-conference-notice data-en="Upcoming conference" data-ar="ترقّبوا الندوة">Upcoming conference</span>
-          <strong data-en="Your Health Isn’t a Trend" data-ar="صحتك مش ترند">Your Health Isn’t a Trend</strong>
-          <time datetime="2026-11-27" data-en="Friday, 27 November 2026" data-ar="الجمعة، ٢٧ تشرين الثاني ٢٠٢٦">Friday, 27 November 2026</time>
-        </a>
       </div>
 
       <footer class="welcome-footer">
@@ -56,10 +51,20 @@
     </div>
 
     <div class="welcome-art">
-      <video id="welcome-animation" aria-hidden="true" width="400" height="600" loop muted playsinline preload="none"
-          poster="/images/bas-welcome-motion.webp?v=clean-illustration">
-        <source src="/images/bas-welcome-motion.mp4?v=clean-illustration" type="video/mp4">
-      </video>
+      <div class="welcome-animation-stage">
+        <video id="welcome-animation" aria-hidden="true" width="400" height="600" loop muted playsinline preload="none"
+            poster="/images/bas-welcome-motion.webp?v=clean-illustration">
+          <source src="/images/bas-welcome-motion.mp4?v=clean-illustration" type="video/mp4">
+        </video>
+        <a id="welcome-conference" class="welcome-conference" href="/science-club.html#health-conference">
+          <span class="welcome-conference-kicker">
+            <span lang="en" dir="ltr" aria-hidden="true">Hi!</span>
+            <span data-conference-notice data-en="Upcoming conference" data-ar="ترقّبوا الندوة">Upcoming conference</span>
+          </span>
+          <strong data-en="Your Health Isn’t a Trend" data-ar="صحتك مش ترند">Your Health Isn’t a Trend</strong>
+          <time datetime="2026-11-27" data-en="Friday, 27 November 2026" data-ar="الجمعة، ٢٧ تشرين الثاني ٢٠٢٦">Friday, 27 November 2026</time>
+        </a>
+      </div>
       <button class="welcome-motion" type="button" aria-controls="welcome-animation" hidden
           data-en="Play animation" data-ar="شغّلوا الحركة">Play animation</button>
     </div>

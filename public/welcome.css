@@ -108,9 +108,14 @@ a { color: inherit; }
 .welcome-conference {
     display: grid;
     gap: 2px;
-    margin-block-start: 12px;
-    padding: 10px 13px;
-    max-inline-size: 355px;
+    position: absolute;
+    z-index: 1;
+    inset-inline: 0;
+    inset-block-end: calc(100% - 7px);
+    inline-size: max-content;
+    max-inline-size: min(100%, 285px);
+    margin-inline: auto;
+    padding: 7px 12px;
     border: 1px solid #bcaa73;
     border-inline-start: 4px solid #8d6a2e;
     border-radius: 7px;
@@ -119,7 +124,34 @@ a { color: inherit; }
     line-height: 1.4;
     text-decoration: none;
 }
+.welcome-conference[hidden] { display: none; }
 .welcome-conference:hover { background: #fff6d9; }
+.welcome-conference::after {
+    content: "";
+    position: absolute;
+    inset-block-end: -5px;
+    left: calc(50% - 5px);
+    width: 9px;
+    height: 9px;
+    border: solid #bcaa73;
+    border-width: 0 1px 1px 0;
+    background: inherit;
+    transform: rotate(45deg);
+}
+.welcome-conference-kicker { display: flex; align-items: center; flex-wrap: wrap; gap: 3px 7px; }
+.welcome-conference-kicker [lang="en"] {
+    padding-inline: 5px;
+    border-radius: 4px;
+    background: #e9d397;
+    font-weight: 750;
+}
+@media (prefers-reduced-motion: no-preference) {
+    .welcome-conference:not([hidden]) { animation: conference-pop .25s ease-out both; }
+    @keyframes conference-pop {
+        from { opacity: 0; transform: translateY(6px) scale(.98); }
+        to { opacity: 1; transform: none; }
+    }
+}
 .welcome-conference > span, .welcome-conference time { font-size: .86rem; }
 .welcome-conference strong { font-size: 1.02rem; }
 .welcome-footer {
@@ -137,13 +169,19 @@ a { color: inherit; }
     place-items: center;
     position: relative;
     min-inline-size: 0;
-    padding: 16px 20px 54px;
+    padding: 83px 20px 54px;
+}
+.welcome-animation-stage {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 100%;
 }
 .welcome-art video {
     display: block;
     width: auto;
     max-width: 100%;
-    height: min(83svh, 820px);
+    height: min(76svh, 820px);
     object-fit: contain;
     /* Keep the video’s near-white matte neutral after compression. */
     filter: brightness(1.015);
@@ -172,7 +210,7 @@ a { color: inherit; }
     .welcome h1:lang(ar) { font-size: clamp(3.25rem, 12vw, 5.5rem); }
     .welcome-intro { margin-block: 16px 18px; }
     .welcome-kicker { margin-block-end: 11px; }
-    .welcome-art { padding: 0 12px 45px; }
+    .welcome-art { padding: 80px 12px 45px; }
     .welcome-art video { height: clamp(310px, 61svh, 570px); }
     .welcome-motion { inset-block-end: 10px; }
 }
