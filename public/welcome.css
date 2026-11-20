@@ -2,11 +2,13 @@
     --ink: #18392d;
     --moss: #42614b;
     --paper: #f4f0dc;
+    --school-wash-direction: to right;
     --display-font: "Fraunces", "Noto Naskh Arabic", Georgia, serif;
     --reading-font: "DM Sans", "Noto Sans Arabic", Arial, sans-serif;
 }
 
 :root:lang(ar) {
+    --school-wash-direction: to left;
     --display-font: "Noto Naskh Arabic", "Fraunces", Tahoma, serif;
     --reading-font: "Noto Sans Arabic", "DM Sans", Tahoma, sans-serif;
 }
@@ -22,7 +24,10 @@ a { color: inherit; }
     position: relative;
     isolation: isolate;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    background: radial-gradient(ellipse at 0 0, #e9efda 0, transparent 57%), var(--paper);
+    background:
+        linear-gradient(var(--school-wash-direction), rgb(244 240 220 / 90%) 0 40%, rgb(244 240 220 / 77%) 100%),
+        url("images/bas-school-aerial.webp") center 54% / cover no-repeat,
+        var(--paper);
     min-block-size: 100vh;
     min-block-size: 100svh;
 }
@@ -142,6 +147,7 @@ a { color: inherit; }
 .welcome-motion:hover { background: #e6edda; }
 
 @media (max-width: 760px) {
+    :root:lang(en), :root:lang(ar) { --school-wash-direction: to bottom; }
     .welcome { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(320px, 1fr); }
     .welcome-copy { padding: 20px clamp(19px, 5vw, 42px); }
     .welcome-story { padding-block: clamp(26px, 4.5vh, 50px); }
