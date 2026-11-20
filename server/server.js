@@ -1188,7 +1188,8 @@ app.get(["/", "/index.html"], (req, res) => {
         "Pragma": "no-cache",
         "Expires": "0"
     });
-    res.sendFile(path.resolve(__dirname, "../public/index.html"), {
+    const page = req.path === "/" ? "welcome.html" : "index.html";
+    res.sendFile(path.resolve(__dirname, "../public", page), {
         etag: false,
         lastModified: false,
         cacheControl: false

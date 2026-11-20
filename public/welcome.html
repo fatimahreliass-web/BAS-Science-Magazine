@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Discover science through student-written stories, experiments, and questions from Al Bashaer High School.">
+  <title>Welcome — BAS Science Magazine</title>
+  <script>
+    if (location.hash) location.replace("/index.html" + location.search + location.hash);
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400..800&amp;family=Fraunces:opsz,wght@9..144,500..800&amp;family=Noto+Naskh+Arabic:wght@500..700&amp;family=Noto+Sans+Arabic:wght@400..800&amp;display=swap">
+  <link rel="stylesheet" href="/welcome.css?v=full-cover">
+  <script src="/editorial.js?v=orbiting-students" defer></script>
+  <script src="/welcome.js?v=full-cover" defer></script>
+</head>
+<body>
+  <main class="welcome" aria-labelledby="welcome-title">
+    <div class="welcome-copy">
+      <header class="welcome-header">
+        <div class="welcome-masthead">
+          <span class="welcome-mark" lang="en" dir="ltr">BAS</span>
+          <span data-en="Bashaer Science Magazine" data-ar="مجلة بشائر العلمية">Bashaer Science Magazine</span>
+        </div>
+        <div class="welcome-languages" role="group" data-language-group aria-label="Language">
+          <button type="button" data-language="en" lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-language="ar" lang="ar" aria-pressed="false">العربية</button>
+        </div>
+      </header>
+
+      <div class="welcome-story">
+        <p class="welcome-kicker" data-en="Welcome to BAS" data-ar="أهلًا بكم في BAS">Welcome to BAS</p>
+        <h1 id="welcome-title">
+          <span data-en="Science starts" data-ar="العلم يبدأ">Science starts</span>
+          <span data-en="with a question." data-ar="بسؤال.">with a question.</span>
+        </h1>
+        <p class="welcome-intro" data-en="Explore science through the questions, experiments, and stories of our students." data-ar="اكتشفوا العلم من خلال أسئلة طلابنا وتجاربهم ومقالاتهم.">Explore science through the questions, experiments, and stories of our students.</p>
+        <div class="welcome-actions">
+          <a class="welcome-enter" href="/index.html">
+            <span data-en="Enter the magazine" data-ar="ادخلوا إلى المجلة">Enter the magazine</span>
+            <span class="welcome-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="welcome-issue" href="/index.html#latest" data-en="Explore Issue 1" data-ar="استكشفوا العدد الأول">Explore Issue 1</a>
+        </div>
+      </div>
+
+      <footer class="welcome-footer">
+        <span data-en="Al Bashaer High School" data-ar="ثانوية البشائر">Al Bashaer High School</span>
+        <span data-en="Cycle 3" data-ar="الحلقة الثالثة">Cycle 3</span>
+      </footer>
+    </div>
+
+    <div class="welcome-art" aria-hidden="true">
+      <img src="/images/bas-welcome-flask.webp" alt="" width="1122" height="1402" fetchpriority="high">
+      <span class="welcome-art-frame"></span>
+      <span class="welcome-light welcome-light-one"></span>
+      <span class="welcome-light welcome-light-two"></span>
+      <span class="welcome-light welcome-light-three"></span>
+    </div>
+  </main>
+</body>
+</html>
