@@ -869,6 +869,7 @@
     width: 7px;
     height: 7px;
     opacity: 0;
+    pointer-events: none;
     border: 1px solid #46785c;
     border-radius: 50%;
     background: #f8ffedbb;
@@ -878,6 +879,18 @@
 .bas-tube-bubble:nth-of-type(3) { --bubble-delay: .37s; }
 .bas-tube-bubble:nth-of-type(4) { --bubble-delay: .62s; }
 .bas-tube-bubble:nth-of-type(5) { --bubble-delay: .75s; }
+.bas-tube-air {
+    z-index: 3;
+    bottom: auto;
+    top: 3px;
+    left: 17px;
+}
+.bas-tube-air + .bas-tube-air {
+    --bubble-delay: .95s;
+    left: 29px;
+    width: 5px;
+    height: 5px;
+}
 .bas-lab-article:nth-child(2n) { --tube-delay: .19s; }
 .bas-lab-article:nth-child(3n) { --tube-delay: .31s; }
 .bas-tube-smoke {
@@ -904,10 +917,11 @@
         transform-origin: 50% 39%;
     }
     .bas-lab-article.is-in-view .bas-tube-bubble {
-        animation: bas-tube-rise 1.75s ease-out calc(var(--bubble-delay, 0s) + var(--tube-delay, 0s)) 2;
+        animation: bas-tube-rise 1.85s ease-out calc(-1.5s + var(--bubble-delay, 0s) + var(--tube-delay, 0s)) infinite;
     }
-    .bas-lab-article:is(:hover, :focus-visible) .bas-tube-bubble {
-        animation: bas-tube-hover-rise 1.35s ease-out var(--bubble-delay, 0s) 2;
+    .bas-lab-article.is-in-view .bas-tube-air {
+        animation-name: bas-tube-air-rise;
+        animation-duration: 2.25s;
     }
     .bas-lab-rack .bas-lab-article.is-fizzing .bas-lab-tube { animation: none; }
     .bas-lab-article.is-fizzing .bas-tube-liquid { animation: bas-lab-surge .28s ease-in-out 2 alternate; }
@@ -927,10 +941,10 @@
     20%, 65% { opacity: 1; }
     100% { opacity: 0; transform: translateY(-46px) scale(1.1); }
 }
-@keyframes bas-tube-hover-rise {
-    0% { opacity: 0; transform: translateY(0) scale(.7); }
-    20%, 65% { opacity: 1; }
-    100% { opacity: 0; transform: translateY(-46px) scale(1.1); }
+@keyframes bas-tube-air-rise {
+    0% { opacity: 0; transform: translateY(0) scale(.6); }
+    20%, 55% { opacity: .9; }
+    80%, 100% { opacity: 0; transform: translate(6px, -31px) scale(1.12); }
 }
 @keyframes bas-tube-steam {
     0% { opacity: 0; transform: translate(0, 12px) scale(.45); }

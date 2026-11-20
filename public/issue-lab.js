@@ -17,10 +17,15 @@ const basIssueLab = (() => {
         liquid.className = "bas-tube-liquid";
         glass.append(liquid);
         tube.append(glass);
-        for (let index = 0; index < 5; index += 1) {
+        for (let index = 0; index < 7; index += 1) {
             const bubble = document.createElement("i");
             bubble.className = "bas-tube-bubble";
-            glass.append(bubble);
+            if (index < 5) {
+                glass.append(bubble);
+            } else {
+                bubble.classList.add("bas-tube-air");
+                tube.append(bubble);
+            }
         }
 
         const smoke = document.createElement("span");
