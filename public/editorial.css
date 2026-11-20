@@ -1197,23 +1197,18 @@
     cursor: pointer;
 }
 @media (prefers-reduced-motion: no-preference) {
-    .bas-lens-figure:nth-child(even) { --walk-direction: -1; --walk-delay: -.8s; }
-    .bas-lens-figure:nth-child(3n) { --walk-delay: -1.65s; }
-    .bas-lens-figure:nth-child(5n) { --walk-delay: -.3s; }
-    .bas-lens-person { animation: bas-student-steps 2.8s var(--walk-delay, 0s) ease-in-out infinite; }
-    .bas-lens-scene:is(.is-motion-paused, :has(+ dialog[open])) .bas-lens-person,
-    .bas-lens-figure:is(:hover, :focus-visible) .bas-lens-person { animation-play-state: paused; }
+    .bas-lens-figure:nth-child(even) { --walk-delay: -.24s; }
+    .bas-lens-figure:nth-child(3n) { --walk-delay: -.45s; }
+    .bas-lens-person {
+        animation: bas-student-steps .63s var(--walk-delay, 0s) ease-in-out infinite paused;
+    }
+    .bas-lens-scene.is-orbiting .bas-lens-person { animation-play-state: running; }
 }
 @media (prefers-reduced-motion: reduce) {
     .bas-lens-motion { display: none; }
 }
 @keyframes bas-student-steps {
-    0%, 100% { transform: translate(0) rotate(0); }
-    14% { transform: translate(calc(3px * var(--walk-direction, 1)), -2.5px) rotate(-3deg); }
-    27% { transform: translate(calc(6px * var(--walk-direction, 1)), 0) rotate(2deg); }
-    40% { transform: translate(calc(8px * var(--walk-direction, 1)), -2px) rotate(-2deg); }
-    50% { transform: translate(calc(9px * var(--walk-direction, 1)), 0); }
-    64% { transform: translate(calc(6px * var(--walk-direction, 1)), -2.5px) rotate(3deg); }
-    78% { transform: translate(calc(3px * var(--walk-direction, 1)), 0) rotate(-2deg); }
-    90% { transform: translate(calc(1px * var(--walk-direction, 1)), -2px) rotate(2deg); }
+    0%, 50%, 100% { transform: translateY(0) rotate(0); }
+    25% { transform: translateY(-2px) rotate(-3deg); }
+    75% { transform: translateY(-2px) rotate(3deg); }
 }

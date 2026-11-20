@@ -144,6 +144,7 @@ const basEditorial = (() => {
         pause.type = "button";
         pause.addEventListener("click", () => {
             const stopped = scene.classList.toggle("is-motion-paused");
+            syncMotion();
             localized(pause, stopped ? "Resume movement" : "Pause movement",
                 stopped ? "استئناف الحركة" : "إيقاف الحركة");
         });
@@ -177,6 +178,7 @@ const basEditorial = (() => {
             link.href = card.href;
             preview.replaceChildren(frame, card.querySelector(".bas-portrait-copy"), link);
             dialog.showModal();
+            syncMotion();
         }
 
         const bluePoloUniformIds = new Set(["2", "13", "18", "21", "26"]);
@@ -192,16 +194,13 @@ const basEditorial = (() => {
             remaining -= count;
             return Array.from({ length: count }, (_, index) => {
                 const angle = offset + index * 2 * Math.PI / count;
-                return [50 + xRadius * Math.cos(angle), 61 + yRadius * Math.sin(angle)];
+                return { angle, xRadius, yRadius };
             });
         });
-        figures.replaceChildren(...students.map((student, index) => {
+        const buttons = students.map((student, index) => {
             const button = element("button", "bas-lens-figure");
             button.type = "button";
             button.setAttribute("aria-haspopup", "dialog");
-            const [x, y] = positions[index];
-            button.style.left = x.toFixed(2) + "%";
-            button.style.top = y.toFixed(2) + "%";
             button.title = student.name || "Student";
             const person = element("img", "bas-lens-person");
             const poloUniform = bluePoloUniformIds.has(String(student.id));
@@ -216,7 +215,78 @@ const basEditorial = (() => {
             button.append(person, name);
             button.addEventListener("click", () => openStudent(student));
             return button;
-        }));
+        });
+        figures.replaceChildren(...buttons);
+
+        const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+        const lapDuration = 32000;
+        let orbitAngle = 0;
+        let previousTime;
+        let frameId = 0;
+        let visible = false;
+        let hovered = false;
+        let keyboardFocus = false;
+
+        function placeFigures() {
+            buttons.forEach((button, index) => {
+                const { angle, xRadius, yRadius } = positions[index];
+                const position = angle + orbitAngle;
+                button.style.left = (50 + xRadius * Math.cos(position)).toFixed(2) + "%";
+                button.style.top = (61 + yRadius * Math.sin(position)).toFixed(2) + "%";
+            });
+        }
+
+        function advance(time) {
+            if (previousTime != null) {
+                const elapsed = Math.min(time - previousTime, 50);
+                orbitAngle = (orbitAngle + elapsed / lapDuration * 2 * Math.PI) % (2 * Math.PI);
+                placeFigures();
+            }
+            previousTime = time;
+            frameId = requestAnimationFrame(advance);
+        }
+
+        function syncMotion() {
+            const moving = visible && !hovered && !keyboardFocus && !dialog.open &&
+                !reducedMotion.matches && !scene.classList.contains("is-motion-paused");
+            scene.classList.toggle("is-orbiting", moving);
+            if (moving && !frameId) {
+                previousTime = undefined;
+                frameId = requestAnimationFrame(advance);
+            } else if (!moving && frameId) {
+                cancelAnimationFrame(frameId);
+                frameId = 0;
+            }
+        }
+
+        for (const button of buttons) {
+            button.addEventListener("pointerenter", event => {
+                if (event.pointerType !== "mouse") return;
+                hovered = true;
+                syncMotion();
+            });
+            button.addEventListener("pointerleave", event => {
+                if (event.pointerType !== "mouse") return;
+                hovered = false;
+                syncMotion();
+            });
+        }
+        figures.addEventListener("focusin", event => {
+            keyboardFocus = event.target.matches(":focus-visible");
+            syncMotion();
+        });
+        figures.addEventListener("focusout", () => {
+            keyboardFocus = false;
+            syncMotion();
+        });
+        dialog.addEventListener("close", syncMotion);
+        reducedMotion.addEventListener("change", syncMotion);
+        const observer = new IntersectionObserver(([entry]) => {
+            visible = entry.isIntersecting;
+            syncMotion();
+        });
+        observer.observe(scene);
+        placeFigures();
         return [scene, dialog];
     }
 
