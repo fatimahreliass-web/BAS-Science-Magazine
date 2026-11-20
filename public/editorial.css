@@ -710,3 +710,154 @@
 @media (prefers-reduced-motion: reduce) {
     .bas-lab-article.is-fizzing :is(.bas-lab-bubble, .bas-lab-liquid) { animation: none; }
 }
+
+/* Student figures on the microscope stage and the portrait magnifier. */
+.bas-lens-instruction { color: var(--bas-muted); margin: 10px 0 13px; }
+.bas-lens-roster { margin-block-end: 16px; }
+.bas-directory .bas-lens-roster { margin-block-end: 40px; }
+.bas-lens-scene {
+    position: relative;
+    width: min(100%, 960px);
+    aspect-ratio: 1.65;
+    margin-inline: auto;
+    border: 1px solid #9ab5a2;
+    border-radius: 17px;
+    background: #255d48 url("images/student-microscope.webp") center / 100% 100% no-repeat;
+}
+.bas-lens-figures {
+    position: absolute;
+    inset: 42% 16% 17%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 4px 10px;
+}
+.bas-lens-figure {
+    --figure-color: #23604a;
+    display: grid;
+    justify-items: center;
+    place-content: center;
+    gap: 4px;
+    min-width: 0;
+    min-height: 44px;
+    color: var(--bas-ink);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    cursor: pointer;
+    padding: 2px;
+}
+.bas-lens-figure:nth-child(3n + 2) { --figure-color: #677536; }
+.bas-lens-figure:nth-child(3n) { --figure-color: #39756f; }
+.bas-lens-figure:hover,
+.bas-lens-figure:focus-visible {
+    background: #fff9dfde;
+    border-color: #98a16c;
+}
+.bas-lens-person {
+    position: relative;
+    display: block;
+    width: clamp(17px, 3.3vw, 34px);
+    height: clamp(27px, 4.5vw, 55px);
+    filter: drop-shadow(2px 3px 1px #355e433b);
+}
+.bas-lens-person::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 34%;
+    width: 33%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--figure-color);
+}
+.bas-lens-person::after {
+    content: "";
+    position: absolute;
+    inset: 24% 0 0;
+    background: var(--figure-color);
+    clip-path: polygon(34% 0,66% 0,80% 10%,96% 48%,81% 55%,68% 32%,68% 100%,53% 100%,49% 64%,44% 100%,29% 100%,30% 34%,17% 57%,3% 49%,20% 11%);
+}
+.bas-lens-label {
+    display: block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    font-size: clamp(.69rem, 1.25vw, .94rem);
+    font-weight: 700;
+    line-height: 1.13;
+}
+.bas-lens-pager:not([hidden]) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-block-start: 13px;
+}
+.bas-lens-pager button,
+.bas-lens-close {
+    min-height: 44px;
+    padding: 5px 12px;
+    border: 1px solid #b8cfb7;
+    border-radius: 8px;
+    background: #edf5e8;
+    color: var(--bas-ink);
+    cursor: pointer;
+}
+.bas-lens-pager button:disabled { opacity: .54; cursor: default; }
+.bas-lens-dialog {
+    width: min(430px, calc(100% - 28px));
+    max-height: calc(100% - 28px);
+    padding: 12px 17px 19px;
+    border: 1px solid #b8d0b6;
+    border-radius: 18px;
+    background: #f8fcf4;
+    color: var(--bas-ink);
+}
+.bas-lens-dialog::backdrop { background: #0d2c22c9; }
+.bas-lens-close { display: block; margin-inline-start: auto; }
+.bas-lens-preview { text-align: center; }
+.bas-lens-magnifier {
+    position: relative;
+    display: grid;
+    place-items: center;
+    isolation: isolate;
+    width: min(68vw, 242px);
+    aspect-ratio: 1;
+    margin: 0 auto 18px;
+    overflow: visible;
+    border: 9px solid #245d45;
+    border-radius: 50%;
+    background: #e2ecda;
+    box-shadow: 0 0 0 4px #e9d58e;
+}
+.bas-lens-magnifier img {
+    border-radius: 50%;
+    object-position: center 18%;
+}
+.bas-lens-magnifier.bas-portrait-top img { object-position: center top; }
+.bas-lens-magnifier::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    bottom: 6%;
+    right: -15%;
+    width: 29%;
+    height: 11%;
+    border-radius: 6px;
+    background: #245d45;
+    transform: rotate(42deg);
+}
+@media (min-width: 521px) {
+    .bas-lens-scene { aspect-ratio: 1.7; }
+}
+@media (max-width: 520px) {
+    .bas-lens-scene { aspect-ratio: 1.15; }
+    .bas-lens-figures { inset: 41% 12% 17%; gap: 2px 3px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+    .bas-lens-dialog[open] .bas-lens-magnifier { animation: bas-lens-zoom .43s cubic-bezier(.22,.72,.34,1.17) both; }
+}
+@keyframes bas-lens-zoom {
+    from { transform: scale(.35); opacity: .25; }
+    to { transform: scale(1); opacity: 1; }
+}

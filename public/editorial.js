@@ -126,18 +126,90 @@ const basEditorial = (() => {
         return card;
     }
 
+    function studentLens(students, limit) {
+        const scene = element("div", "bas-lens-scene");
+        const figures = element("div", "bas-lens-figures");
+        scene.append(figures);
+
+        const dialog = element("dialog", "bas-lens-dialog");
+        dialog.setAttribute("aria-labelledby", "bas-lens-student-name");
+        const close = localized(element("button", "bas-lens-close"), "Close", "إغلاق");
+        close.type = "button";
+        close.autofocus = true;
+        const preview = element("div", "bas-lens-preview");
+        dialog.append(close, preview);
+        close.addEventListener("click", () => dialog.close());
+        dialog.addEventListener("click", event => {
+            if (event.target === dialog) {
+                const bounds = dialog.getBoundingClientRect();
+                if (event.clientX < bounds.left || event.clientX > bounds.right ||
+                    event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.close();
+            }
+        });
+
+        function openStudent(student) {
+            const card = studentCard(student);
+            const frame = card.querySelector(".bas-portrait-frame");
+            frame.classList.add("bas-lens-magnifier");
+            const photo = frame.querySelector("img");
+            if (photo) photo.loading = "eager";
+            const name = card.querySelector("h3");
+            name.id = "bas-lens-student-name";
+            const link = localized(element("a", "bas-primary"), "View profile", "عرض الملفّ");
+            link.href = card.href;
+            preview.replaceChildren(frame, card.querySelector(".bas-portrait-copy"), link);
+            dialog.showModal();
+        }
+
+        const pageSize = limit || 6;
+        const total = limit ? 1 : Math.ceil(students.length / pageSize);
+        const pager = element("nav", "bas-lens-pager");
+        const previous = localized(element("button"), "Previous", "السابق");
+        const next = localized(element("button"), "Next", "التالي");
+        previous.type = next.type = "button";
+        const position = element("span");
+        position.setAttribute("aria-live", "polite");
+        pager.append(previous, position, next);
+        pager.hidden = total < 2;
+        let page = 0;
+
+        function showGroup() {
+            const group = students.slice(page * pageSize, (page + 1) * pageSize);
+            figures.replaceChildren(...group.map(student => {
+                const button = element("button", "bas-lens-figure");
+                button.type = "button";
+                button.setAttribute("aria-haspopup", "dialog");
+                const person = element("span", "bas-lens-person");
+                person.setAttribute("aria-hidden", "true");
+                const name = element("span", "bas-lens-label", student.name || "Student");
+                name.dir = "auto";
+                button.append(person, name);
+                button.addEventListener("click", () => openStudent(student));
+                return button;
+            }));
+            previous.disabled = page === 0;
+            next.disabled = page === total - 1;
+            localized(position, "Group " + (page + 1) + " of " + total,
+                "المجموعة " + (page + 1) + " من " + total);
+        }
+
+        previous.addEventListener("click", () => { page -= 1; showGroup(); });
+        next.addEventListener("click", () => { page += 1; showGroup(); });
+        showGroup();
+        return [scene, pager, dialog];
+    }
+
     async function loadStudents(container, limit) {
         try {
             const students = await fetchList("/api/students");
-            const sorted = students.sort((a, b) => String(a.name ?? "").localeCompare(
+            students.sort((a, b) => String(a.name ?? "").localeCompare(
                 String(b.name ?? ""), "en", { sensitivity: "base", numeric: true }
             ));
-            const visible = limit ? sorted.slice(0, limit) : sorted;
-            if (!visible.length) {
+            if (!students.length) {
                 status(container, "No student profiles yet.", "لا توجد ملفات للتلاميذ بعد.");
                 return;
             }
-            container.replaceChildren(...visible.map(studentCard));
+            container.replaceChildren(...studentLens(students, limit));
         } catch (error) {
             console.error("Student profiles could not be loaded", error);
             status(container, "Could not load student profiles.", "تعذّر تحميل ملفات التلاميذ.");
