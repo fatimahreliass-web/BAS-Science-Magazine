@@ -712,7 +712,31 @@
 }
 
 /* Student figures on the microscope stage and the portrait magnifier. */
-.bas-lens-instruction { color: var(--bas-muted); margin: 10px 0 13px; }
+.bas-lens-instruction {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: fit-content;
+    max-width: 100%;
+    margin: 14px auto 12px;
+    padding: 9px 15px;
+    border: 1px solid #caab53;
+    border-radius: 12px;
+    background: #faedb8;
+    color: #173e2c;
+    font-size: clamp(.96rem, 2.2vw, 1.13rem);
+    line-height: 1.4;
+}
+.bas-lens-instruction-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #fff9e3;
+    font-size: 1.13rem;
+}
 .bas-lens-roster { margin-block-end: 16px; }
 .bas-directory .bas-lens-roster { margin-block-end: 40px; }
 .bas-lens-scene {
