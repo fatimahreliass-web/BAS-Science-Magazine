@@ -1,17 +1,15 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>BAS — Bashaer Science Magazine</title>
-
-    <link rel="stylesheet" href="style.css">
-    <script src="skills-builder.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BAS — Bashaer Science School Magazine</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="editorial.css">
+  <script src="skills-builder.js" defer></script>
+  <script src="editorial.js" defer></script>
 </head>
-
-<body>
+<body class="bas-editorial bas-homepage">
 <!-- A short, skippable magazine-opening welcome. -->
 <style>
 .bas-greeting{--ink:#20543e;--sage:#dceaca;--butter:#f8e9a9;display:grid!important;place-items:center;padding:20px;background:rgba(24,52,38,.42);backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);transition:opacity .4s ease,backdrop-filter .4s ease;overflow:auto}
@@ -142,11 +140,12 @@
   </div>
 </div>
 <script>
-(function(){
+document.addEventListener("DOMContentLoaded", () => {
   const panel=document.getElementById('basGreeting');
   const closeButton=document.getElementById('basGreetingClose');
   if(!panel||!closeButton)return;
   const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+  const trigger=document.getElementById('basShowWelcome');
   let previousOverflow='',closing=false,autoTimer,exitTimer;
   const finish=()=>{
     panel.hidden=true;
@@ -155,8 +154,7 @@
     window.clearTimeout(exitTimer);
     document.removeEventListener('keydown',onKey);
     if(document.activeElement===closeButton){
-      const brand=document.querySelector('.site-header .brand');
-      if(brand)brand.focus({preventScroll:true});
+      trigger.focus({preventScroll:true});
     }
   };
   const close=()=>{
@@ -168,38 +166,42 @@
   const onKey=event=>{if(event.key==='Escape'||event.key==='Tab')close();};
   closeButton.addEventListener('click',close);
   const open=()=>{
-    if(window.location.hash==='#skills-builder')return;
+    closing=false;
+    panel.classList.remove('is-leaving');
     previousOverflow=document.body.style.overflow;
     document.body.style.overflow='hidden';
     panel.hidden=false;
+    closeButton.focus({preventScroll:true});
     document.addEventListener('keydown',onKey);
     autoTimer=window.setTimeout(close,reducedMotion.matches?1800:7800);
   };
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',open,{once:true});else open();
-})();
+  trigger.addEventListener('click',open);
+  document.getElementById('basGreetingEnter')?.addEventListener('click',close);
+});
 </script>
 
-<!-- =========================================
-     HEADER
-========================================= -->
-
-<header class="site-header">
-  <div class="header-inner">
-    <a href="index.html" class="brand" aria-label="BAS home">
-      <div class="mabarrat-logo-holder"><img class="mabarrat-logo" src="https://cdn.prod.website-files.com/5ab25784c7fcbff004fa8dca/66c737fdbff514bd3be9375f_Al%20Marrabat%20Al%20Kawthar%20school%20logo.webp" alt="Al Mabarrat Association" onerror="this.style.display='none'"></div>
-      <div class="brand-divider"></div>
-      <div class="brand-copy"><strong><span class="brand-leaves">❧</span> BAS</strong><span>Bashaer Science School Magazine</span><small>Al Bashaer Highschool</small><small class="brand-cycle3">CYCLE 3</small></div>
+<header class="bas-header">
+  <div class="bas-wrap bas-header-inner">
+    <a class="bas-brand" href="index.html" aria-label="BAS">
+      <img src="https://cdn.prod.website-files.com/5ab25784c7fcbff004fa8dca/66c737fdbff514bd3be9375f_Al%20Marrabat%20Al%20Kawthar%20school%20logo.webp" alt="Al Mabarrat Association" width="42" height="46">
+      <span class="bas-wordmark" lang="en" dir="ltr">BAS</span>
+      <span class="bas-brand-school" data-en="Al Bashaer High School" data-ar="ثانوية البشائر">Al Bashaer High School</span>
     </a>
-    <nav class="main-nav" aria-label="Main navigation">
-      <a class="nav-current" href="index.html" data-en="⌂ Home" data-ar="⌂ الرئيسية">⌂ Home</a>
-      <a href="archive.html" data-en="▤ Issues" data-ar="▤ الأعداد">▤ Issues</a>
-      <a href="#categories-showcase" data-en="▱ Categories" data-ar="▱ الأقسام">▱ Categories</a>
-      <a href="students.html" data-en="♧ About" data-ar="♧ من نحن">♧ About</a>
-      <a href="#science-club" data-en="⚗ Club" data-ar="⚗ النادي">⚗ Club</a>
-      <div class="language-switch"><button id="enButton" class="active" onclick="setLanguage('en')">EN</button><button id="arButton" onclick="setLanguage('ar')">العربية</button></div>
+    <nav class="bas-nav" aria-label="BAS">
+      <a href="#categories-showcase" data-en="Sections" data-ar="الأقسام">Sections</a>
+      <a href="#latest" data-en="Articles" data-ar="المقالات">Articles</a>
+      <a href="students.html" data-en="Students" data-ar="التلاميذ">Students</a>
+      <a href="archive.html" data-en="Issues" data-ar="الأعداد">Issues</a>
+      <a href="#science-club" data-en="Science Club" data-ar="نادي العلوم">Science Club</a>
     </nav>
+    <div class="bas-languages" aria-label="Language">
+      <button type="button" data-language="en" lang="en">EN</button>
+      <button type="button" data-language="ar" lang="ar">العربية</button>
+    </div>
   </div>
 </header>
+<main>
+  <div class="bas-wrap bas-skills-wrap">
 <section class="skills-builder-strip" id="skills-builder" aria-labelledby="skills-builder-title">
   <div class="skills-builder-heading">
     <h2 id="skills-builder-title" data-en="Skills Builder" data-ar="مهارات Skills Builder">Skills Builder</h2>
@@ -209,36 +211,78 @@
   <p class="skills-builder-prompt" data-en="Choose a skill to see what it means." data-ar="اختاروا مهارة لتتعرّفوا إلى معناها.">Choose a skill to see what it means.</p>
   <div class="skills-builder-explanation" id="skills-builder-explanation" aria-live="polite"></div>
 </section>
-<section class="hero">
-  <div class="hero-copy">
-    <div class="hero-brand-leaf">❧</div>
-    <h1>BAS</h1>
-    <div class="hero-title" data-en="Bashaer Science<br>School Magazine" data-ar="مجلة بشائر<br>العلمية">Bashaer Science School Magazine</div>
-    <p class="hero-description" data-en="A student-run science publication." data-ar="مجلة علمية من إعداد التلاميذ.">A student-run science publication.</p>
-    <a class="hero-read-link" href="archive.html" data-en="Explore Issue 1 →" data-ar="استكشف العدد الأول ←">Explore Issue 1 →</a>
   </div>
-  <div class="hero-science hero-club-emblem" aria-label="BAS Science Club emblem"><img src="data:image/webp;base64,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" alt="BAS Science Club – Al Bashaer Highschool"></div>
-  <div class="hero-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-</section>
-<section class="home-category-strip" id="categories-showcase" aria-label="Science categories">
-  <a href="category.html?slug=science-unlocked"><span>🔓</span>Science<br>Unlocked</a>
-  <a href="category.html?slug=science-on-a-plate"><span>🍴</span>Science<br>on a Plate</a>
-  <a href="category.html?slug=future-lab"><span>🚀</span>Future<br>Lab</a>
-  <a href="category.html?slug=planet-earth"><span>🌐</span>Planet<br>Earth</a>
-  <a href="category.html?slug=mind-lab"><span>🧠</span>Mind<br>Lab</a>
-  <a href="category.html?slug=inside-life"><span>🌿</span>Inside<br>Life</a>
-  <a href="category.html?slug=science-voices"><span>📣</span>Science<br>Voices</a>
-  <a href="category.html?slug=science-in-action"><span>⚙</span>Science<br>in Action</a>
-  <a href="category.html?slug=science-playground"><span>🎮</span>Science<br>Playground</a>
-</section>
-<section class="home-issue-club" aria-label="Latest issue and Science Club">
-  <div class="home-featured-cover"><div id="heroCover" class="hero-cover-placeholder">BAS</div></div>
-  <div class="home-issue-copy"><span class="home-label" data-en="Latest Issue" data-ar="العدد الأخير">Latest Issue</span><h2 data-en="Issue 1 – November 2026" data-ar="العدد الأول – تشرين الثاني ٢٠٢٦">Issue 1 – November 2026</h2><p data-en="Our first issue is out! Discover fascinating topics, real-life science, creative ideas, and the inspiring voices of our young scientists." data-ar="صدر عددنا الأول! اكتشفوا موضوعات علمية شيّقة وتجارب من الحياة اليومية وأفكار علمائنا الصغار.">Our first issue is out! Discover fascinating topics, real-life science, creative ideas, and the inspiring voices of our young scientists.</p><a class="button-gold" href="archive.html" data-en="Read Now →" data-ar="اقرأ الآن ←">Read Now →</a></div>
-  <div class="home-club-card" id="science-club">
-    <h2>🌱 <span data-en="Science Club" data-ar="نادي العلوم">Science Club</span></h2>
+  <section class="bas-hero bas-wrap">
+    <div class="bas-hero-copy">
+      <p class="bas-school-line" data-en="Al Bashaer High School · Cycle 3" data-ar="ثانوية البشائر · الحلقة الثالثة">Al Bashaer High School · Cycle 3</p>
+      <h1 data-en="Bashaer Science School Magazine" data-ar="مجلة بشائر العلمية">Bashaer Science School Magazine</h1>
+      <p data-en="A science magazine written by our students." data-ar="مجلة علمية من إعداد تلاميذنا.">A science magazine written by our students.</p>
+      <a class="bas-primary" href="#categories-showcase" data-en="Explore the magazine" data-ar="استكشفوا المجلة">Explore the magazine</a>
+    </div>
+    <img class="bas-hero-image" src="images/bas-editorial-hero.webp" alt="" width="1200" height="800" fetchpriority="high">
+  </section>
+  <section class="bas-section bas-wrap" id="categories-showcase" aria-labelledby="bas-topics-title">
+    <h2 id="bas-topics-title" data-en="Explore by topic" data-ar="استكشفوا الأقسام">Explore by topic</h2>
+    <div class="bas-topics">
+      <a class="bas-topic" href="category.html?slug=science-unlocked">
+        <span class="bas-topic-icon" aria-hidden="true">⌁</span>
+        <span><strong data-en="Science Unlocked" data-ar="العلوم بين أيدينا">Science Unlocked</strong><span class="bas-topic-description" data-en="Everyday questions" data-ar="أسئلة من حياتنا اليومية">Everyday questions</span></span>
+      </a>
+      <a class="bas-topic" href="category.html?slug=science-on-a-plate">
+        <span class="bas-topic-icon" aria-hidden="true">◒</span>
+        <span><strong data-en="Science on a Plate" data-ar="العلم على مائدتنا">Science on a Plate</strong><span class="bas-topic-description" data-en="Food and chemistry" data-ar="الغذاء والكيمياء">Food and chemistry</span></span>
+      </a>
+      <a class="bas-topic" href="category.html?slug=future-lab">
+        <span class="bas-topic-icon" aria-hidden="true">✧</span>
+        <span><strong data-en="Future Lab" data-ar="مختبر المستقبل">Future Lab</strong><span class="bas-topic-description" data-en="Space and technology" data-ar="الفضاء والتكنولوجيا">Space and technology</span></span>
+      </a>
+      <a class="bas-topic" href="category.html?slug=planet-earth">
+        <span class="bas-topic-icon" aria-hidden="true">◉</span>
+        <span><strong data-en="Planet Earth" data-ar="كوكب الأرض">Planet Earth</strong><span class="bas-topic-description" data-en="Climate and environment" data-ar="المناخ والبيئة">Climate and environment</span></span>
+      </a>
+      <a class="bas-topic" href="category.html?slug=mind-lab">
+        <span class="bas-topic-icon" aria-hidden="true">◎</span>
+        <span><strong data-en="Mind Lab" data-ar="مختبر العقل">Mind Lab</strong><span class="bas-topic-description" data-en="The brain and perception" data-ar="الدماغ والإدراك">The brain and perception</span></span>
+      </a>
+      <a class="bas-topic" href="category.html?slug=inside-life">
+        <span class="bas-topic-icon" aria-hidden="true">✿</span>
+        <span><strong data-en="Inside Life" data-ar="داخل عالم الحياة">Inside Life</strong><span class="bas-topic-description" data-en="The body and living things" data-ar="الجسم والكائنات الحيّة">The body and living things</span></span>
+      </a>
+      <a class="bas-topic" href="category.html?slug=science-voices">
+        <span class="bas-topic-icon" aria-hidden="true">❞</span>
+        <span><strong data-en="Science Voices" data-ar="أصوات علمية">Science Voices</strong><span class="bas-topic-description" data-en="Interviews and perspectives" data-ar="مقابلات ووجهات نظر">Interviews and perspectives</span></span>
+      </a>
+      <a class="bas-topic" href="category.html?slug=science-in-action">
+        <span class="bas-topic-icon" aria-hidden="true">⚗</span>
+        <span><strong data-en="Science in Action" data-ar="العلم في العمل">Science in Action</strong><span class="bas-topic-description" data-en="Experiments and discoveries" data-ar="تجارب واكتشافات">Experiments and discoveries</span></span>
+      </a>
+      <a class="bas-topic" href="category.html?slug=science-playground">
+        <span class="bas-topic-icon" aria-hidden="true">✦</span>
+        <span><strong data-en="Science Playground" data-ar="ملعب العلوم">Science Playground</strong><span class="bas-topic-description" data-en="Quizzes and challenges" data-ar="أسئلة وتحدّيات">Quizzes and challenges</span></span>
+      </a>
+    </div>
+  </section>
+  <section class="bas-section bas-wrap" id="latest" aria-labelledby="bas-stories-title">
+    <div class="bas-section-head">
+      <h2 id="bas-stories-title" data-en="From the magazine" data-ar="من المجلة">From the magazine</h2>
+      <a href="archive.html" data-en="Browse all issues" data-ar="تصفّحوا الأعداد">Browse all issues</a>
+    </div>
+    <div id="latestArticles" class="bas-stories"><p class="bas-status" data-en="Loading articles…" data-ar="جارٍ تحميل المقالات…">Loading articles…</p></div>
+  </section>
+  <section class="bas-student-band" id="student-voices" aria-labelledby="bas-students-title">
+    <div class="bas-section bas-wrap">
+      <div class="bas-section-head">
+        <h2 id="bas-students-title" data-en="Student Voices" data-ar="أصوات التلاميذ">Student Voices</h2>
+        <a href="students.html" data-en="Meet all the students" data-ar="تعرّفوا إلى جميع التلاميذ">Meet all the students</a>
+      </div>
+      <div id="students" class="bas-portraits bas-portraits-preview"><p class="bas-status" data-en="Loading students…" data-ar="جارٍ تحميل التلاميذ…">Loading students…</p></div>
+    </div>
+  </section>
+  <section class="home-club-card bas-club bas-wrap" id="science-club">
+    <h2><span data-en="Science Club" data-ar="نادي العلوم">Science Club</span></h2>
     <p data-en="Al Bashaer Highschool · Cycle 3 (Grades 7–9) only. Apply to join; membership is subject to coordinator approval." data-ar="الانتساب مخصّص لتلاميذ ثانوية البشائر في الحلقة الثالثة (الصفوف السابع والثامن والتاسع) فقط. يُدرس كل طلب قبل الموافقة.">Al Bashaer Highschool · Cycle 3 (Grades 7–9) only. Apply to join; membership is subject to coordinator approval.</p>
     <details class="club-application">
-      <summary class="home-club-link"><span data-en="Apply to Join →" data-ar="تقدّم بطلب انتساب ←">Apply to Join →</span></summary>
+      <summary class="home-club-link"><span data-en="Apply to Join" data-ar="تقدّم بطلب انتساب">Apply to Join</span></summary>
       <form id="clubApplicationForm" class="club-application-form">
         <label for="clubStudentName" data-en="Student full name" data-ar="اسم التلميذ الثلاثي">Student full name</label>
         <input id="clubStudentName" name="studentName" type="text" minlength="5" maxlength="100" autocomplete="name" required>
@@ -254,20 +298,15 @@
         <label for="clubMotivation" data-en="Why would you like to join the Science Club?" data-ar="لماذا ترغب بالانضمام إلى نادي العلوم؟">Why would you like to join the Science Club?</label>
         <textarea id="clubMotivation" name="motivation" rows="3" maxlength="600" required></textarea>
         <label class="club-application-confirm"><input type="checkbox" id="clubSchoolConfirm" required><span data-en="I confirm that I am currently a student at Al Bashaer Highschool in Cycle 3 (Grade 7, 8 or 9)." data-ar="أؤكد أنني تلميذ حاليًا في ثانوية البشائر، الحلقة الثالثة (السابع أو الثامن أو التاسع).">I confirm that I am currently a student at Al Bashaer Highschool in Cycle 3 (Grade 7, 8 or 9).</span></label>
-        <button class="club-application-submit" type="submit" data-en="Continue to WhatsApp →" data-ar="المتابعة إلى واتساب ←">Continue to WhatsApp →</button>
+        <button class="club-application-submit" type="submit" data-en="Continue to WhatsApp" data-ar="المتابعة إلى واتساب">Continue to WhatsApp</button>
         <p class="club-application-notice" data-en="WhatsApp opens with your application ready. You must press Send there to submit it. Sending an application does not mean acceptance. Your school eligibility will be checked before approval." data-ar="سيُفتح واتساب مع طلبك جاهزًا. يجب الضغط على إرسال داخل واتساب لإتمام التقديم. إرسال الطلب لا يعني القبول، وسيتم التحقق من انتسابك للمدرسة قبل الموافقة.">WhatsApp opens with your application ready. You must press Send there to submit it. Sending an application does not mean acceptance. Your school eligibility will be checked before approval.</p>
       </form>
     </details>
-  </div>
-</section>
-
-<!-- EDITOR'S NOTE -->
-<section class="editors-note section" id="editors-note" aria-label="Editor's Note">
+  </section>
+<details class="bas-editors-note bas-wrap" id="editors-note">
+  <summary data-en="Editor’s Note" data-ar="كلمة المحرّر">Editor’s Note</summary>
   <div class="editors-note-shell">
-    <div class="editors-note-accent" aria-hidden="true">✦ BAS ✦</div>
     <div class="editors-note-english" lang="en" dir="ltr">
-      <p class="eyebrow">FROM THE EDITORIAL TEAM</p>
-      <h2>EDITOR’S NOTE</h2>
       <p>Welcome to the very first issue of BAS, a science magazine created by curious students who believe that science is not just something we learn in the classroom—it is all around us.</p>
       <p>In this issue, our young scientists invite you to explore fascinating questions, discover surprising facts, and look at the world through a scientific lens. From the human body and nature to space, technology, and the mysteries of everyday life, each article is a journey of curiosity and discovery.</p>
       <p>BAS is more than a magazine. It is a space where students can ask questions, investigate ideas, share knowledge, and turn their curiosity into scientific stories.</p>
@@ -276,8 +315,6 @@
       <p class="editors-note-signoff">Welcome to BAS — where curiosity becomes discovery.</p>
     </div>
     <div class="editors-note-arabic" lang="ar" dir="rtl">
-      <p class="eyebrow">من فريق التحرير</p>
-      <h2>كلمة المحرّر</h2>
       <p>مرحبًا بكم في العدد الأول من BAS، المجلة العلمية التي أبدعها طلاب شغوفون بالمعرفة ويؤمنون بأن العلم ليس مجرد مادة نتعلمها في الصف، بل هو موجود من حولنا في كل مكان.</p>
       <p>في هذا العدد، يدعوكم علماؤنا الصغار إلى استكشاف أسئلة شيّقة، واكتشاف حقائق مفاجئة، والنظر إلى العالم من منظور علمي. من جسم الإنسان والطبيعة إلى الفضاء والتكنولوجيا وأسرار حياتنا اليومية، كل مقال هو رحلة في عالم الفضول والاكتشاف.</p>
       <p>BAS ليست مجرد مجلة، بل هي مساحة يستطيع فيها الطلاب طرح الأسئلة، واستكشاف الأفكار، ومشاركة المعرفة، وتحويل فضولهم إلى قصص علمية.</p>
@@ -286,1132 +323,37 @@
       <p class="editors-note-signoff">أهلًا بكم في BAS — حيث يتحول الفضول إلى اكتشاف.</p>
     </div>
   </div>
-</section>
-
-<!-- =========================================
-     FEATURED ISSUE
-========================================= -->
-
-<section class="section">
-
-    <div class="section-heading">
-
-        <div>
-
-            <div class="eyebrow"
-                 data-en="LATEST ISSUE"
-                 data-ar="العدد الأخير">
-                LATEST ISSUE
-            </div>
-
-            <h2
-                data-en="Featured Issue"
-                data-ar="العدد المميز">
-                Featured Issue
-            </h2>
-
-        </div>
-
-        <a
-            href="archive.html"
-            data-en="View Archive →"
-            data-ar="عرض الأرشيف ←">
-            View Archive →
-        </a>
-
-    </div>
-
-
-    <div id="featuredIssue">
-
-        <p>Loading...</p>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================
-     ARTICLES
-========================================= -->
-
-<section
-    class="section"
-    id="latest">
-
-    <div class="section-heading">
-
-        <div>
-
-            <div class="eyebrow"
-                 data-en="DISCOVER"
-                 data-ar="اكتشف">
-                DISCOVER
-            </div>
-
-            <h2
-                data-en="Latest Articles"
-                data-ar="أحدث المقالات">
-                Latest Articles
-            </h2>
-
-        </div>
-
-        <a
-            href="archive.html"
-            data-en="View All →"
-            data-ar="عرض الكل ←">
-            View All →
-        </a>
-
-    </div>
-
-
-    <div
-        id="latestArticles"
-        class="cards">
-
-        <p>Loading...</p>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================
-     STUDENTS
-========================================= -->
-
-<section class="section">
-
-    <div class="section-heading">
-
-        <div>
-
-            <div class="eyebrow"
-                 data-en="OUR SCIENTISTS"
-                 data-ar="علماؤنا الصغار">
-                OUR SCIENTISTS
-            </div>
-
-            <h2
-                data-en="Student Voices"
-                data-ar="أصوات التلاميذ">
-                Student Voices
-            </h2>
-
-        </div>
-
-        <a
-            href="students.html"
-            data-en="Meet the Students →"
-            data-ar="تعرّف إلى التلاميذ ←">
-            Meet the Students →
-        </a>
-
-    </div>
-
-
-    <div
-        id="students"
-        class="student-grid">
-
-        <p>Loading...</p>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================
-     CATEGORIES
-========================================= -->
-
-<section class="section-dark">
-
-    <div class="section-inner">
-
-        <div class="section-heading">
-
-            <div>
-
-                <div class="eyebrow"
-                     data-en="EXPLORE"
-                     data-ar="استكشف">
-                    EXPLORE
-                </div>
-
-                <h2
-                    data-en="Science Categories"
-                    data-ar="مجالات العلوم">
-                    Science Categories
-                </h2>
-
-            </div>
-
-        </div>
-
-
-        <div
-            id="categories"
-            class="category-grid">
-
-            <p>Loading...</p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================
-     FOOTER
-========================================= -->
-
-<div class="science-rule"></div>
-
-
-<footer class="site-footer">
-
-    <div class="footer-inner">
-
-        <div>
-
-            <h3>BAS</h3>
-
-            <p
-                data-en="Bashaer Science Magazine — a student-run science publication created by the young scientists of the Elementary Cycle."
-                data-ar="مجلة بشائر للعلوم — مجلة علمية من إعداد تلاميذ الحلقة الثالثة.">
-
-                Bashaer Science Magazine — a student-run science publication
-                created by the young scientists of the Elementary Cycle.
-
-            </p>
-
-        </div>
-
-
-        <div>
-
-            <div class="footer-heading"
-                 data-en="Explore"
-                 data-ar="استكشف">
-                Explore
-            </div>
-
-            <div class="footer-links">
-
-                <a href="archive.html"
-                   data-en="Archive"
-                   data-ar="الأرشيف">
-                    Archive
-                </a>
-
-                <a href="students.html"
-                   data-en="Students"
-                   data-ar="التلاميذ">
-                    Students
-                </a>
-
-            </div>
-
-        </div>
-
-
-        <div>
-
-            <div class="footer-heading"
-                 data-en="BAS"
-                 data-ar="BAS">
-                BAS
-            </div>
-
-            <div class="footer-links">
-
-                <a href="admin/login.html"
-                   data-en="Admin"
-                   data-ar="الإدارة">
-                    Admin
-                </a>
-
-                <a href="#latest"
-                   data-en="Latest Articles"
-                   data-ar="أحدث المقالات">
-                    Latest Articles
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="footer-bottom">
-
-        BAS — Bashaer Science Magazine
-        •
-        Elementary Cycle
-        •
-        Al Bashaer
-
-    </div>
-
-</footer>
-
-
-<!-- =========================================
-     JAVASCRIPT
-========================================= -->
-
+</details>
+</main>
 <script>
-
-/* =========================================
-   LANGUAGE
-========================================= */
-
-function setLanguage(language) {
-
-    document.documentElement.lang = language;
-
-    document.documentElement.dir =
-        language === "ar"
-            ? "rtl"
-            : "ltr";
-
-
-    document.querySelectorAll(
-        "[data-en]"
-    ).forEach(element => {
-
-        const text =
-            element.getAttribute(
-                "data-" + language
-            );
-
-        if (text) {
-
-            element.innerHTML = text;
-
-        }
-
-    });
-
-
-    document.getElementById(
-        "enButton"
-    ).classList.toggle(
-        "active",
-        language === "en"
-    );
-
-
-    document.getElementById(
-        "arButton"
-    ).classList.toggle(
-        "active",
-        language === "ar"
-    );
-
-
-    localStorage.setItem(
-        "bas-language",
-        language
-    );
-
-}
-
-
-/* =========================================
-   FEATURED ISSUE
-========================================= */
-
-async function loadFeaturedIssue() {
-
-    const container =
-        document.getElementById(
-            "featuredIssue"
-        );
-
-
-    try {
-
-        const response =
-            await fetch(
-                "/api/issues"
-            );
-
-
-        const issues =
-            await response.json();
-
-
-        if (
-            !Array.isArray(issues) ||
-            issues.length === 0
-        ) {
-
-            container.innerHTML = `
-                <p>
-                    No issues published yet.
-                </p>
-            `;
-
-            return;
-
-        }
-
-
-        const featured =
-            issues.find(
-                issue =>
-                    Number(issue.featured) === 1 ||
-                    issue.featured === true
-            ) || issues[0];
-
-
-        let cover = "";
-
-        if (featured.cover_image) {
-
-            let imageUrl =
-                featured.cover_image;
-
-            if (
-                !imageUrl.startsWith("/")
-                &&
-                !imageUrl.startsWith("http")
-            ) {
-
-                imageUrl =
-                    "/" + imageUrl;
-
-            }
-
-            cover = `
-                <div class="issue-cover-frame">
-
-                    <img
-                        src="${imageUrl}"
-                        alt="${escapeHtml(
-                            featured.title_en || "BAS Issue"
-                        )}"
-                    >
-
-                </div>
-            `;
-
-        } else {
-
-            cover = `
-                <div class="issue-cover-frame">
-
-                    <div class="issue-cover-placeholder">
-                        BAS
-                    </div>
-
-                </div>
-            `;
-
-        }
-
-
-        container.innerHTML = `
-
-            <article class="issue-feature">
-
-                ${cover}
-
-                <div>
-
-                    <div class="issue-meta">
-
-                        ISSUE
-                        ${featured.issue_number || ""}
-
-                        ${featured.month
-                            ? " • " + featured.month
-                            : ""}
-
-                        ${featured.year
-                            ? " " + featured.year
-                            : ""}
-
-                    </div>
-
-
-                    <h3>
-                        ${escapeHtml(
-                            featured.title_en ||
-                            "Bashaer Science Magazine"
-                        )}
-                    </h3>
-
-
-                    <p class="issue-description">
-
-                        ${escapeHtml(
-                            featured.description_en || ""
-                        )}
-
-                    </p>
-
-
-                    ${
-                        featured.pdf_file
-                        ?
-                        `
-                        <a
-                            href="${featured.pdf_file}"
-                            target="_blank"
-                            class="button-gold">
-
-                            Read the Issue
-
-                        </a>
-                        `
-                        :
-                        ""
-                    }
-
-                </div>
-
-            </article>
-
-        `;
-
-
-        /* Hero cover */
-
-        const hero =
-            document.getElementById(
-                "heroCover"
-            );
-
-
-        if (
-            hero &&
-            featured.cover_image
-        ) {
-
-            let imageUrl =
-                featured.cover_image;
-
-            if (
-                !imageUrl.startsWith("/")
-                &&
-                !imageUrl.startsWith("http")
-            ) {
-
-                imageUrl =
-                    "/" + imageUrl;
-
-            }
-
-            hero.outerHTML = `
-                <img
-                    id="heroCover"
-                    src="${imageUrl}"
-                    alt="BAS Featured Issue"
-                >
-            `;
-
-        }
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Issue loading error:",
-            error
-        );
-
-
-        container.innerHTML = `
-            <p>
-                Could not load the latest issue.
-            </p>
-        `;
-
-    }
-
-}
-
-
-/* =========================================
-   ARTICLES
-========================================= */
+document.addEventListener("DOMContentLoaded", () => {
+    basSkills.mountBar();
+    basEditorial.initializeLanguage();
+    const note = document.getElementById("editors-note");
+    const showLinkedNote = () => {
+        if (window.location.hash === "#editors-note") note.open = true;
+    };
+    showLinkedNote();
+    window.addEventListener("hashchange", showLinkedNote);
+    basEditorial.loadStudents(document.getElementById("students"), 6);
+    loadArticles();
+});
 
 async function loadArticles() {
-
-    const container =
-        document.getElementById(
-            "latestArticles"
-        );
-
-
+    const container = document.getElementById("latestArticles");
     try {
-
-        const response =
-            await fetch(
-                "/api/articles"
-            );
-
-
-        const articles =
-            await response.json();
-
-
-        if (
-            !Array.isArray(articles) ||
-            articles.length === 0
-        ) {
-
-            container.innerHTML = `
-                <p>
-                    No articles published yet.
-                </p>
-            `;
-
+        const articles = await basEditorial.fetchList("/api/articles");
+        const published = articles.filter(article => article.slug !== "About BAS" && article.title_en !== "About BAS");
+        if (!published.length) {
+            basEditorial.status(container, "No articles yet.", "لا توجد مقالات بعد.");
             return;
-
         }
-
-
-        container.innerHTML = "";
-
-
-        articles
-            .slice(0, 6)
-            .forEach(
-                article => {
-
-                    const card =
-                        document.createElement(
-                            "article"
-                        );
-
-                    card.className =
-                        "article-card";
-                    card.style.cursor = "pointer";
-                    card.setAttribute("role", "link");
-                    card.setAttribute("tabindex", "0");
-                    const articleUrl = article.id != null ? "article.html?id=" + encodeURIComponent(article.id) : "article.html?slug=" + encodeURIComponent(article.slug || "");
-                    card.addEventListener("click", () => { window.location.href = articleUrl; });
-                    card.addEventListener("keydown", (event) => {
-                        if (event.key === "Enter" || event.key === " ") {
-                            event.preventDefault();
-                            window.location.href = articleUrl;
-                        }
-                    });
-
-
-                    let image = "";
-
-
-                    if (article.main_image) {
-
-                        let imageUrl =
-                            article.main_image;
-
-                        if (
-                            !imageUrl.startsWith("/")
-                            &&
-                            !imageUrl.startsWith("http")
-                        ) {
-
-                            imageUrl =
-                                "/" + imageUrl;
-
-                        }
-
-
-                        image = `
-                            <div class="article-image-wrap">
-
-                                <img
-                                    src="${imageUrl}"
-                                    alt="${escapeHtml(
-                                        article.title_en || ""
-                                    )}"
-                                >
-
-                            </div>
-                        `;
-
-                    } else {
-
-                        image = `
-                            <div class="article-image-wrap">
-
-                                <div class="article-placeholder">
-                                    BAS
-                                </div>
-
-                            </div>
-                        `;
-
-                    }
-
-
-                    card.innerHTML = `
-
-                        ${image}
-
-                        <div class="card-content">
-
-                            <div class="card-kicker">
-
-                                ${escapeHtml(
-                                    article.class_name ||
-                                    "SCIENCE"
-                                )}
-
-                            </div>
-
-
-                            <h3>
-
-                                ${escapeHtml(
-                                    article.title_en ||
-                                    "Untitled Article"
-                                )}
-
-                            </h3>
-
-
-                            <p>
-
-                                ${escapeHtml(
-                                    article.excerpt_en ||
-                                    ""
-                                )}
-
-                            </p>
-
-
-                            ${
-                                article.title_ar
-                                ?
-                                `
-                                <div class="card-ar">
-
-                                    ${escapeHtml(
-                                        article.title_ar
-                                    )}
-
-                                </div>
-                                `
-                                :
-                                ""
-                            }
-
-                        </div>
-
-                    `;
-
-
-                    const skillBadge = basSkills.createBadge(article.id);
-                    if (skillBadge) card.querySelector(".card-content").appendChild(skillBadge);
-
-                    container.appendChild(
-                        card
-                    );
-
-                }
-            );
-
+        container.replaceChildren(...published.slice(0, 6).map(basEditorial.articleCard));
+    } catch (error) {
+        console.error("Articles could not be loaded", error);
+        basEditorial.status(container, "Could not load articles.", "تعذّر تحميل المقالات.");
     }
-
-    catch (error) {
-
-        console.error(
-            "Articles loading error:",
-            error
-        );
-
-
-        container.innerHTML = `
-            <p>
-                Could not load articles.
-            </p>
-        `;
-
-    }
-
 }
-
-
-/* =========================================
-   CATEGORIES
-========================================= */
-
-async function loadCategories() {
-
-    const container =
-        document.getElementById(
-            "categories"
-        );
-
-
-    try {
-
-        const response =
-            await fetch(
-                "/api/categories"
-            );
-
-
-        const categories =
-            await response.json();
-
-
-        if (
-            !Array.isArray(categories) ||
-            categories.length === 0
-        ) {
-
-            container.innerHTML = `
-                <p>
-                    No categories yet.
-                </p>
-            `;
-
-            return;
-
-        }
-
-
-        container.innerHTML = "";
-
-
-        categories.forEach(
-            (category, index) => {
-
-                const card =
-                    document.createElement(
-                        "a"
-                    );
-
-
-                card.className =
-                    "category-card";
-
-
-                card.href =
-                    `category.html?slug=${
-                        encodeURIComponent(
-                            category.slug || ""
-                        )
-                    }`;
-
-
-                const number =
-                    String(
-                        index + 1
-                    ).padStart(
-                        2,
-                        "0"
-                    );
-
-
-                card.innerHTML = `
-
-                    <div class="category-number">
-                        ${number}
-                    </div>
-
-
-                    <h3>
-                        ${escapeHtml(
-                            category.name_en ||
-                            "Science"
-                        )}
-                    </h3>
-
-
-                    ${
-                        category.name_ar
-                        ?
-                        `
-                        <div class="category-ar">
-
-                            ${escapeHtml(
-                                category.name_ar
-                            )}
-
-                        </div>
-                        `
-                        :
-                        ""
-                    }
-
-
-                    ${
-                        category.description_en
-                        ?
-                        `
-                        <p>
-
-                            ${escapeHtml(
-                                category.description_en
-                            )}
-
-                        </p>
-                        `
-                        :
-                        ""
-                    }
-
-                `;
-
-
-                container.appendChild(
-                    card
-                );
-
-            }
-        );
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Categories loading error:",
-            error
-        );
-
-
-        container.innerHTML = `
-            <p>
-                Could not load categories.
-            </p>
-        `;
-
-    }
-
-}
-
-
-/* =========================================
-   STUDENTS
-========================================= */
-
-async function loadStudents() {
-
-    const container =
-        document.getElementById(
-            "students"
-        );
-
-
-    try {
-
-        const response =
-            await fetch(
-                "/api/students"
-            );
-
-
-        const students =
-            await response.json();
-
-
-        if (
-            !Array.isArray(students) ||
-            students.length === 0
-        ) {
-
-            container.innerHTML = `
-                <p>
-                    No student profiles yet.
-                </p>
-            `;
-
-            return;
-
-        }
-
-
-        container.innerHTML = "";
-
-
-        students
-            .slice()
-            .sort((a, b) => String(a.name || "").localeCompare(String(b.name || ""), "en", { sensitivity: "base", numeric: true }))
-            .forEach(
-                student => {
-
-                    const card =
-                        document.createElement(
-                            "article"
-                        );
-
-
-                    card.className =
-                        "student-card";
-
-
-                    // Illustrated fallback for students without a working photo.
-                    const gender = String(student.gender || student.sex || "").toLowerCase();
-                    const avatarType = /^(female|f|girl|أنثى|بنت)$/.test(gender) ? "girl" : /^(male|m|boy|ذكر|ولد)$/.test(gender) ? "boy" : "boy";
-                    const photo = `<div class="student-avatar student-avatar--${avatarType}" role="img" aria-label="Student avatar"><span class="student-avatar-head"></span><span class="student-avatar-face"></span><span class="student-avatar-body"></span></div>`;
-
-                    card.innerHTML = `
-
-                        ${photo}
-
-                        <div class="student-card-content">
-
-                            <h3>
-
-                                ${escapeHtml(
-                                    student.name ||
-                                    "Young Scientist"
-                                )}
-
-                            </h3>
-
-
-                            ${
-                                student.class_name
-                                ?
-                                `
-                                <div class="student-class">
-
-                                    ${escapeHtml(
-                                        student.class_name
-                                    )}
-
-                                </div>
-                                `
-                                :
-                                ""
-                            }
-
-
-                            ${
-                                student.quote_en
-                                ?
-                                `
-                                <blockquote>
-
-                                    “${escapeHtml(
-                                        student.quote_en
-                                    )}”
-
-                                </blockquote>
-                                `
-                                :
-                                ""
-                            }
-
-                        </div>
-
-                    `;
-
-
-                    // Attach portraits before lazy loading so they can enter the viewport.
-                    if (student.photo && String(student.photo).trim()) {
-                        const portrait = document.createElement("img");
-                        portrait.alt = student.name || "Student";
-                        portrait.loading = "lazy";
-                        portrait.decoding = "async";
-                        portrait.style.cssText = "display:block;width:100%;height:230px;object-fit:contain;object-position:center;background:#f4f5ed;border-radius:0;";
-                        const avatar = card.querySelector(".student-avatar");
-                        avatar.style.display = "none";
-                        portrait.addEventListener("error", () => {
-                            portrait.remove();
-                            avatar.style.display = "flex";
-                        });
-                        if (["aya hicham raad", "aya raad"].includes(String(student.name || "").trim().toLowerCase())) {
-                            // Crop the lower trousers area in the card without changing the saved photo.
-                            const frame = document.createElement("div");
-                            frame.style.cssText = "height:230px;overflow:hidden;background:#f4f5ed;";
-                            portrait.style.height = "300px";
-                            portrait.style.objectPosition = "center top";
-                            frame.appendChild(portrait);
-                            card.prepend(frame);
-                        } else {
-                            card.prepend(portrait);
-                        }
-                        portrait.src = String(student.photo).trim();
-                    }
-
-                    const profileUrl = "student.html?id=" + encodeURIComponent(student.id);
-                    card.style.cursor = "pointer";
-                    card.setAttribute("role", "link");
-                    card.setAttribute("tabindex", "0");
-                    card.addEventListener("click", () => { window.location.href = profileUrl; });
-                    card.addEventListener("keydown", (event) => {
-                        if (event.key === "Enter" || event.key === " ") {
-                            event.preventDefault();
-                            window.location.href = profileUrl;
-                        }
-                    });
-
-                    container.appendChild(
-                        card
-                    );
-
-                }
-            );
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Students loading error:",
-            error
-        );
-
-
-        container.innerHTML = `
-            <p>
-                Could not load students.
-            </p>
-        `;
-
-    }
-
-}
-
-
-/* =========================================
-   SECURITY HELPER
-========================================= */
-
-function escapeHtml(value) {
-
-    return String(value || "")
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
-
 
 /* Science Club applications: students explicitly send their details via WhatsApp.
    No automatic WhatsApp message, enrollment, or database storage occurs. */
@@ -1440,46 +382,18 @@ document.getElementById("clubApplicationForm").addEventListener("submit", functi
     if (!opened) window.location.href = url;
 });
 
-/* =========================================
-   START
-========================================= */
-
-async function start() {
-
-    const savedLanguage =
-        localStorage.getItem(
-            "bas-language"
-        );
-
-
-    setLanguage(
-        savedLanguage || "en"
-    );
-
-
-    await Promise.all([
-
-        loadFeaturedIssue(),
-
-        loadArticles(),
-
-        loadCategories(),
-
-        loadStudents()
-
-    ]);
-
-}
-
-
-basSkills.mountBar();
-start();
-
-
-;
 
 </script>
-
+<footer class="bas-footer">
+  <div class="bas-wrap bas-footer-inner">
+    <div><strong lang="en" dir="ltr">BAS</strong><p data-en="Bashaer Science School Magazine · Cycle 3" data-ar="مجلة بشائر العلمية · الحلقة الثالثة">Bashaer Science School Magazine · Cycle 3</p></div>
+    <div class="bas-footer-links">
+      <a href="#editors-note" data-en="Editor’s Note" data-ar="كلمة المحرّر">Editor’s Note</a>
+      <a href="archive.html" data-en="Archive" data-ar="الأرشيف">Archive</a>
+      <a href="admin/login.html" data-en="Admin" data-ar="الإدارة">Admin</a>
+      <button type="button" id="basShowWelcome" data-en="Watch the welcome" data-ar="شاهدوا الترحيب">Watch the welcome</button>
+    </div>
+  </div>
+</footer>
 </body>
-
 </html>

@@ -1,204 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>BAS — Student Scientists</title>
-
-    <link rel="stylesheet" href="style.css">
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BAS — Student Voices</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="editorial.css">
+  <script src="editorial.js" defer></script>
 </head>
-
-<body>
-
-<header>
-
-    <div class="logo">BAS</div>
-
-    <div>
-
-        <h1>Bashaer Science Magazine</h1>
-
-        <p>A Student-Run Science Publication</p>
-
-    </div>
-
-    <nav>
-
-        <a href="index.html">Home</a>
-
-        <a href="archive.html">Archive</a>
-
-        <a href="students.html">Students</a>
-
-        <a href="admin/login.html">Admin</a>
-
+<body class="bas-editorial bas-directory">
+<header class="bas-header">
+  <div class="bas-wrap bas-header-inner">
+    <a class="bas-brand" href="index.html" aria-label="BAS">
+      <img src="https://cdn.prod.website-files.com/5ab25784c7fcbff004fa8dca/66c737fdbff514bd3be9375f_Al%20Marrabat%20Al%20Kawthar%20school%20logo.webp" alt="Al Mabarrat Association" width="42" height="46">
+      <span class="bas-wordmark" lang="en" dir="ltr">BAS</span>
+      <span class="bas-brand-school" data-en="Al Bashaer High School" data-ar="ثانوية البشائر">Al Bashaer High School</span>
+    </a>
+    <nav class="bas-nav" aria-label="BAS">
+      <a href="index.html#categories-showcase" data-en="Sections" data-ar="الأقسام">Sections</a>
+      <a href="index.html#latest" data-en="Articles" data-ar="المقالات">Articles</a>
+      <a href="students.html" data-en="Students" data-ar="التلاميذ">Students</a>
+      <a href="archive.html" data-en="Issues" data-ar="الأعداد">Issues</a>
+      <a href="index.html#science-club" data-en="Science Club" data-ar="نادي العلوم">Science Club</a>
     </nav>
-
+    <div class="bas-languages" aria-label="Language">
+      <button type="button" data-language="en" lang="en">EN</button>
+      <button type="button" data-language="ar" lang="ar">العربية</button>
+    </div>
+  </div>
 </header>
-
-
-<main>
-
-<section class="section">
-
-    <p class="eyebrow">
-        OUR SCIENTISTS
-    </p>
-
-    <h2>
-        Student Voices
-    </h2>
-
-    <p>
-        Meet the students behind BAS Science Magazine.
-    </p>
-
-</section>
-
-
-<section class="section">
-
-    <div
-        id="students"
-        class="cards"
-    >
-
-        Loading students...
+<main class="bas-wrap">
+  <section class="bas-page-intro">
+    <h1 data-en="Student Voices" data-ar="أصوات التلاميذ">Student Voices</h1>
+    <p data-en="Meet the students behind BAS Science Magazine." data-ar="تعرّفوا إلى تلاميذ مجلة بشائر العلمية.">Meet the students behind BAS Science Magazine.</p>
+  </section>
+  <div id="students" class="bas-portraits bas-directory-grid"><p class="bas-status" data-en="Loading students…" data-ar="جارٍ تحميل التلاميذ…">Loading students…</p></div>
+</main>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    basEditorial.initializeLanguage();
+    basEditorial.loadStudents(document.getElementById("students"));
+});
+</script>
+<footer class="bas-footer">
+  <div class="bas-wrap bas-footer-inner">
+    <div><strong lang="en" dir="ltr">BAS</strong><p data-en="Bashaer Science School Magazine · Cycle 3" data-ar="مجلة بشائر العلمية · الحلقة الثالثة">Bashaer Science School Magazine · Cycle 3</p></div>
+    <div class="bas-footer-links">
+      <a href="index.html#editors-note" data-en="Editor’s Note" data-ar="كلمة المحرّر">Editor’s Note</a>
+      <a href="archive.html" data-en="Archive" data-ar="الأرشيف">Archive</a>
+      <a href="admin/login.html" data-en="Admin" data-ar="الإدارة">Admin</a>
 
     </div>
-
-</section>
-
-</main>
-
-
-<footer>
-
-    <h3>BAS — Bashaer Science Magazine</h3>
-
-    <p>A Student-Run Science Publication</p>
-
-    <p>Elementary Cycle • Al Bashaer</p>
-
+  </div>
 </footer>
-
-
-<script>
-
-async function loadStudents() {
-
-    const container =
-        document.getElementById(
-            "students"
-        );
-
-    try {
-
-        const response =
-            await fetch("/api/students");
-
-        const students =
-            (await response.json()).sort((a, b) =>
-                String(a.name || "").localeCompare(String(b.name || ""), "en", { sensitivity: "base", numeric: true })
-            );
-
-
-        if (!students.length) {
-
-            container.innerHTML =
-                "<p>No student profiles yet.</p>";
-
-            return;
-
-        }
-
-
-        container.innerHTML = "";
-
-
-        students.forEach(student => {
-
-            const card =
-                document.createElement(
-                    "article"
-                );
-
-            card.className =
-                "student-card";
-
-            card.style.cursor =
-                "pointer";
-
-
-            card.innerHTML = `
-
-                ${student.photo && String(student.photo).trim()
-                    ? `<img class="student-real-photo" src="${String(student.photo).replace(/"/g, '&quot;')}" alt="${String(student.name || 'Student').replace(/"/g, '&quot;')}" loading="eager" style="display:block;width:100%;height:230px;object-fit:contain;object-position:center center;background:#f4f5ed;border-radius:0;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="student-avatar" style="display:none"><span class="student-avatar-head"></span><span class="student-avatar-face"></span><span class="student-avatar-body"></span></div>`
-                    : `<div class="student-avatar"><span class="student-avatar-head"></span><span class="student-avatar-face"></span><span class="student-avatar-body"></span></div>`
-                }
-
-                <h3>
-                    ${student.name}
-                </h3>
-
-
-                <p>
-                    ${student.class_name || ""}
-                </p>
-
-
-                ${
-                    student.quote_en
-                    ?
-                    `
-                    <blockquote>
-                        “${student.quote_en}”
-                    </blockquote>
-                    `
-                    :
-                    ""
-                }
-
-            `;
-
-
-            card.addEventListener(
-                "click",
-                () => {
-
-                    window.location.href =
-                        `student.html?id=${student.id}`;
-
-                }
-            );
-
-
-            
-container.appendChild(card);
-
-        });
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-        container.innerHTML =
-            "<p>Could not load students.</p>";
-
-    }
-
-}
-
-loadStudents();
-
-</script>
-
 </body>
-
 </html>

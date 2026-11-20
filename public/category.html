@@ -1,304 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>BAS — Category</title>
-
-    <link rel="stylesheet" href="style.css">
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BAS — Science Sections</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="editorial.css">
+  <script src="skills-builder.js" defer></script>
+  <script src="editorial.js" defer></script>
 </head>
-
-<body>
-
-<header>
-
-    <div class="logo">BAS</div>
-
-    <div>
-
-        <h1>Bashaer Science Magazine</h1>
-
-        <p>A Student-Run Science Publication</p>
-
-    </div>
-
-    <nav>
-
-        <a href="index.html">Home</a>
-
-        <a href="archive.html">Archive</a>
-
-        <a href="students.html">Students</a>
-
-        <a href="admin/login.html">Admin</a>
-
+<body class="bas-editorial bas-category">
+<header class="bas-header">
+  <div class="bas-wrap bas-header-inner">
+    <a class="bas-brand" href="index.html" aria-label="BAS">
+      <img src="https://cdn.prod.website-files.com/5ab25784c7fcbff004fa8dca/66c737fdbff514bd3be9375f_Al%20Marrabat%20Al%20Kawthar%20school%20logo.webp" alt="Al Mabarrat Association" width="42" height="46">
+      <span class="bas-wordmark" lang="en" dir="ltr">BAS</span>
+      <span class="bas-brand-school" data-en="Al Bashaer High School" data-ar="ثانوية البشائر">Al Bashaer High School</span>
+    </a>
+    <nav class="bas-nav" aria-label="BAS">
+      <a href="index.html#categories-showcase" aria-current='page' data-en="Sections" data-ar="الأقسام">Sections</a>
+      <a href="index.html#latest" data-en="Articles" data-ar="المقالات">Articles</a>
+      <a href="students.html" data-en="Students" data-ar="التلاميذ">Students</a>
+      <a href="archive.html" data-en="Issues" data-ar="الأعداد">Issues</a>
+      <a href="index.html#science-club" data-en="Science Club" data-ar="نادي العلوم">Science Club</a>
     </nav>
-
+    <div class="bas-languages" aria-label="Language">
+      <button type="button" data-language="en" lang="en">EN</button>
+      <button type="button" data-language="ar" lang="ar">العربية</button>
+    </div>
+  </div>
 </header>
-
-
-<main>
-
-<section class="section">
-
-    <a href="index.html">← Back to Home</a>
-
-    <div id="categoryHeader">
-
-        Loading...
-
-    </div>
-
-</section>
-
-
-<section class="section">
-
-    <div
-        id="articles"
-        class="cards"
-    >
-
-        Loading articles...
-
-    </div>
-
-</section>
-
+<main class="bas-wrap">
+  <section class="bas-page-intro">
+    <a href="index.html#categories-showcase" data-en="All sections" data-ar="جميع الأقسام">All sections</a>
+    <div id="categoryHeader"><h1 class="bas-status" data-en="Loading section…" data-ar="جارٍ تحميل القسم…">Loading section…</h1></div>
+  </section>
+  <div id="articles" class="bas-stories bas-category-stories"><p class="bas-status" data-en="Loading articles…" data-ar="جارٍ تحميل المقالات…">Loading articles…</p></div>
 </main>
-
-
-<footer>
-
-    <h3>BAS — Bashaer Science Magazine</h3>
-
-    <p>A Student-Run Science Publication</p>
-
-    <p>Elementary Cycle • Al Bashaer</p>
-
-</footer>
-
-
 <script>
+document.addEventListener("DOMContentLoaded", () => {
+    basEditorial.initializeLanguage();
+    loadCategory();
+});
 
 async function loadCategory() {
-
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
-
-    const slug =
-        params.get("slug");
-
-    const header =
-        document.getElementById(
-            "categoryHeader"
-        );
-
-    const container =
-        document.getElementById(
-            "articles"
-        );
-
-    if (!slug) {
-
-        header.innerHTML =
-            "<h2>Category not found.</h2>";
-
-        return;
-
-    }
-
+    const slug = new URLSearchParams(window.location.search).get("slug");
+    const header = document.getElementById("categoryHeader");
+    const container = document.getElementById("articles");
     try {
-
-        const categoryResponse =
-            await fetch("/api/categories");
-
-        const categories =
-            await categoryResponse.json();
-
-        const category =
-            categories.find(
-                item => item.slug === slug
-            );
-
+        const categories = await basEditorial.fetchList("/api/categories");
+        const category = categories.find(item => item.slug === slug);
         if (!category) {
-
-            header.innerHTML =
-                "<h2>Category not found.</h2>";
-
+            basEditorial.status(header, "Section not found.", "القسم غير موجود.");
+            container.replaceChildren();
             return;
-
         }
 
-        document.title =
-            `${category.name_en} — BAS`;
-
-        header.innerHTML = `
-
-            <p class="eyebrow">
-                SCIENCE CATEGORY
-            </p>
-
-            <h2>
-                ${category.name_en}
-            </h2>
-
-            <h3 dir="rtl">
-                ${category.name_ar}
-            </h3>
-
-            ${
-                category.description_en
-                ?
-                `
-                <p>
-                    ${category.description_en}
-                </p>
-                `
-                :
-                ""
-            }
-
-        `;
-
-
-        const articleResponse =
-            await fetch("/api/articles");
-
-        const articles =
-            await articleResponse.json();
-
-        const categoryArticles =
-            articles.filter(
-                article =>
-                    Number(article.category_id)
-                    === Number(category.id)
-            );
-
-
-        if (!categoryArticles.length) {
-
-            container.innerHTML =
-                "<p>No articles in this category yet.</p>";
-
-            return;
-
+        const heading = basEditorial.localized(document.createElement("h1"), category.name_en, category.name_ar || category.name_en);
+        document.title = heading.textContent + " — BAS";
+        header.replaceChildren(heading);
+        if (category.description_en || category.description_ar) {
+            header.append(basEditorial.localized(
+                document.createElement("p"),
+                category.description_en || category.description_ar,
+                category.description_ar || category.description_en
+            ));
         }
 
-
-        container.innerHTML = "";
-
-
-        categoryArticles.forEach(article => {
-
-            const card =
-                document.createElement(
-                    "article"
-                );
-
-            card.className =
-                "article-card";
-
-            card.style.cursor =
-                "pointer";
-
-            card.innerHTML = `
-
-                ${
-                    article.main_image
-                    ?
-                    `
-                    <img
-                        src="${article.main_image}"
-                        alt="${article.title_en}"
-                    >
-                    `
-                    :
-                    `
-                    <div class="article-placeholder">
-                        BAS
-                    </div>
-                    `
-                }
-
-                <div class="card-content">
-
-                    <p class="eyebrow">
-
-                        ${
-                            article.class_name ||
-                            "SCIENCE"
-                        }
-
-                    </p>
-
-                    <h3>
-                        ${article.title_en}
-                    </h3>
-
-                    ${
-                        article.title_ar
-                        ?
-                        `
-                        <p dir="rtl">
-                            ${article.title_ar}
-                        </p>
-                        `
-                        :
-                        ""
-                    }
-
-                    <p>
-                        ${article.excerpt_en || ""}
-                    </p>
-
-                    <span class="button">
-                        Read Article →
-                    </span>
-
-                </div>
-
-            `;
-
-
-            card.addEventListener(
-                "click",
-                () => {
-
-                    window.location.href =
-                        `article.html?slug=${encodeURIComponent(article.slug)}`;
-
-                }
-            );
-
-
-            container.appendChild(card);
-
-        });
-
+        const articles = await basEditorial.fetchList("/api/articles");
+        const selected = articles.filter(article => Number(article.category_id) === Number(category.id));
+        if (!selected.length) {
+            basEditorial.status(container, "No articles in this section yet.", "لا توجد مقالات في هذا القسم بعد.");
+            return;
+        }
+        container.replaceChildren(...selected.map(basEditorial.articleCard));
+    } catch (error) {
+        console.error("Section could not be loaded", error);
+        if (!header.querySelector("h1:not(.bas-status)")) {
+            basEditorial.status(header, "Could not load section.", "تعذّر تحميل القسم.");
+            container.replaceChildren();
+        } else {
+            basEditorial.status(container, "Could not load articles.", "تعذّر تحميل المقالات.");
+        }
     }
-
-    catch (error) {
-
-        console.error(error);
-
-        header.innerHTML =
-            "<p>Could not load category.</p>";
-
-    }
-
 }
-
-loadCategory();
-
 </script>
+<footer class="bas-footer">
+  <div class="bas-wrap bas-footer-inner">
+    <div><strong lang="en" dir="ltr">BAS</strong><p data-en="Bashaer Science School Magazine · Cycle 3" data-ar="مجلة بشائر العلمية · الحلقة الثالثة">Bashaer Science School Magazine · Cycle 3</p></div>
+    <div class="bas-footer-links">
+      <a href="index.html#editors-note" data-en="Editor’s Note" data-ar="كلمة المحرّر">Editor’s Note</a>
+      <a href="archive.html" data-en="Archive" data-ar="الأرشيف">Archive</a>
+      <a href="admin/login.html" data-en="Admin" data-ar="الإدارة">Admin</a>
 
+    </div>
+  </div>
+</footer>
 </body>
-
 </html>
