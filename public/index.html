@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <a href="#latest" data-en="Articles" data-ar="المقالات">Articles</a>
       <a href="students.html" data-en="Students" data-ar="التلاميذ">Students</a>
       <a href="archive.html" data-en="Issues" data-ar="الأعداد">Issues</a>
-      <a href="#science-club" data-en="Science Club" data-ar="نادي العلوم">Science Club</a>
+      <a class="bas-nav-club" href="science-club.html" data-en="Science Club" data-ar="نادي العلوم">Science Club</a>
     </nav>
     <div class="bas-languages" aria-label="Language">
       <button type="button" data-language="en" lang="en">EN</button>
@@ -217,10 +217,30 @@ document.addEventListener("DOMContentLoaded", () => {
       <p class="bas-school-line" data-en="Al Bashaer High School · Cycle 3" data-ar="ثانوية البشائر · الحلقة الثالثة">Al Bashaer High School · Cycle 3</p>
       <h1 data-en="Bashaer Science School Magazine" data-ar="مجلة بشائر العلمية">Bashaer Science School Magazine</h1>
       <p data-en="A science magazine written by our students." data-ar="مجلة علمية من إعداد تلاميذنا.">A science magazine written by our students.</p>
-      <a class="bas-primary" href="#categories-showcase" data-en="Explore the magazine" data-ar="استكشفوا المجلة">Explore the magazine</a>
+      <div class="bas-hero-actions">
+        <a class="bas-primary" href="#categories-showcase" data-en="Explore the magazine" data-ar="استكشفوا المجلة">Explore the magazine</a>
+        <a class="bas-secondary" href="science-club.html" data-en="Visit the Science Club" data-ar="زوروا نادي العلوم">Visit the Science Club</a>
+      </div>
     </div>
     <div class="bas-hero-emblem">
       <img src="images/bas-science-club-logo.webp" alt="BAS Science Club" width="900" height="900" fetchpriority="high">
+    </div>
+  </section>
+  <section class="bas-club-feature bas-wrap" id="science-club" aria-labelledby="bas-club-feature-title">
+    <div class="bas-club-feature-copy">
+      <h2 id="bas-club-feature-title" data-en="Science Club" data-ar="نادي العلوم">Science Club</h2>
+      <p data-en="See what Cycle 3 students do together, from hands-on experiments to science challenges." data-ar="تعرّفوا إلى أنشطة تلاميذ الحلقة الثالثة، من التجارب العملية إلى التحدّيات العلمية.">See what Cycle 3 students do together, from hands-on experiments to science challenges.</p>
+      <a class="bas-club-button" href="science-club.html" data-en="Explore the club" data-ar="تصفّحوا النادي">Explore the club</a>
+    </div>
+    <div class="bas-club-shortcuts">
+      <a href="science-club.html#activities">
+        <span class="bas-club-shortcut-icon" aria-hidden="true">⚗</span>
+        <span><strong data-en="Activities" data-ar="الأنشطة">Activities</strong><span data-en="Experiments and challenges" data-ar="تجارب وتحدّيات">Experiments and challenges</span></span>
+      </a>
+      <a href="science-club.html#videos">
+        <span class="bas-club-shortcut-icon" aria-hidden="true">▶</span>
+        <span><strong data-en="Videos" data-ar="الفيديوهات">Videos</strong><span data-en="Club activity videos" data-ar="مقاطع من أنشطة النادي">Club activity videos</span></span>
+      </a>
     </div>
   </section>
   <section class="bas-section bas-wrap" id="categories-showcase" aria-labelledby="bas-topics-title">
@@ -280,31 +300,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <div id="students" class="bas-portraits bas-portraits-preview"><p class="bas-status" data-en="Loading students…" data-ar="جارٍ تحميل التلاميذ…">Loading students…</p></div>
     </div>
   </section>
-  <section class="home-club-card bas-club bas-wrap" id="science-club">
-    <h2><span data-en="Science Club" data-ar="نادي العلوم">Science Club</span></h2>
-    <p data-en="Al Bashaer Highschool · Cycle 3 (Grades 7–9) only. Apply to join; membership is subject to coordinator approval." data-ar="الانتساب مخصّص لتلاميذ ثانوية البشائر في الحلقة الثالثة (الصفوف السابع والثامن والتاسع) فقط. يُدرس كل طلب قبل الموافقة.">Al Bashaer Highschool · Cycle 3 (Grades 7–9) only. Apply to join; membership is subject to coordinator approval.</p>
-    <details class="club-application">
-      <summary class="home-club-link"><span data-en="Apply to Join" data-ar="تقدّم بطلب انتساب">Apply to Join</span></summary>
-      <form id="clubApplicationForm" class="club-application-form">
-        <label for="clubStudentName" data-en="Student full name" data-ar="اسم التلميذ الثلاثي">Student full name</label>
-        <input id="clubStudentName" name="studentName" type="text" minlength="5" maxlength="100" autocomplete="name" required>
-        <label for="clubGrade" data-en="Grade" data-ar="الصف">Grade</label>
-        <select id="clubGrade" name="grade" required>
-          <option value="" data-en="Select grade" data-ar="اختر الصف">Select grade</option>
-          <option value="Grade 7 / السابع">Grade 7 / السابع</option>
-          <option value="Grade 8 / الثامن">Grade 8 / الثامن</option>
-          <option value="Grade 9 / التاسع">Grade 9 / التاسع</option>
-        </select>
-        <label for="clubSection" data-en="Section" data-ar="الشعبة">Section</label>
-        <input id="clubSection" name="section" type="text" maxlength="15" required>
-        <label for="clubMotivation" data-en="Why would you like to join the Science Club?" data-ar="لماذا ترغب بالانضمام إلى نادي العلوم؟">Why would you like to join the Science Club?</label>
-        <textarea id="clubMotivation" name="motivation" rows="3" maxlength="600" required></textarea>
-        <label class="club-application-confirm"><input type="checkbox" id="clubSchoolConfirm" required><span data-en="I confirm that I am currently a student at Al Bashaer Highschool in Cycle 3 (Grade 7, 8 or 9)." data-ar="أؤكد أنني تلميذ حاليًا في ثانوية البشائر، الحلقة الثالثة (السابع أو الثامن أو التاسع).">I confirm that I am currently a student at Al Bashaer Highschool in Cycle 3 (Grade 7, 8 or 9).</span></label>
-        <button class="club-application-submit" type="submit" data-en="Continue to WhatsApp" data-ar="المتابعة إلى واتساب">Continue to WhatsApp</button>
-        <p class="club-application-notice" data-en="WhatsApp opens with your application ready. You must press Send there to submit it. Sending an application does not mean acceptance. Your school eligibility will be checked before approval." data-ar="سيُفتح واتساب مع طلبك جاهزًا. يجب الضغط على إرسال داخل واتساب لإتمام التقديم. إرسال الطلب لا يعني القبول، وسيتم التحقق من انتسابك للمدرسة قبل الموافقة.">WhatsApp opens with your application ready. You must press Send there to submit it. Sending an application does not mean acceptance. Your school eligibility will be checked before approval.</p>
-      </form>
-    </details>
-  </section>
+
 <details class="bas-editors-note bas-wrap" id="editors-note">
   <summary data-en="Editor’s Note" data-ar="كلمة المحرّر">Editor’s Note</summary>
   <div class="editors-note-shell">
@@ -357,34 +353,6 @@ async function loadArticles() {
     }
 }
 
-/* Science Club applications: students explicitly send their details via WhatsApp.
-   No automatic WhatsApp message, enrollment, or database storage occurs. */
-document.getElementById("clubApplicationForm").addEventListener("submit", function (event) {
-    event.preventDefault();
-    const form = event.currentTarget;
-    if (!form.reportValidity()) return;
-    const name = form.elements.studentName.value.trim();
-    const grade = form.elements.grade.value;
-    const section = form.elements.section.value.trim();
-    const motivation = form.elements.motivation.value.trim();
-    if (!name || !grade || !section || !motivation || !document.getElementById("clubSchoolConfirm").checked) return;
-    const message = [
-        "BAS Science Club — Membership Application / طلب انتساب",
-        "Status / الحالة: PENDING REVIEW — بانتظار الموافقة",
-        "School / المدرسة: Al Bashaer Highschool / ثانوية البشائر",
-        "Student / اسم التلميذ: " + name,
-        "Grade / الصف: " + grade,
-        "Section / الشعبة: " + section,
-        "Why join? / سبب الانتساب: " + motivation,
-        "School eligibility / الانتساب: Student confirms Cycle 3 enrollment.",
-        "Please review this request. This is not automatic admission. / الرجاء مراجعة الطلب؛ لا يُعتبر قبولًا تلقائيًا."
-    ].join("\n");
-    const url = "https://wa.me/96171002479?text=" + encodeURIComponent(message);
-    const opened = window.open(url, "_blank", "noopener,noreferrer");
-    if (!opened) window.location.href = url;
-});
-
-
 </script>
 <footer class="bas-footer">
   <div class="bas-wrap bas-footer-inner">
@@ -392,6 +360,7 @@ document.getElementById("clubApplicationForm").addEventListener("submit", functi
     <div class="bas-footer-links">
       <a href="#editors-note" data-en="Editor’s Note" data-ar="كلمة المحرّر">Editor’s Note</a>
       <a href="archive.html" data-en="Archive" data-ar="الأرشيف">Archive</a>
+      <a href="science-club.html" data-en="Science Club" data-ar="نادي العلوم">Science Club</a>
       <a href="admin/login.html" data-en="Admin" data-ar="الإدارة">Admin</a>
       <button type="button" id="basShowWelcome" data-en="Watch the welcome" data-ar="شاهدوا الترحيب">Watch the welcome</button>
     </div>
