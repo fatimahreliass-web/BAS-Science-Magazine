@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BAS — Bashaer Science School Magazine</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="editorial.css?v=orbiting-students">
+  <link rel="stylesheet" href="editorial.css?v=blinking-lamps">
   <script src="skills-builder.js?v=article-language" defer></script>
   <script src="editorial.js?v=orbiting-students" defer></script>
   <script src="issue-lab.js?v=article-language" defer></script>
@@ -241,43 +241,46 @@ document.addEventListener("DOMContentLoaded", () => {
   </div>
   <section class="bas-section bas-wrap" id="categories-showcase" aria-labelledby="bas-topics-title">
     <h2 id="bas-topics-title" data-en="Explore by topic" data-ar="استكشفوا الأقسام">Explore by topic</h2>
-    <p class="bas-topic-hint" data-en="Tap a light bulb to open its section." data-ar="اضغطوا على لمبة لفتح القسم.">Tap a light bulb to open its section.</p>
+    <div class="bas-topic-controls">
+      <p class="bas-topic-hint" data-en="Tap a light bulb to open its section." data-ar="اضغطوا على لمبة لفتح القسم.">Tap a light bulb to open its section.</p>
+      <button type="button" class="bas-topic-motion" data-en="Pause lights" data-ar="إيقاف حركة اللمبات">Pause lights</button>
+    </div>
     <p class="bas-topic-swipe" data-en="Swipe sideways to see all nine sections." data-ar="اسحبوا الشريط يمينًا ويسارًا لرؤية الأقسام التسعة.">Swipe sideways to see all nine sections.</p>
     <div class="bas-topics">
       <a class="bas-topic" href="category.html?slug=science-unlocked">
-        <span class="bas-pendant" aria-hidden="true"><span class="bas-pendant-cord"></span><span class="bas-pendant-cap"></span><span class="bas-pendant-glass"><i></i></span></span>
+        <span class="bas-pendant" aria-hidden="true"><span class="bas-pendant-cord"></span><span class="bas-pendant-cap"></span><span class="bas-pendant-glass"><span class="bas-pendant-blink"></span><i></i></span></span>
         <span><strong data-en="Science Unlocked" data-ar="العلوم بين أيدينا">Science Unlocked</strong><span class="bas-topic-description" data-en="Everyday questions" data-ar="أسئلة من حياتنا اليومية">Everyday questions</span></span>
       </a>
       <a class="bas-topic" href="category.html?slug=science-on-a-plate">
-        <span class="bas-pendant" aria-hidden="true"><span class="bas-pendant-cord"></span><span class="bas-pendant-cap"></span><span class="bas-pendant-glass"><i></i></span></span>
+        <span class="bas-pendant" aria-hidden="true"><span class="bas-pendant-cord"></span><span class="bas-pendant-cap"></span><span class="bas-pendant-glass"><span class="bas-pendant-blink"></span><i></i></span></span>
         <span><strong data-en="Science on a Plate" data-ar="العلم على مائدتنا">Science on a Plate</strong><span class="bas-topic-description" data-en="Food and chemistry" data-ar="الغذاء والكيمياء">Food and chemistry</span></span>
       </a>
       <a class="bas-topic" href="category.html?slug=future-lab">
-        <span class="bas-pendant" aria-hidden="true"><span class="bas-pendant-cord"></span><span class="bas-pendant-cap"></span><span class="bas-pendant-glass"><i></i></span></span>
+        <span class="bas-pendant" aria-hidden="true"><span class="bas-pendant-cord"></span><span class="bas-pendant-cap"></span><span class="bas-pendant-glass"><span class="bas-pendant-blink"></span><i></i></span></span>
         <span><strong data-en="Future Lab" data-ar="مختبر المستقبل">Future Lab</strong><span class="bas-topic-description" data-en="Space and technology" data-ar="الفضاء والتكنولوجيا">Space and technology</span></span>
       </a>
       <a class="bas-topic" href="category.html?slug=planet-earth">
-        <span class="bas-pendant" aria-hidden="true"><span class="bas-pendant-cord"></span><span class="bas-pendant-cap"></span><span class="bas-pendant-glass"><i></i></span></span>
+        <span class="bas-pendant" aria-hidden="true"><span class="bas-pendant-cord"></span><span class="bas-pendant-cap"></span><span class="bas-pendant-glass"><span class="bas-pendant-blink"></span><i></i></span></span>
         <span><strong data-en="Planet Earth" data-ar="كوكب الأرض">Planet Earth</strong><span class="bas-topic-description" data-en="Climate and environment" data-ar="المناخ والبيئة">Climate and environment</span></span>
       </a>
       <a class="bas-topic" href="category.html?slug=mind-lab">
-        <span class="bas-pendant" aria-hidden="true"><span class="bas-pendant-cord"></span><span class="bas-pendant-cap"></span><span class="bas-pendant-glass"><i></i></span></span>
+        <span class="bas-pendant" aria-hidden="true"><span class="bas-pendant-cord"></span><span class="bas-pendant-cap"></span><span class="bas-pendant-glass"><span class="bas-pendant-blink"></span><i></i></span></span>
         <span><strong data-en="Mind Lab" data-ar="مختبر العقل">Mind Lab</strong><span class="bas-topic-description" data-en="The brain and perception" data-ar="الدماغ والإدراك">The brain and perception</span></span>
       </a>
       <a class="bas-topic" href="category.html?slug=inside-life">
-        <span class="bas-pendant" aria-hidden="true"><span class="bas-pendant-cord"></span><span class="bas-pendant-cap"></span><span class="bas-pendant-glass"><i></i></span></span>
+        <span class="bas-pendant" aria-hidden="true"><span class="bas-pendant-cord"></span><span class="bas-pendant-cap"></span><span class="bas-pendant-glass"><span class="bas-pendant-blink"></span><i></i></span></span>
         <span><strong data-en="Inside Life" data-ar="داخل عالم الحياة">Inside Life</strong><span class="bas-topic-description" data-en="The body and living things" data-ar="الجسم والكائنات الحيّة">The body and living things</span></span>
       </a>
       <a class="bas-topic" href="category.html?slug=science-voices">
-        <span class="bas-pendant" aria-hidden="true"><span class="bas-pendant-cord"></span><span class="bas-pendant-cap"></span><span class="bas-pendant-glass"><i></i></span></span>
+        <span class="bas-pendant" aria-hidden="true"><span class="bas-pendant-cord"></span><span class="bas-pendant-cap"></span><span class="bas-pendant-glass"><span class="bas-pendant-blink"></span><i></i></span></span>
         <span><strong data-en="Science Voices" data-ar="أصوات علمية">Science Voices</strong><span class="bas-topic-description" data-en="Interviews and perspectives" data-ar="مقابلات ووجهات نظر">Interviews and perspectives</span></span>
       </a>
       <a class="bas-topic" href="category.html?slug=science-in-action">
-        <span class="bas-pendant" aria-hidden="true"><span class="bas-pendant-cord"></span><span class="bas-pendant-cap"></span><span class="bas-pendant-glass"><i></i></span></span>
+        <span class="bas-pendant" aria-hidden="true"><span class="bas-pendant-cord"></span><span class="bas-pendant-cap"></span><span class="bas-pendant-glass"><span class="bas-pendant-blink"></span><i></i></span></span>
         <span><strong data-en="Science in Action" data-ar="العلم في العمل">Science in Action</strong><span class="bas-topic-description" data-en="Experiments and discoveries" data-ar="تجارب واكتشافات">Experiments and discoveries</span></span>
       </a>
       <a class="bas-topic" href="category.html?slug=science-playground">
-        <span class="bas-pendant" aria-hidden="true"><span class="bas-pendant-cord"></span><span class="bas-pendant-cap"></span><span class="bas-pendant-glass"><i></i></span></span>
+        <span class="bas-pendant" aria-hidden="true"><span class="bas-pendant-cord"></span><span class="bas-pendant-cap"></span><span class="bas-pendant-glass"><span class="bas-pendant-blink"></span><i></i></span></span>
         <span><strong data-en="Science Playground" data-ar="ملعب العلوم">Science Playground</strong><span class="bas-topic-description" data-en="Quizzes and challenges" data-ar="أسئلة وتحدّيات">Quizzes and challenges</span></span>
       </a>
     </div>
@@ -364,12 +367,20 @@ function mountTopicLights() {
     let selected;
     let navigation;
 
-    const observer = new IntersectionObserver(entries => {
-        if (!entries.some(entry => entry.isIntersecting)) return;
-        display.classList.add("bas-topics-in-view");
-        observer.disconnect();
+    const observer = new IntersectionObserver(([entry]) => {
+        display.classList.toggle("bas-topics-in-view", entry.isIntersecting);
     }, { threshold: 0.18 });
     observer.observe(display);
+
+    [...display.children].forEach((topic, index) => {
+        topic.style.setProperty("--blink-delay", (-index * 1.2).toFixed(1) + "s");
+    });
+    const pause = document.querySelector(".bas-topic-motion");
+    pause.addEventListener("click", () => {
+        const paused = display.classList.toggle("is-motion-paused");
+        basEditorial.localized(pause, paused ? "Resume lights" : "Pause lights",
+            paused ? "استئناف حركة اللمبات" : "إيقاف حركة اللمبات");
+    });
 
     function clearSelection() {
         clearTimeout(navigation);

@@ -194,6 +194,27 @@
 .bas-section-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px 16px; }
 .bas-section-head a,
 .bas-page-intro a { text-decoration: underline; text-underline-offset: 4px; color: var(--bas-accent); font-weight: 700; }
+.bas-topic-controls {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+}
+.bas-topic-motion {
+    border: 1px solid #bfd6c4;
+    border-radius: 7px;
+    padding: 4px 9px;
+    background: #f5fbf3;
+    color: #245343;
+    font: inherit;
+    font-size: .79rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+@media (prefers-reduced-motion: reduce) {
+    .bas-topic-motion { display: none; }
+}
 .bas-topic-hint { color: var(--bas-muted); margin: 8px 0 0; }
 .bas-topic-swipe { display: none; margin: 5px 0 0; color: var(--bas-muted); font-size: .86rem; }
 .bas-topics {
@@ -334,9 +355,30 @@
     content: "";
 }
 .bas-topic.is-lit strong { color: #604918; }
+.bas-pendant-blink {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    opacity: 0;
+    clip-path: var(--bulb-profile);
+    transform: scale(.94, .96);
+    background: radial-gradient(circle at 45% 65%, #fff8c3, #ffdc62 65%, #f1bd4a);
+    pointer-events: none;
+}
 @media (prefers-reduced-motion: no-preference) {
-    .bas-topics-in-view .bas-pendant { animation: bas-pendant-sway 1.85s ease-in-out var(--bulb-delay) 2; }
-    .bas-topic.is-lit .bas-pendant { animation: none; }
+    .bas-topics-in-view .bas-pendant {
+        animation: bas-pendant-sway 3.6s ease-in-out var(--bulb-delay) infinite;
+    }
+    .bas-topics-in-view .bas-pendant-blink {
+        animation: bas-pendant-wink 10.8s ease-in-out var(--blink-delay, 0s) infinite;
+    }
+    .bas-topics.is-motion-paused :is(.bas-pendant, .bas-pendant-blink) { animation-play-state: paused; }
+    .bas-topics.is-motion-paused .bas-pendant-blink { visibility: hidden; }
+    .bas-topic.is-lit :is(.bas-pendant, .bas-pendant-blink) { animation: none; }
+}
+@keyframes bas-pendant-wink {
+    0%, 11%, 100% { opacity: 0; }
+    4%, 6% { opacity: .96; }
 }
 @keyframes bas-pendant-sway {
     0%, 100% { transform: rotate(0); }
