@@ -113,7 +113,6 @@ a { color: inherit; }
     position: relative;
     min-inline-size: 0;
     padding: 16px 20px 54px;
-    background: radial-gradient(ellipse at center, #eee6c9 0%, transparent 73%);
 }
 .welcome-art video {
     display: block;
@@ -121,10 +120,9 @@ a { color: inherit; }
     max-width: 100%;
     height: min(83svh, 820px);
     object-fit: contain;
+    /* Keep the video’s near-white matte neutral after compression. */
+    filter: brightness(1.015);
     mix-blend-mode: multiply;
-    mask-image: linear-gradient(to right, transparent, #000 7% 93%, transparent),
-        linear-gradient(to bottom, transparent, #000 6% 94%, transparent);
-    mask-composite: intersect;
 }
 .welcome-motion {
     position: absolute;
