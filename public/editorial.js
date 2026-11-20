@@ -140,7 +140,14 @@ const basEditorial = (() => {
     function studentLens(students) {
         const scene = element("div", "bas-lens-scene");
         const figures = element("div", "bas-lens-figures");
-        scene.append(figures);
+        const pause = localized(element("button", "bas-lens-motion"), "Pause movement", "إيقاف الحركة");
+        pause.type = "button";
+        pause.addEventListener("click", () => {
+            const stopped = scene.classList.toggle("is-motion-paused");
+            localized(pause, stopped ? "Resume movement" : "Pause movement",
+                stopped ? "استئناف الحركة" : "إيقاف الحركة");
+        });
+        scene.append(figures, pause);
 
         const dialog = element("dialog", "bas-lens-dialog");
         dialog.setAttribute("aria-labelledby", "bas-lens-student-name");
