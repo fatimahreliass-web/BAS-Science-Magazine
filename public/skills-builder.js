@@ -43,6 +43,49 @@ const basSkills = (() => {
         },
     };
 
+    // The first five stages of each skill in the Skills Builder Universal Framework.
+    const firstSteps = {
+        listening: [
+            ["Focusing", "التركيز"], ["Recalling", "التذكّر"], ["Checking", "التحقّق من الفهم"],
+            ["Retelling", "إعادة رواية ما سُمِع"], ["Recognising purpose", "فهم غرض المتحدّث"],
+        ],
+        speaking: [
+            ["Sharing clearly", "التعبير بوضوح"], ["Discussing together", "المشاركة في النقاش"],
+            ["Meeting others", "التعرّف إلى الآخرين"], ["Organising thoughts", "ترتيب الأفكار"],
+            ["Knowing the audience", "معرفة الجمهور"],
+        ],
+        "problem-solving": [
+            ["Following instructions", "اتّباع التعليمات"], ["Seeking support", "طلب المساعدة"],
+            ["Sharing problems", "شرح المشكلة للآخرين"], ["Finding information", "البحث عن المعلومات"],
+            ["Creating options", "اقتراح خيارات للحلّ"],
+        ],
+        creativity: [
+            ["Imagining", "التخيّل"], ["Sharing imagination", "مشاركة ما نتخيّله"],
+            ["Expressing imagination", "التعبير عمّا نتخيّله"], ["Generating ideas", "توليد الأفكار"],
+            ["Suggesting improvements", "اقتراح تحسينات"],
+        ],
+        adapting: [
+            ["Identifying emotions", "تحديد المشاعر"], ["Recognising emotions", "التعرّف إلى المشاعر"],
+            ["Persisting", "المثابرة"], ["Managing reactions", "إدارة ردود الفعل"],
+            ["Reflective learning", "التعلّم بالتأمّل"],
+        ],
+        planning: [
+            ["Sensing difficulty", "ملاحظة الصعوبة"], ["Identifying successes", "تحديد النجاحات"],
+            ["Working carefully", "العمل بعناية"], ["Recognising strengths", "معرفة نقاط القوّة"],
+            ["Facing challenges", "مواجهة التحدّيات"],
+        ],
+        leadership: [
+            ["Understanding reactions", "فهم ردود الفعل"], ["Sharing reactions", "مشاركة ردود الفعل"],
+            ["Recognising reactions", "ملاحظة ردود الفعل"], ["Organising tasks", "تنظيم المهام"],
+            ["Managing resources", "إدارة الموارد"],
+        ],
+        teamwork: [
+            ["Working together", "العمل معًا"], ["Adjusting behaviour", "تكييف السلوك"],
+            ["Time-keeping", "الالتزام بالوقت"], ["Taking responsibility", "تحمّل المسؤولية"],
+            ["Supporting others", "مساندة الآخرين"],
+        ],
+    };
+
     // Initial editorial assignments for Issue 1, keyed by the original article IDs.
     const articleSkills = {
         1: "teamwork",
@@ -105,8 +148,26 @@ const basSkills = (() => {
             title.append(localizedText(skill.en, skill.ar));
             const definition = document.createElement("p");
             definition.append(localizedText(skill.descriptionEn, skill.descriptionAr));
+            const details = document.createElement("div");
+            details.className = "skills-builder-definition";
+            const source = document.createElement("a");
+            source.href = "https://www.skillsbuilder.org/global/universal-framework/" + key;
+            source.append(localizedText("All 16 steps", "الخطوات الـ١٦ كاملة"));
+            details.append(title, definition, source);
+
+            const ladder = document.createElement("ol");
+            ladder.className = "skills-builder-steps";
+            for (const [index, [en, ar]] of firstSteps[key].entries()) {
+                const item = document.createElement("li");
+                const number = document.createElement("span");
+                number.className = "skills-builder-step-number";
+                number.append(localizedText(String(index + 1), "١٢٣٤٥"[index]));
+                item.append(number, localizedText(en, ar));
+                ladder.appendChild(item);
+            }
             prompt.hidden = true;
-            explanation.replaceChildren(title, definition);
+            explanation.dataset.skill = key;
+            explanation.replaceChildren(details, ladder);
         }
 
         for (const [key, skill] of Object.entries(skills)) {
@@ -114,7 +175,9 @@ const basSkills = (() => {
             button.type = "button";
             button.dataset.skill = key;
             button.setAttribute("aria-controls", explanation.id);
-            button.append(iconFor(skill), localizedText(skill.en, skill.ar));
+            const label = localizedText(skill.en, skill.ar);
+            label.className = "skills-builder-icon-label";
+            button.append(iconFor(skill), label);
             button.addEventListener("click", () => selectSkill(key));
             buttons.appendChild(button);
         }
