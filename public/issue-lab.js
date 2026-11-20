@@ -29,8 +29,7 @@ const basIssueLab = (() => {
 
         const title = document.createElement("span");
         title.className = "bas-lab-article-title";
-        const titleEn = article.title_en || article.title_ar || "Article";
-        basEditorial.localized(title, titleEn, article.title_ar || titleEn);
+        basEditorial.articleTitle(article, title);
         link.append(tube, title);
         return link;
     }

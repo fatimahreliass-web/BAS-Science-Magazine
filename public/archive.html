@@ -1,199 +1,54 @@
-```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>BAS — Magazine Archive</title>
-
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Magazine Archive — BAS</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="editorial.css?v=article-language">
+  <script src="skills-builder.js?v=article-language" defer></script>
+  <script src="editorial.js?v=article-language" defer></script>
+  <script src="issue-reader.js" defer></script>
 </head>
+<body class="bas-editorial">
+<header class="bas-header">
+  <div class="bas-wrap bas-header-inner">
+    <a class="bas-brand" href="index.html" aria-label="BAS">
+      <img src="https://cdn.prod.website-files.com/5ab25784c7fcbff004fa8dca/66c737fdbff514bd3be9375f_Al%20Marrabat%20Al%20Kawthar%20school%20logo.webp" alt="Al Mabarrat Association" width="42" height="46">
+      <span class="bas-wordmark" lang="en" dir="ltr">BAS</span>
+      <span class="bas-brand-school" data-en="Al Bashaer High School" data-ar="ثانوية البشائر">Al Bashaer High School</span>
+    </a>
+    <nav class="bas-nav" aria-label="BAS">
+      <a href="index.html#categories-showcase" data-en="Sections" data-ar="الأقسام">Sections</a>
+      <a href="index.html#latest" data-en="Articles" data-ar="المقالات">Articles</a>
+      <a href="students.html" data-en="Students" data-ar="التلاميذ">Students</a>
+      <a href="archive.html" data-en="Issues" data-ar="الأعداد">Issues</a>
+      <a class="bas-nav-club" href="science-club.html" data-en="Science Club" data-ar="نادي العلوم">Science Club</a>
+    </nav>
+    <div class="bas-languages" aria-label="Language">
+      <button type="button" data-language="en" lang="en">EN</button>
+      <button type="button" data-language="ar" lang="ar">العربية</button>
+    </div>
+  </div>
+</header>
+<main class="bas-wrap">
+  <section class="bas-page-intro">
+    <h1 data-page-title data-en="Magazine Archive" data-ar="أرشيف المجلة">Magazine Archive</h1>
+  </section>
+  <div id="issues" class="bas-stories bas-reading-list">
+    <p data-en="Loading issues…" data-ar="جارٍ تحميل الأعداد…">Loading issues…</p>
+  </div>
+</main>
+<footer class="bas-footer">
+  <div class="bas-wrap bas-footer-inner">
+    <div><strong lang="en" dir="ltr">BAS</strong><p data-en="Bashaer Science School Magazine · Cycle 3" data-ar="مجلة بشائر العلمية · الحلقة الثالثة">Bashaer Science School Magazine · Cycle 3</p></div>
+    <div class="bas-footer-links">
+      <a href="index.html#editors-note" data-en="Editor’s Note" data-ar="كلمة المحرّر">Editor’s Note</a>
+      <a href="archive.html" data-en="Archive" data-ar="الأرشيف">Archive</a>
+      <a href="admin/login.html" data-en="Admin" data-ar="الإدارة">Admin</a>
 
-<body>
-
-    <header>
-
-        <div class="logo">
-            BAS
-        </div>
-
-        <div>
-            <h1>Bashaer Science Magazine</h1>
-            <p>A Student-Run Science Publication</p>
-        </div>
-
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="archive.html">Archive</a>
-            <a href="students.html">Students</a>
-        </nav>
-
-    </header>
-
-
-    <main>
-
-        <section class="section">
-
-            <p class="eyebrow">
-                BAS SCIENCE MAGAZINE
-            </p>
-
-            <h2>
-                Magazine Archive
-            </h2>
-
-            <p>
-                Explore all issues of our student-run science
-                publication.
-            </p>
-
-            <div
-                id="issues"
-                class="cards"
-            >
-                Loading...
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <footer>
-
-        <h3>
-            BAS — Bashaer Science Magazine
-        </h3>
-
-        <p>
-            A Student-Run Science Publication
-        </p>
-
-    </footer>
-
-
-    <script>
-
-        async function loadIssues() {
-
-            const container =
-                document.getElementById("issues");
-
-            try {
-
-                const response =
-                    await fetch("/api/issues");
-
-                const issues =
-                    await response.json();
-
-
-                if (!issues.length) {
-
-                    container.innerHTML =
-                        "<p>No issues available yet.</p>";
-
-                    return;
-
-                }
-
-
-                container.innerHTML = "";
-
-
-                issues.forEach(issue => {
-
-                    const card =
-                        document.createElement("article");
-
-                    card.className =
-                        "article-card";
-
-
-                    card.innerHTML = `
-
-                        ${
-                            issue.cover_image
-                            ?
-                            `
-                            <img
-                                src="${issue.cover_image}"
-                                alt="${issue.title_en}"
-                            >
-                            `
-                            :
-                            `
-                            <div class="article-placeholder">
-                                BAS
-                            </div>
-                            `
-                        }
-
-                        <div class="card-content">
-
-                            <p class="eyebrow">
-                                ISSUE ${issue.issue_number}
-                                •
-                                ${issue.month}
-                                ${issue.year}
-                            </p>
-
-                            <h3>
-                                ${issue.title_en}
-                            </h3>
-
-                            <p>
-                                ${issue.description_en || ""}
-                            </p>
-
-                            <a class="button" href="issue.html?id=${encodeURIComponent(issue.id)}">Explore Articles →</a>
-
-                            ${
-                                issue.pdf_file
-                                ?
-                                `
-                                <a
-                                    class="button"
-                                    href="${issue.pdf_file}"
-                                    target="_blank"
-                                >
-                                    Read Issue
-                                </a>
-                                `
-                                :
-                                ""
-                            }
-
-                        </div>
-
-                    `;
-
-
-                    container.appendChild(card);
-
-                });
-
-
-            } catch (error) {
-
-                console.error(error);
-
-                container.innerHTML =
-                    "<p>Could not load the archive.</p>";
-
-            }
-
-        }
-
-
-        loadIssues();
-
-    </script>
-
+    </div>
+  </div>
+</footer>
 </body>
-
 </html>
-```

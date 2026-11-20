@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BAS — Science Sections</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="editorial.css">
-  <script src="skills-builder.js" defer></script>
-  <script src="editorial.js" defer></script>
+  <link rel="stylesheet" href="editorial.css?v=article-language">
+  <script src="skills-builder.js?v=article-language" defer></script>
+  <script src="editorial.js?v=article-language" defer></script>
 </head>
 <body class="bas-editorial bas-category">
 <header class="bas-header">
@@ -57,6 +57,7 @@ async function loadCategory() {
         }
 
         const heading = basEditorial.localized(document.createElement("h1"), category.name_en, category.name_ar || category.name_en);
+        heading.dataset.pageTitle = "";
         document.title = heading.textContent + " — BAS";
         header.replaceChildren(heading);
         if (category.description_en || category.description_ar) {

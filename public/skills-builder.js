@@ -139,16 +139,8 @@ const basSkills = (() => {
         badge.append(iconFor(skill));
         if (link) {
             badge.href = "index.html?skill=" + encodeURIComponent(key) + "#skills-builder";
-            const english = document.createElement("span");
-            english.textContent = skill.en;
-            const arabic = document.createElement("span");
-            arabic.lang = "ar";
-            arabic.dir = "rtl";
-            arabic.textContent = skill.ar;
-            badge.append(english, arabic);
-        } else {
-            badge.append(localizedText(skill.en, skill.ar));
         }
+        badge.append(localizedText(skill.en, skill.ar));
         return badge;
     }
 

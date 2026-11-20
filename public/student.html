@@ -1,436 +1,58 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>BAS — Student</title>
-
-    <link rel="stylesheet" href="style.css">
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student — BAS</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="editorial.css?v=article-language">
+  <script src="skills-builder.js?v=article-language" defer></script>
+  <script src="editorial.js?v=article-language" defer></script>
+  <script src="student-reader.js" defer></script>
 </head>
-
-<body>
-
-<header>
-
-    <div class="logo">BAS</div>
-
-    <div>
-
-        <h1>Bashaer Science Magazine</h1>
-
-        <p>A Student-Run Science Publication</p>
-
-    </div>
-
-    <nav>
-
-        <a href="index.html">Home</a>
-
-        <a href="archive.html">Archive</a>
-
-        <a href="students.html">Students</a>
-
-        <a href="admin/login.html">Admin</a>
-
-    </nav>
-
-</header>
-
-
-<main>
-
-<section class="section">
-
-    <a href="students.html">
-        ← Back to Students
+<body class="bas-editorial">
+<header class="bas-header">
+  <div class="bas-wrap bas-header-inner">
+    <a class="bas-brand" href="index.html" aria-label="BAS">
+      <img src="https://cdn.prod.website-files.com/5ab25784c7fcbff004fa8dca/66c737fdbff514bd3be9375f_Al%20Marrabat%20Al%20Kawthar%20school%20logo.webp" alt="Al Mabarrat Association" width="42" height="46">
+      <span class="bas-wordmark" lang="en" dir="ltr">BAS</span>
+      <span class="bas-brand-school" data-en="Al Bashaer High School" data-ar="ثانوية البشائر">Al Bashaer High School</span>
     </a>
-
-
-    <div id="student">
-
-        Loading student...
-
+    <nav class="bas-nav" aria-label="BAS">
+      <a href="index.html#categories-showcase" data-en="Sections" data-ar="الأقسام">Sections</a>
+      <a href="index.html#latest" data-en="Articles" data-ar="المقالات">Articles</a>
+      <a href="students.html" data-en="Students" data-ar="التلاميذ">Students</a>
+      <a href="archive.html" data-en="Issues" data-ar="الأعداد">Issues</a>
+      <a class="bas-nav-club" href="science-club.html" data-en="Science Club" data-ar="نادي العلوم">Science Club</a>
+    </nav>
+    <div class="bas-languages" aria-label="Language">
+      <button type="button" data-language="en" lang="en">EN</button>
+      <button type="button" data-language="ar" lang="ar">العربية</button>
     </div>
-
-</section>
-
-
-<section class="section">
-
-    <p class="eyebrow">
-        ARTICLES
-    </p>
-
-    <h2>
-        Articles by this Student
-    </h2>
-
-
-    <div
-        id="articles"
-        class="cards"
-    >
-
-        Loading articles...
-
+  </div>
+</header>
+<main class="bas-wrap">
+  <div class="bas-page-intro">
+    <a href="students.html" data-en="All students" data-ar="جميع التلاميذ">All students</a>
+    <div id="student"><p data-en="Loading student…" data-ar="جارٍ تحميل بيانات التلميذ…">Loading student…</p></div>
+  </div>
+  <section class="bas-reading-list" aria-labelledby="student-articles-title">
+    <h2 id="student-articles-title" data-en="Articles by this student" data-ar="مقالات هذا التلميذ">Articles by this student</h2>
+    <div id="articles" class="bas-stories">
+      <p data-en="Loading articles…" data-ar="جارٍ تحميل المقالات…">Loading articles…</p>
     </div>
-
-</section>
-
+  </section>
 </main>
+<footer class="bas-footer">
+  <div class="bas-wrap bas-footer-inner">
+    <div><strong lang="en" dir="ltr">BAS</strong><p data-en="Bashaer Science School Magazine · Cycle 3" data-ar="مجلة بشائر العلمية · الحلقة الثالثة">Bashaer Science School Magazine · Cycle 3</p></div>
+    <div class="bas-footer-links">
+      <a href="index.html#editors-note" data-en="Editor’s Note" data-ar="كلمة المحرّر">Editor’s Note</a>
+      <a href="archive.html" data-en="Archive" data-ar="الأرشيف">Archive</a>
+      <a href="admin/login.html" data-en="Admin" data-ar="الإدارة">Admin</a>
 
-
-<footer>
-
-    <h3>BAS — Bashaer Science Magazine</h3>
-
-    <p>A Student-Run Science Publication</p>
-
-    <p>Elementary Cycle • Al Bashaer</p>
-
+    </div>
+  </div>
 </footer>
-
-
-<script>
-
-async function loadStudent() {
-
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
-
-    const id =
-        params.get("id");
-
-
-    const studentContainer =
-        document.getElementById(
-            "student"
-        );
-
-    const articlesContainer =
-        document.getElementById(
-            "articles"
-        );
-
-
-    if (!id) {
-
-        studentContainer.innerHTML =
-            "<h2>Student not found.</h2>";
-
-        return;
-
-    }
-
-
-    try {
-
-        const studentResponse =
-            await fetch("/api/students");
-
-        const students =
-            await studentResponse.json();
-
-
-        const student =
-            students.find(
-                item =>
-                    Number(item.id)
-                    === Number(id)
-            );
-
-
-        if (!student) {
-
-            studentContainer.innerHTML =
-                "<h2>Student not found.</h2>";
-
-            return;
-
-        }
-
-
-        document.title =
-            `${student.name} — BAS`;
-
-
-        studentContainer.innerHTML = `
-
-            <div
-                style="
-                    display:grid;
-                    grid-template-columns:280px 1fr;
-                    gap:50px;
-                    align-items:start;
-                    margin-top:40px;
-                "
-            >
-
-                ${
-                    student.photo
-                    ?
-                    `
-                    <img
-                        src="${student.photo}"
-                        alt="${student.name}"
-                        style="
-                            width:100%;
-                            height:350px;
-                            object-fit:contain;
-                            object-position:center;
-                            background:#e8ddcc;
-                        "
-                    >
-                    `
-                    :
-                    `
-                    <div
-                        class="student-placeholder"
-                        style="height:350px;"
-                    >
-
-                        ${student.name
-                            .charAt(0)
-                            .toUpperCase()
-                        }
-
-                    </div>
-                    `
-                }
-
-
-                <div>
-
-                    <p class="eyebrow">
-                        STUDENT SCIENTIST
-                    </p>
-
-
-                    <h2>
-                        ${student.name}
-                    </h2>
-
-
-                    ${
-                        student.class_name
-                        ?
-                        `
-                        <p>
-                            <strong>
-                                Class:
-                            </strong>
-
-                            ${student.class_name}
-                        </p>
-                        `
-                        :
-                        ""
-                    }
-
-
-                    ${
-                        student.biography_en
-                        ?
-                        `
-                        <h3>
-                            About
-                        </h3>
-
-                        <p>
-                            ${student.biography_en}
-                        </p>
-                        `
-                        :
-                        ""
-                    }
-
-
-                    ${
-                        student.biography_ar
-                        ?
-                        `
-                        <p dir="rtl">
-
-                            ${student.biography_ar}
-
-                        </p>
-                        `
-                        :
-                        ""
-                    }
-
-
-                    ${
-                        student.quote_en
-                        ?
-                        `
-                        <blockquote>
-
-                            “${student.quote_en}”
-
-                        </blockquote>
-                        `
-                        :
-                        ""
-                    }
-
-
-                    ${
-                        student.quote_ar
-                        ?
-                        `
-                        <blockquote dir="rtl">
-
-                            “${student.quote_ar}”
-
-                        </blockquote>
-                        `
-                        :
-                        ""
-                    }
-
-                </div>
-
-            </div>
-
-        `;
-
-
-        const articleResponse =
-            await fetch("/api/articles");
-
-        const articles =
-            await articleResponse.json();
-
-
-        const studentArticles =
-            articles.filter(
-                article =>
-                    Number(article.student_id)
-                    === Number(student.id)
-            );
-
-
-        if (!studentArticles.length) {
-
-            articlesContainer.innerHTML =
-                "<p>This student has no published articles yet.</p>";
-
-            return;
-
-        }
-
-
-        articlesContainer.innerHTML = "";
-
-
-        studentArticles.forEach(article => {
-
-            const card =
-                document.createElement(
-                    "article"
-                );
-
-            card.className =
-                "article-card";
-
-            card.style.cursor =
-                "pointer";
-
-
-            card.innerHTML = `
-
-                ${
-                    article.main_image
-                    ?
-                    `
-                    <img
-                        src="${article.main_image}"
-                        alt="${article.title_en}"
-                    >
-                    `
-                    :
-                    `
-                    <div class="article-placeholder">
-                        BAS
-                    </div>
-                    `
-                }
-
-
-                <div class="card-content">
-
-                    <h3>
-                        ${article.title_en}
-                    </h3>
-
-
-                    ${
-                        article.title_ar
-                        ?
-                        `
-                        <p dir="rtl">
-                            ${article.title_ar}
-                        </p>
-                        `
-                        :
-                        ""
-                    }
-
-
-                    <p>
-                        ${article.excerpt_en || ""}
-                    </p>
-
-
-                    <span class="button">
-                        Read Article →
-                    </span>
-
-                </div>
-
-            `;
-
-
-            card.addEventListener(
-                "click",
-                () => {
-
-                    window.location.href =
-                        `article.html?slug=${encodeURIComponent(article.slug)}`;
-
-                }
-            );
-
-
-            articlesContainer.appendChild(card);
-
-        });
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-        studentContainer.innerHTML =
-            "<p>Could not load student.</p>";
-
-    }
-
-}
-
-
-loadStudent();
-
-</script>
-
 </body>
-
 </html>

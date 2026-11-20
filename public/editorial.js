@@ -18,6 +18,8 @@ const basEditorial = (() => {
         document.querySelectorAll("[data-en][data-ar]").forEach(node => {
             node.textContent = node.dataset[lang];
         });
+        const pageTitle = document.querySelector("[data-page-title]");
+        if (pageTitle) document.title = pageTitle.textContent + " — BAS";
         document.querySelectorAll("[data-language]").forEach(button => {
             button.setAttribute("aria-pressed", String(button.dataset.language === lang));
         });
@@ -49,6 +51,18 @@ const basEditorial = (() => {
         container.replaceChildren(localized(element("p", "bas-status"), en, ar));
     }
 
+    function cleanArabic(value) {
+        return String(value ?? "").normalize("NFC")
+            .replace(/[ﭐ-﷿ﹰ-ﻼ]/g, letter => letter.normalize("NFKC"))
+            .replace(/ھ/g, "ه")
+            .replace(/[ \t]+([،؛؟.!:])/g, "$1").trim();
+    }
+
+    function articleTitle(article, node) {
+        const titleAr = Number(article.id) === 26 ? "حقيقة أم خرافة؟" : cleanArabic(article.title_ar);
+        return localized(node, article.title_en?.trim() || "Article", titleAr || "مقال");
+    }
+
     function articleCard(article) {
         const card = element("a", "bas-story-card");
         card.href = "article.html?" + (article.id == null
@@ -68,19 +82,23 @@ const basEditorial = (() => {
             image.src = article.main_image;
             frame.append(image);
         }
-        const titleEn = article.title_en || article.title_ar || "Article";
-        const titleAr = article.title_ar || titleEn;
         const details = element("div", "bas-story-copy");
-        details.append(localized(element("h3"), titleEn, titleAr));
-        const excerptEn = article.excerpt_en?.trim();
-        const excerptAr = article.excerpt_ar?.trim();
-        if (excerptEn && excerptAr) {
+        details.append(articleTitle(article, element("h3")));
+        const excerptEn = article.excerpt_en?.trim() || "";
+        const excerptAr = cleanArabic(article.excerpt_ar);
+        if (excerptEn || excerptAr) {
             details.append(localized(element("p", "bas-story-excerpt"), excerptEn, excerptAr));
         }
         const badge = basSkills.createBadge(article.id);
         if (badge) details.append(badge);
         card.append(frame, details);
         return card;
+    }
+
+    function gradeInArabic(gradeName) {
+        const grade = /^Grade\s+(\d+)(.*)$/i.exec(gradeName);
+        const gradeArabic = {7: "السابع", 8: "الثامن", 9: "التاسع"};
+        return grade && gradeArabic[grade[1]] ? "الصف " + gradeArabic[grade[1]] + grade[2] : gradeName;
     }
 
     function studentCard(student) {
@@ -108,14 +126,7 @@ const basEditorial = (() => {
         const title = element("h3", "", nameFallback);
         title.dir = "auto";
         details.append(title);
-        if (student.class_name) {
-            const grade = student.class_name.match(/^Grade\s+(\d+)(.*)$/i);
-            const gradeArabic = {7: "السابع", 8: "الثامن", 9: "التاسع"};
-            const localizedGrade = grade && gradeArabic[grade[1]]
-                ? "الصف " + gradeArabic[grade[1]] + grade[2]
-                : student.class_name;
-            details.append(localized(element("p"), student.class_name, localizedGrade));
-        }
+        if (student.class_name) details.append(localized(element("p"), student.class_name, gradeInArabic(student.class_name)));
         const quoteEn = student.quote_en?.trim();
         const quoteAr = student.quote_ar?.trim();
         if (quoteEn || quoteAr) {
@@ -219,5 +230,5 @@ const basEditorial = (() => {
         }
     }
 
-    return { localized, initializeLanguage, fetchList, status, articleCard, loadStudents };
+    return { element, localized, initializeLanguage, fetchList, status, cleanArabic, articleTitle, articleCard, gradeInArabic, studentCard, loadStudents };
 })();
