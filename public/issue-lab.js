@@ -1,6 +1,5 @@
 const basIssueLab = (() => {
     const issueId = 1;
-    const visibleArticles = 6;
 
     function tubeLink(article) {
         const link = document.createElement("a");
@@ -15,12 +14,12 @@ const basIssueLab = (() => {
         const glass = document.createElement("span");
         glass.className = "bas-lab-glass";
         const liquid = document.createElement("span");
-        liquid.className = "bas-lab-liquid";
+        liquid.className = "bas-tube-liquid";
         glass.append(liquid);
         tube.append(glass);
         for (let index = 0; index < 5; index += 1) {
             const bubble = document.createElement("i");
-            bubble.className = "bas-lab-bubble";
+            bubble.className = "bas-tube-bubble";
             tube.append(bubble);
         }
 
@@ -34,8 +33,6 @@ const basIssueLab = (() => {
 
     async function mount() {
         const rack = document.getElementById("latestArticles");
-        const more = document.getElementById("moreIssueArticles");
-        const extra = document.getElementById("extraIssueArticles");
         const content = rack.closest(".bas-lab-content");
         const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
         let bubbling = null;
@@ -66,9 +63,7 @@ const basIssueLab = (() => {
                 basEditorial.status(rack, "No articles in this issue yet.", "لا توجد مقالات في هذا العدد بعد.");
                 return;
             }
-            rack.replaceChildren(...issueArticles.slice(0, visibleArticles).map(tubeLink));
-            extra.replaceChildren(...issueArticles.slice(visibleArticles).map(tubeLink));
-            more.hidden = !extra.children.length;
+            rack.replaceChildren(...issueArticles.map(tubeLink));
         } catch (error) {
             console.error("Issue 1 articles could not be loaded", error);
             basEditorial.status(rack, "Could not load articles.", "تعذّر تحميل المقالات.");
