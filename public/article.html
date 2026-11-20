@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +8,7 @@
     <title>BAS — Article</title>
 
     <link rel="stylesheet" href="style.css">
+    <script src="skills-builder.js"></script>
 </head>
 
 <body>
@@ -269,6 +269,8 @@
 
                 `;
 
+                const skillBadge = basSkills.createBadge(article.id, { link: true });
+                if (skillBadge) container.querySelector("h1").nextElementSibling.after(skillBadge);
 
             } catch (error) {
 
@@ -289,4 +291,3 @@
 </body>
 
 </html>
-```

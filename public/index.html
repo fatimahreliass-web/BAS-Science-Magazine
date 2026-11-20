@@ -8,6 +8,7 @@
     <title>BAS — Bashaer Science Magazine</title>
 
     <link rel="stylesheet" href="style.css">
+    <script src="skills-builder.js"></script>
 </head>
 
 <body>
@@ -167,6 +168,7 @@
   const onKey=event=>{if(event.key==='Escape'||event.key==='Tab')close();};
   closeButton.addEventListener('click',close);
   const open=()=>{
+    if(window.location.hash==='#skills-builder')return;
     previousOverflow=document.body.style.overflow;
     document.body.style.overflow='hidden';
     panel.hidden=false;
@@ -198,6 +200,15 @@
     </nav>
   </div>
 </header>
+<section class="skills-builder-strip" id="skills-builder" aria-labelledby="skills-builder-title">
+  <div class="skills-builder-heading">
+    <h2 id="skills-builder-title" data-en="Skills Builder" data-ar="مهارات Skills Builder">Skills Builder</h2>
+    <a href="https://www.skillsbuilder.org/global/universal-framework" data-en="Universal Framework 2.0" data-ar="الإطار العالمي 2.0">Universal Framework 2.0</a>
+  </div>
+  <div class="skills-builder-options"></div>
+  <p class="skills-builder-prompt" data-en="Choose a skill to see what it means." data-ar="اختاروا مهارة لتتعرّفوا إلى معناها.">Choose a skill to see what it means.</p>
+  <div class="skills-builder-explanation" id="skills-builder-explanation" aria-live="polite"></div>
+</section>
 <section class="hero">
   <div class="hero-copy">
     <div class="hero-brand-leaf">❧</div>
@@ -1002,6 +1013,9 @@ async function loadArticles() {
                     `;
 
 
+                    const skillBadge = basSkills.createBadge(article.id);
+                    if (skillBadge) card.querySelector(".card-content").appendChild(skillBadge);
+
                     container.appendChild(
                         card
                     );
@@ -1458,6 +1472,7 @@ async function start() {
 }
 
 
+basSkills.mountBar();
 start();
 
 
