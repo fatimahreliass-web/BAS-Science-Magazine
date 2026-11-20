@@ -734,11 +734,20 @@
 .bas-lab-content { min-width: 0; }
 .bas-lab-rack {
     display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 36px 9px;
-    padding-block: 31px 6px;
+    grid-auto-flow: column;
+    grid-auto-columns: max(138px, calc((100cqi - 45px) / 6));
+    column-gap: 9px;
+    width: max-content;
+    min-width: 100%;
 }
-.bas-lab-rack > .bas-status { grid-column: 1 / -1; }
+.bas-lab-rack:not(:has(.bas-lab-article)) { display: block; width: auto; }
+.bas-lab-strip {
+    container-type: inline-size;
+    overflow-x: auto;
+    padding-block: 53px 10px;
+    scrollbar-color: #51856b #dceade;
+    scrollbar-width: thin;
+}
 .bas-lab-article {
     --tube-fluid: #82bd94;
     --tube-light: #c6eac8;
@@ -888,17 +897,12 @@
     100% { opacity: 0; transform: translate(13px, -33px) scale(1.65); }
 }
 @keyframes bas-lab-surge { to { transform: scaleY(1.28) skewX(-4deg); } }
-@media (max-width: 1080px) {
-    .bas-lab-rack { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-}
 @media (max-width: 820px) {
     .bas-issue-lab { grid-template-columns: minmax(130px, .26fr) minmax(0, 1fr); gap: 18px; }
-    .bas-lab-rack { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 600px) {
     .bas-issue-lab { grid-template-columns: minmax(0, 1fr); }
     .bas-lab-cover img { min-height: 0; height: clamp(195px, 58vw, 295px); }
-    .bas-lab-rack { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 /* Student figures on the microscope stage and the portrait magnifier. */
