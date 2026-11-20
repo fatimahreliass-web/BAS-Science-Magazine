@@ -128,10 +128,6 @@
 .bas-editorial .skills-builder-prompt { color: var(--bas-muted); font-size: .85rem; margin: 6px 0 0; }
 .bas-editorial .skills-builder-explanation:empty { display: none; }
 .bas-editorial .skills-builder-explanation:not(:empty) {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    align-items: center;
-    gap: clamp(12px, 3vw, 36px);
     margin-block-start: 12px;
     padding: 14px;
     border-inline-start: 3px solid var(--skill-color);
@@ -139,53 +135,7 @@
     background: color-mix(in srgb, var(--skill-color) 5%, #fcfef9);
 }
 .skills-builder-definition strong { font-size: 1.14rem; }
-.bas-editorial .skills-builder-definition p { display: block; margin: 4px 0 8px; }
-.skills-builder-definition a { text-decoration: underline; text-underline-offset: 3px; font-size: .86rem; }
-.skills-builder-steps {
-    position: relative;
-    display: grid;
-    gap: 6px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-.skills-builder-steps::before {
-    position: absolute;
-    inset: 0 auto 0 50%;
-    width: 1px;
-    background: color-mix(in srgb, var(--skill-color) 46%, #f8fbf6);
-    content: "";
-}
-.skills-builder-steps li {
-    --step-tint: 20%;
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    min-height: 30px;
-    border-radius: 999px;
-    padding: 3px 9px;
-    background: color-mix(in srgb, var(--skill-color) var(--step-tint), #fcfef9);
-    color: #213c32;
-    font-size: .86rem;
-    font-weight: 700;
-}
-.skills-builder-steps li:nth-child(2) { --step-tint: 17%; }
-.skills-builder-steps li:nth-child(3) { --step-tint: 14%; }
-.skills-builder-steps li:nth-child(4) { --step-tint: 11%; }
-.skills-builder-steps li:nth-child(5) { --step-tint: 8%; }
-.skills-builder-step-number {
-    display: grid;
-    flex: 0 0 21px;
-    height: 21px;
-    place-items: center;
-    border-radius: 50%;
-    background: #fbfdf8;
-    color: #213c32;
-}
-@media (max-width: 520px) {
-    .bas-editorial .skills-builder-explanation:not(:empty) { grid-template-columns: 1fr; }
-}
+.bas-editorial .skills-builder-definition p { display: block; margin: 4px 0 0; }
 
 .bas-hero {
     display: grid;
