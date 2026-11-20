@@ -162,10 +162,29 @@ const basEditorial = (() => {
         }
 
         const bluePoloUniformIds = new Set(["2", "13", "18", "21", "26"]);
+        // Positions follow the perspective of the open surface of the dish.
+        const ringSpecs = [
+            { share: 0.55, xRadius: 33, yRadius: 20, offset: Math.PI / 16 },
+            { share: 0.34, xRadius: 21, yRadius: 11, offset: 0 },
+            { xRadius: 8, yRadius: 3.5, offset: Math.PI / 2 },
+        ];
+        let remaining = students.length;
+        const positions = ringSpecs.flatMap(({ share, xRadius, yRadius, offset }) => {
+            const count = share ? Math.min(remaining, Math.round(students.length * share)) : remaining;
+            remaining -= count;
+            return Array.from({ length: count }, (_, index) => {
+                const angle = offset + index * 2 * Math.PI / count;
+                return [50 + xRadius * Math.cos(angle), 61 + yRadius * Math.sin(angle)];
+            });
+        });
         figures.replaceChildren(...students.map((student, index) => {
             const button = element("button", "bas-lens-figure");
             button.type = "button";
             button.setAttribute("aria-haspopup", "dialog");
+            const [x, y] = positions[index];
+            button.style.left = x.toFixed(2) + "%";
+            button.style.top = y.toFixed(2) + "%";
+            button.title = student.name || "Student";
             const person = element("img", "bas-lens-person");
             const poloUniform = bluePoloUniformIds.has(String(student.id));
             const variant = (poloUniform ? 1 : 2) + (index % 2) * 2;
