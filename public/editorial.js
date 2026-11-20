@@ -126,7 +126,7 @@ const basEditorial = (() => {
         return card;
     }
 
-    function studentLens(students, limit) {
+    function studentLens(students) {
         const scene = element("div", "bas-lens-scene");
         const figures = element("div", "bas-lens-figures");
         scene.append(figures);
@@ -161,45 +161,29 @@ const basEditorial = (() => {
             dialog.showModal();
         }
 
-        const pageSize = limit || 6;
-        const total = limit ? 1 : Math.ceil(students.length / pageSize);
-        const pager = element("nav", "bas-lens-pager");
-        const previous = localized(element("button"), "Previous", "السابق");
-        const next = localized(element("button"), "Next", "التالي");
-        previous.type = next.type = "button";
-        const position = element("span");
-        position.setAttribute("aria-live", "polite");
-        pager.append(previous, position, next);
-        pager.hidden = total < 2;
-        let page = 0;
-
-        function showGroup() {
-            const group = students.slice(page * pageSize, (page + 1) * pageSize);
-            figures.replaceChildren(...group.map(student => {
-                const button = element("button", "bas-lens-figure");
-                button.type = "button";
-                button.setAttribute("aria-haspopup", "dialog");
-                const person = element("span", "bas-lens-person");
-                person.setAttribute("aria-hidden", "true");
-                const name = element("span", "bas-lens-label", student.name || "Student");
-                name.dir = "auto";
-                button.append(person, name);
-                button.addEventListener("click", () => openStudent(student));
-                return button;
-            }));
-            previous.disabled = page === 0;
-            next.disabled = page === total - 1;
-            localized(position, "Group " + (page + 1) + " of " + total,
-                "المجموعة " + (page + 1) + " من " + total);
-        }
-
-        previous.addEventListener("click", () => { page -= 1; showGroup(); });
-        next.addEventListener("click", () => { page += 1; showGroup(); });
-        showGroup();
-        return [scene, pager, dialog];
+        const bluePoloUniformIds = new Set(["2", "13", "18", "21", "26"]);
+        figures.replaceChildren(...students.map((student, index) => {
+            const button = element("button", "bas-lens-figure");
+            button.type = "button";
+            button.setAttribute("aria-haspopup", "dialog");
+            const person = element("img", "bas-lens-person");
+            const poloUniform = bluePoloUniformIds.has(String(student.id));
+            const variant = (poloUniform ? 1 : 2) + (index % 2) * 2;
+            person.src = "images/student-miniature-beige-" + variant + ".webp";
+            person.alt = "";
+            person.width = 96;
+            person.height = 128;
+            person.decoding = "async";
+            const name = element("span", "bas-lens-label", student.name || "Student");
+            name.dir = "auto";
+            button.append(person, name);
+            button.addEventListener("click", () => openStudent(student));
+            return button;
+        }));
+        return [scene, dialog];
     }
 
-    async function loadStudents(container, limit) {
+    async function loadStudents(container) {
         try {
             const students = await fetchList("/api/students");
             students.sort((a, b) => String(a.name ?? "").localeCompare(
@@ -209,7 +193,7 @@ const basEditorial = (() => {
                 status(container, "No student profiles yet.", "لا توجد ملفات للتلاميذ بعد.");
                 return;
             }
-            container.replaceChildren(...studentLens(students, limit));
+            container.replaceChildren(...studentLens(students));
         } catch (error) {
             console.error("Student profiles could not be loaded", error);
             status(container, "Could not load student profiles.", "تعذّر تحميل ملفات التلاميذ.");

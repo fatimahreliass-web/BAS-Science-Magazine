@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BAS — Bashaer Science School Magazine</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="editorial.css">
+  <link rel="stylesheet" href="editorial.css?v=student-miniatures">
   <script src="skills-builder.js" defer></script>
-  <script src="editorial.js" defer></script>
+  <script src="editorial.js?v=student-miniatures" defer></script>
   <script src="issue-lab.js" defer></script>
 </head>
 <body class="bas-editorial bas-homepage">
@@ -351,7 +351,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     showLinkedNote();
     window.addEventListener("hashchange", showLinkedNote);
-    basEditorial.loadStudents(document.getElementById("students"), 6);
+    basEditorial.loadStudents(document.getElementById("students"));
     basIssueLab.mount();
 });
 

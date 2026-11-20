@@ -716,84 +716,55 @@
 .bas-lens-roster { margin-block-end: 16px; }
 .bas-directory .bas-lens-roster { margin-block-end: 40px; }
 .bas-lens-scene {
-    position: relative;
-    width: min(100%, 960px);
-    aspect-ratio: 1.65;
+    width: min(100%, 1030px);
+    min-height: 530px;
     margin-inline: auto;
+    padding: clamp(155px, 20vw, 238px) 12% clamp(55px, 7vw, 84px);
     border: 1px solid #9ab5a2;
     border-radius: 17px;
     background: #255d48 url("images/student-microscope.webp") center / 100% 100% no-repeat;
 }
 .bas-lens-figures {
-    position: absolute;
-    inset: 42% 16% 17%;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(0, 1fr));
-    gap: 4px 10px;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 5px 3px;
 }
 .bas-lens-figure {
-    --figure-color: #23604a;
     display: grid;
     justify-items: center;
-    place-content: center;
-    gap: 4px;
+    align-content: start;
+    gap: 2px;
     min-width: 0;
     min-height: 44px;
-    color: var(--bas-ink);
+    color: #173e2c;
     background: transparent;
     border: 1px solid transparent;
     border-radius: 9px;
     cursor: pointer;
     padding: 2px;
 }
-.bas-lens-figure:nth-child(3n + 2) { --figure-color: #677536; }
-.bas-lens-figure:nth-child(3n) { --figure-color: #39756f; }
 .bas-lens-figure:hover,
 .bas-lens-figure:focus-visible {
     background: #fff9dfde;
     border-color: #98a16c;
 }
 .bas-lens-person {
-    position: relative;
     display: block;
-    width: clamp(17px, 3.3vw, 34px);
-    height: clamp(27px, 4.5vw, 55px);
-    filter: drop-shadow(2px 3px 1px #355e433b);
-}
-.bas-lens-person::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 34%;
-    width: 33%;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background: var(--figure-color);
-}
-.bas-lens-person::after {
-    content: "";
-    position: absolute;
-    inset: 24% 0 0;
-    background: var(--figure-color);
-    clip-path: polygon(34% 0,66% 0,80% 10%,96% 48%,81% 55%,68% 32%,68% 100%,53% 100%,49% 64%,44% 100%,29% 100%,30% 34%,17% 57%,3% 49%,20% 11%);
+    width: auto;
+    height: clamp(40px, 6vw, 58px);
+    object-fit: contain;
+    filter: drop-shadow(2px 3px 1px #355e435e);
 }
 .bas-lens-label {
-    display: block;
     max-width: 100%;
     overflow-wrap: anywhere;
-    font-size: clamp(.69rem, 1.25vw, .94rem);
+    font-size: clamp(.69rem, 1.15vw, .84rem);
     font-weight: 700;
-    line-height: 1.13;
+    line-height: 1.15;
+    padding: 1px 3px;
+    border-radius: 4px;
+    background: #f2f7e6e8;
 }
-.bas-lens-pager:not([hidden]) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-block-start: 13px;
-}
-.bas-lens-pager button,
 .bas-lens-close {
     min-height: 44px;
     padding: 5px 12px;
@@ -803,7 +774,6 @@
     color: var(--bas-ink);
     cursor: pointer;
 }
-.bas-lens-pager button:disabled { opacity: .54; cursor: default; }
 .bas-lens-dialog {
     width: min(430px, calc(100% - 28px));
     max-height: calc(100% - 28px);
@@ -847,12 +817,13 @@
     background: #245d45;
     transform: rotate(42deg);
 }
-@media (min-width: 521px) {
-    .bas-lens-scene { aspect-ratio: 1.7; }
+@media (max-width: 820px) {
+    .bas-lens-figures { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 }
 @media (max-width: 520px) {
-    .bas-lens-scene { aspect-ratio: 1.15; }
-    .bas-lens-figures { inset: 41% 12% 17%; gap: 2px 3px; }
+    .bas-lens-scene { min-height: 0; padding: 212px 8% 74px; }
+    .bas-lens-figures { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .bas-lens-person { height: 40px; }
 }
 @media (prefers-reduced-motion: no-preference) {
     .bas-lens-dialog[open] .bas-lens-magnifier { animation: bas-lens-zoom .43s cubic-bezier(.22,.72,.34,1.17) both; }
