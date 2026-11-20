@@ -1,0 +1,79 @@
+const basIssueLab = (() => {
+    const issueId = 1;
+    const visibleArticles = 6;
+
+    function tubeLink(article) {
+        const link = document.createElement("a");
+        link.className = "bas-lab-article";
+        const usesId = article.id != null;
+        const identifier = usesId ? article.id : article.slug;
+        link.href = "article.html?" + (usesId ? "id=" : "slug=") + encodeURIComponent(identifier);
+
+        const tube = document.createElement("span");
+        tube.className = "bas-lab-tube";
+        tube.setAttribute("aria-hidden", "true");
+        const glass = document.createElement("span");
+        glass.className = "bas-lab-glass";
+        const liquid = document.createElement("span");
+        liquid.className = "bas-lab-liquid";
+        glass.append(liquid);
+        tube.append(glass);
+        for (let index = 0; index < 5; index += 1) {
+            const bubble = document.createElement("i");
+            bubble.className = "bas-lab-bubble";
+            tube.append(bubble);
+        }
+
+        const title = document.createElement("span");
+        title.className = "bas-lab-article-title";
+        const titleEn = article.title_en || article.title_ar || "Article";
+        basEditorial.localized(title, titleEn, article.title_ar || titleEn);
+        link.append(tube, title);
+        return link;
+    }
+
+    async function mount() {
+        const rack = document.getElementById("latestArticles");
+        const more = document.getElementById("moreIssueArticles");
+        const extra = document.getElementById("extraIssueArticles");
+        const content = rack.closest(".bas-lab-content");
+        const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+        let bubbling = null;
+        let navigationTimer;
+
+        content.addEventListener("click", event => {
+            const tube = event.target.closest(".bas-lab-article");
+            if (!tube || event.defaultPrevented || event.button !== 0 ||
+                event.metaKey || event.ctrlKey || event.altKey || event.shiftKey || reducedMotion.matches) return;
+            event.preventDefault();
+            clearTimeout(navigationTimer);
+            bubbling?.classList.remove("is-fizzing");
+            bubbling = tube;
+            tube.classList.add("is-fizzing");
+            navigationTimer = setTimeout(() => window.location.assign(tube.href), 620);
+        });
+        window.addEventListener("pagehide", () => {
+            clearTimeout(navigationTimer);
+            bubbling?.classList.remove("is-fizzing");
+            bubbling = null;
+        });
+
+        try {
+            const articles = await basEditorial.fetchList("/api/articles");
+            const issueArticles = articles.filter(article => Number(article.issue_id) === issueId &&
+                article.title_en !== "About BAS" && article.slug !== "About BAS");
+            if (!issueArticles.length) {
+                basEditorial.status(rack, "No articles in this issue yet.", "لا توجد مقالات في هذا العدد بعد.");
+                return;
+            }
+            rack.replaceChildren(...issueArticles.slice(0, visibleArticles).map(tubeLink));
+            extra.replaceChildren(...issueArticles.slice(visibleArticles).map(tubeLink));
+            more.hidden = !extra.children.length;
+        } catch (error) {
+            console.error("Issue 1 articles could not be loaded", error);
+            basEditorial.status(rack, "Could not load articles.", "تعذّر تحميل المقالات.");
+        }
+    }
+
+    return { mount };
+})();

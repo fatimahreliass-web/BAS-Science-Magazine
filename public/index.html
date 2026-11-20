@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="editorial.css">
   <script src="skills-builder.js" defer></script>
   <script src="editorial.js" defer></script>
+  <script src="issue-lab.js" defer></script>
 </head>
 <body class="bas-editorial bas-homepage">
 <!-- A short, skippable magazine-opening welcome. -->
@@ -286,10 +287,26 @@ document.addEventListener("DOMContentLoaded", () => {
   </section>
   <section class="bas-section bas-wrap" id="latest" aria-labelledby="bas-stories-title">
     <div class="bas-section-head">
-      <h2 id="bas-stories-title" data-en="From the magazine" data-ar="من المجلة">From the magazine</h2>
+      <h2 id="bas-stories-title" data-en="The Issue 1 Lab" data-ar="مختبر العدد الأول">The Issue 1 Lab</h2>
       <a href="archive.html" data-en="Browse all issues" data-ar="تصفّحوا الأعداد">Browse all issues</a>
     </div>
-    <div id="latestArticles" class="bas-stories"><p class="bas-status" data-en="Loading articles…" data-ar="جارٍ تحميل المقالات…">Loading articles…</p></div>
+    <div class="bas-issue-lab">
+      <figure class="bas-lab-cover">
+        <img src="images/bas-issue-1-lab.webp" alt="" width="720" height="900" loading="lazy" decoding="async">
+        <figcaption><span lang="en" dir="ltr">BAS</span><span data-en="Issue 1" data-ar="العدد الأول">Issue 1</span></figcaption>
+      </figure>
+      <div class="bas-lab-content">
+        <h3 data-en="Articles in the rack" data-ar="مقالات على رفّ المختبر">Articles in the rack</h3>
+        <p data-en="Choose a test tube to open its article." data-ar="اختاروا أنبوب اختبار لفتح مقاله.">Choose a test tube to open its article.</p>
+        <div id="latestArticles" class="bas-lab-rack">
+          <p class="bas-status" data-en="Loading articles…" data-ar="جارٍ تحميل المقالات…">Loading articles…</p>
+        </div>
+        <details id="moreIssueArticles" class="bas-lab-more" hidden>
+          <summary data-en="More articles from Issue 1" data-ar="المزيد من مقالات العدد الأول">More articles from Issue 1</summary>
+          <div id="extraIssueArticles" class="bas-lab-rack"></div>
+        </details>
+      </div>
+    </div>
   </section>
   <section class="bas-student-band" id="student-voices" aria-labelledby="bas-students-title">
     <div class="bas-section bas-wrap">
@@ -334,24 +351,8 @@ document.addEventListener("DOMContentLoaded", () => {
     showLinkedNote();
     window.addEventListener("hashchange", showLinkedNote);
     basEditorial.loadStudents(document.getElementById("students"), 6);
-    loadArticles();
+    basIssueLab.mount();
 });
-
-async function loadArticles() {
-    const container = document.getElementById("latestArticles");
-    try {
-        const articles = await basEditorial.fetchList("/api/articles");
-        const published = articles.filter(article => article.slug !== "About BAS" && article.title_en !== "About BAS");
-        if (!published.length) {
-            basEditorial.status(container, "No articles yet.", "لا توجد مقالات بعد.");
-            return;
-        }
-        container.replaceChildren(...published.slice(0, 6).map(basEditorial.articleCard));
-    } catch (error) {
-        console.error("Articles could not be loaded", error);
-        basEditorial.status(container, "Could not load articles.", "تعذّر تحميل المقالات.");
-    }
-}
 
 </script>
 <footer class="bas-footer">
