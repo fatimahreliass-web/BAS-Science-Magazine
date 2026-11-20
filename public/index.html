@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BAS — Bashaer Science School Magazine</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="editorial.css?v=article-language">
+  <link rel="stylesheet" href="editorial.css?v=compact-home">
   <script src="skills-builder.js?v=article-language" defer></script>
   <script src="editorial.js?v=article-language" defer></script>
   <script src="issue-lab.js?v=article-language" defer></script>
@@ -213,20 +213,32 @@ document.addEventListener("DOMContentLoaded", () => {
   <div class="skills-builder-explanation" id="skills-builder-explanation" aria-live="polite"></div>
 </section>
   </div>
-  <section class="bas-hero bas-wrap">
+  <div class="bas-home-opening bas-wrap">
+  <section class="bas-hero">
     <div class="bas-hero-copy">
       <p class="bas-school-line" data-en="Al Bashaer High School · Cycle 3" data-ar="ثانوية البشائر · الحلقة الثالثة">Al Bashaer High School · Cycle 3</p>
       <h1 data-en="Bashaer Science School Magazine" data-ar="مجلة بشائر العلمية">Bashaer Science School Magazine</h1>
       <p data-en="A science magazine written by our students." data-ar="مجلة علمية من إعداد تلاميذنا.">A science magazine written by our students.</p>
       <div class="bas-hero-actions">
-        <a class="bas-primary" href="#categories-showcase" data-en="Explore the magazine" data-ar="استكشفوا المجلة">Explore the magazine</a>
-        <a class="bas-secondary" href="science-club.html" data-en="Visit the Science Club" data-ar="زوروا نادي العلوم">Visit the Science Club</a>
+        <a class="bas-primary" href="#categories-showcase" data-en="Magazine" data-ar="المجلّة">Magazine</a>
+        <a class="bas-secondary" href="science-club.html" data-en="Science Club" data-ar="نادي العلوم">Science Club</a>
       </div>
     </div>
     <div class="bas-hero-emblem">
       <img src="images/bas-science-club-logo.webp" alt="BAS Science Club" width="900" height="900" fetchpriority="high">
     </div>
   </section>
+  <section class="bas-student-band" id="student-voices" aria-labelledby="bas-students-title">
+    <div class="bas-section">
+      <div class="bas-section-head">
+        <h2 id="bas-students-title" data-en="Student Voices" data-ar="أصوات التلاميذ">Student Voices</h2>
+        <a href="students.html" data-en="Meet all the students" data-ar="تعرّفوا إلى جميع التلاميذ">Meet all the students</a>
+      </div>
+      <p class="bas-lens-instruction"><span class="bas-lens-instruction-icon" aria-hidden="true">🔍</span><strong data-en="Tap a figure to see the student’s photo." data-ar="اضغطوا على مجسّم لتظهر صورة التلميذ بالعدسة.">Tap a figure to see the student’s photo.</strong></p>
+      <div id="students" class="bas-lens-roster"><p class="bas-status" data-en="Loading students…" data-ar="جارٍ تحميل التلاميذ…">Loading students…</p></div>
+    </div>
+  </section>
+  </div>
   <section class="bas-club-feature bas-wrap" id="science-club" aria-labelledby="bas-club-feature-title">
     <div class="bas-club-feature-copy">
       <h2 id="bas-club-feature-title" data-en="Science Club" data-ar="نادي العلوم">Science Club</h2>
@@ -306,16 +318,6 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
         </div>
       </div>
-    </div>
-  </section>
-  <section class="bas-student-band" id="student-voices" aria-labelledby="bas-students-title">
-    <div class="bas-section bas-wrap">
-      <div class="bas-section-head">
-        <h2 id="bas-students-title" data-en="Student Voices" data-ar="أصوات التلاميذ">Student Voices</h2>
-        <a href="students.html" data-en="Meet all the students" data-ar="تعرّفوا إلى جميع التلاميذ">Meet all the students</a>
-      </div>
-      <p class="bas-lens-instruction"><span class="bas-lens-instruction-icon" aria-hidden="true">🔍</span><strong data-en="Tap a student figure to see their photo through the lens." data-ar="اضغطوا على أيّ مجسّم لتظهر صورة التلميذ داخل العدسة.">Tap a student figure to see their photo through the lens.</strong></p>
-      <div id="students" class="bas-lens-roster"><p class="bas-status" data-en="Loading students…" data-ar="جارٍ تحميل التلاميذ…">Loading students…</p></div>
     </div>
   </section>
 

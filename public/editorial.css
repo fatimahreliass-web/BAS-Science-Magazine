@@ -1109,3 +1109,74 @@
     .bas-issue-detail { grid-template-columns: minmax(0, 1fr); }
     .bas-student-profile .bas-portrait-frame { max-width: 220px; }
 }
+
+/* Homepage overview: the student scene shares the opening with the masthead. */
+.bas-home-opening {
+    display: grid;
+    grid-template-columns: minmax(0, .75fr) minmax(0, 1.65fr);
+    align-items: start;
+    gap: clamp(14px, 2vw, 24px);
+}
+.bas-homepage .bas-skills-wrap { margin-block: 8px 12px; }
+.bas-home-opening .bas-hero { grid-template-columns: 1fr; border-radius: 14px; }
+.bas-home-opening .bas-hero-emblem {
+    grid-row: 1;
+    min-height: 0;
+    padding: 10px;
+}
+.bas-home-opening .bas-hero-emblem img { width: min(100%, 174px); }
+.bas-home-opening .bas-hero-copy { padding: clamp(14px, 2vw, 24px); }
+.bas-home-opening .bas-school-line { margin-block-end: 5px; }
+.bas-home-opening .bas-hero h1 { font-size: clamp(1.8rem, 3.35vw, 3.2rem); max-width: none; }
+.bas-home-opening .bas-hero-copy > p:not(.bas-school-line) { margin-block: 7px 11px; }
+.bas-home-opening .bas-hero-actions :is(.bas-primary, .bas-secondary) {
+    padding: 4px 11px;
+    min-height: 38px;
+    font-size: .88rem;
+}
+.bas-home-opening .bas-student-band {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    min-width: 0;
+}
+.bas-home-opening .bas-student-band .bas-section { padding: 0; }
+.bas-home-opening .bas-student-band h2 { font-size: clamp(1.4rem, 2.65vw, 2.6rem); }
+.bas-home-opening .bas-lens-instruction {
+    margin-block: 5px 8px;
+    padding: 3px 8px;
+    margin-inline: 0;
+    font-size: .88rem;
+}
+.bas-home-opening .bas-lens-instruction-icon { flex-basis: 22px; height: 22px; font-size: .9rem; }
+.bas-home-opening .bas-lens-roster { margin-block-end: 0; }
+
+@media (max-width: 760px) {
+    .bas-home-opening { grid-template-columns: minmax(0, 1fr); gap: 11px; }
+    .bas-home-opening .bas-hero {
+        grid-template-columns: minmax(0, 1fr) minmax(70px, 24%);
+        align-items: stretch;
+    }
+    .bas-home-opening .bas-hero-emblem { grid-row: auto; padding: 4px; }
+    .bas-home-opening .bas-hero-emblem img { width: min(100%, 112px); }
+    .bas-home-opening .bas-hero-copy { padding: 10px; }
+    .bas-home-opening .bas-school-line { margin: 0 0 3px; font-size: .74rem; }
+    .bas-home-opening .bas-hero h1 { font-size: clamp(1.3rem, 5vw, 2rem); }
+    .bas-home-opening .bas-hero-copy > p:not(.bas-school-line) { margin-block: 4px 6px; font-size: .84rem; }
+    .bas-home-opening .bas-hero-actions { gap: 4px; }
+    .bas-home-opening .bas-hero-actions :is(.bas-primary, .bas-secondary) { min-height: 33px; padding: 3px 7px; }
+    .bas-home-opening .bas-student-band .bas-section-head { gap: 3px 8px; }
+    .bas-home-opening .bas-student-band .bas-section-head a { font-size: .79rem; }
+}
+
+@media (max-width: 520px) {
+    .bas-home-opening .bas-school-line { display: none; }
+    .bas-home-opening .bas-lens-scene {
+        aspect-ratio: .8;
+        background-position: center bottom;
+        background-size: 100% 117.65%;
+        overflow: hidden;
+    }
+    .bas-home-opening .bas-lens-figures { inset-block-start: -17.65%; }
+}
