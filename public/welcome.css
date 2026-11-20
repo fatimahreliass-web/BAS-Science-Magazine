@@ -1,7 +1,7 @@
 :root {
     --ink: #18392d;
     --moss: #42614b;
-    --paper: #f7f5e8;
+    --paper: #f4f0dc;
     --display-font: "Fraunces", "Noto Naskh Arabic", Georgia, serif;
     --reading-font: "DM Sans", "Noto Sans Arabic", Arial, sans-serif;
 }
@@ -19,7 +19,10 @@ a { color: inherit; }
 
 .welcome {
     display: grid;
-    grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr);
+    position: relative;
+    isolation: isolate;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    background: radial-gradient(ellipse at 0 0, #e9efda 0, transparent 57%), var(--paper);
     min-block-size: 100vh;
     min-block-size: 100svh;
 }
@@ -27,7 +30,6 @@ a { color: inherit; }
     display: grid;
     grid-template-rows: auto 1fr auto;
     padding: clamp(22px, 4.3vw, 70px);
-    background: radial-gradient(ellipse at 0 0, #e9efda 0, transparent 57%), var(--paper);
 }
 .welcome-header, .welcome-footer, .welcome-masthead, .welcome-actions {
     display: flex;
@@ -74,10 +76,9 @@ a { color: inherit; }
     letter-spacing: -.065em;
     text-wrap: balance;
 }
-.welcome h1 span { display: block; }
-.welcome h1 span + span { color: #4f6c43; }
 .welcome h1:lang(ar) { font-size: clamp(3.4rem, 7.5vw, 8rem); line-height: 1.06; letter-spacing: normal; }
 .welcome-intro { max-inline-size: 33ch; margin: 24px 0 26px; color: #3d5547; font-size: clamp(1.04rem, 1.35vw, 1.27rem); }
+.welcome-intro span { display: block; }
 .welcome-intro:lang(ar) { max-inline-size: 29ch; }
 .welcome-actions { flex-wrap: wrap; gap: 12px 24px; }
 .welcome-enter {
@@ -106,42 +107,51 @@ a { color: inherit; }
     font-size: .87rem;
     font-weight: 650;
 }
-.welcome-art { position: relative; isolation: isolate; overflow: hidden; min-block-size: 100%; background: #1e3426; }
-.welcome-art img { display: block; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 57%; }
-.welcome-art-frame { position: absolute; inset: 20px; border: 1px solid #e8d49865; pointer-events: none; }
-.welcome-light {
+.welcome-art {
+    display: grid;
+    place-items: center;
+    position: relative;
+    min-inline-size: 0;
+    padding: 16px 20px 54px;
+    background: radial-gradient(ellipse at center, #eee6c9 0%, transparent 73%);
+}
+.welcome-art video {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: min(83svh, 820px);
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    mask-image: linear-gradient(to right, transparent, #000 7% 93%, transparent),
+        linear-gradient(to bottom, transparent, #000 6% 94%, transparent);
+    mask-composite: intersect;
+}
+.welcome-motion {
     position: absolute;
-    inset-inline-start: var(--x);
-    inset-block-start: var(--y);
-    width: 5px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background: #f9dc8c;
-    box-shadow: 0 0 12px #f5d177;
-    opacity: 0;
-    animation: drift 5s var(--delay) ease-in-out infinite;
+    inset-block-end: clamp(17px, 3vw, 39px);
+    inset-inline-end: clamp(19px, 4vw, 62px);
+    border: 1px solid #aab69f;
+    border-radius: 5px;
+    padding: 8px 12px;
+    background: var(--paper);
+    color: var(--ink);
+    font: 700 .85rem/1.4 var(--reading-font);
+    cursor: pointer;
 }
-.welcome-light-one { --x: 35%; --y: 48%; --delay: -.8s; }
-.welcome-light-two { --x: 62%; --y: 41%; --delay: -2s; }
-.welcome-light-three { --x: 50%; --y: 34%; --delay: -3.5s; }
-@keyframes drift {
-    0%, 100% { transform: translateY(12px); opacity: 0; }
-    40% { opacity: .72; }
-    75% { transform: translate(12px, -26px); opacity: .2; }
-}
+.welcome-motion:hover { background: #e6edda; }
 
 @media (max-width: 760px) {
-    .welcome { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(275px, 1fr); }
+    .welcome { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(320px, 1fr); }
     .welcome-copy { padding: 20px clamp(19px, 5vw, 42px); }
     .welcome-story { padding-block: clamp(26px, 4.5vh, 50px); }
     .welcome h1 { font-size: clamp(2.85rem, 9vw, 4.7rem); }
     .welcome h1:lang(ar) { font-size: clamp(3.25rem, 12vw, 5.5rem); }
     .welcome-intro { margin-block: 16px 18px; }
     .welcome-kicker { margin-block-end: 11px; }
-    .welcome-art img { object-position: center 61%; }
-    .welcome-art-frame { inset: 12px; }
+    .welcome-art { padding: 0 12px 45px; }
+    .welcome-art video { height: clamp(310px, 61svh, 570px); }
+    .welcome-motion { inset-block-end: 10px; }
 }
 @media (prefers-reduced-motion: reduce) {
-    .welcome-light { animation: none; }
     .welcome-enter { transition: none; }
 }
