@@ -42,10 +42,11 @@ const basIssueLab = (() => {
         let bubbling = null;
         let navigationTimer;
 
-        const observer = new IntersectionObserver(([entry]) => {
-            rack.classList.toggle("is-in-view", entry.isIntersecting);
+        const observer = new IntersectionObserver(entries => {
+            for (const entry of entries) {
+                entry.target.classList.toggle("is-in-view", entry.isIntersecting);
+            }
         }, { threshold: 0.35 });
-        observer.observe(content);
 
         content.addEventListener("click", event => {
             const tube = event.target.closest(".bas-lab-article");
@@ -72,7 +73,9 @@ const basIssueLab = (() => {
                 basEditorial.status(rack, "No articles in this issue yet.", "لا توجد مقالات في هذا العدد بعد.");
                 return;
             }
-            rack.replaceChildren(...issueArticles.map(tubeLink));
+            const tubes = issueArticles.map(tubeLink);
+            rack.replaceChildren(...tubes);
+            tubes.forEach(tube => observer.observe(tube));
         } catch (error) {
             console.error("Issue 1 articles could not be loaded", error);
             basEditorial.status(rack, "Could not load articles.", "تعذّر تحميل المقالات.");
