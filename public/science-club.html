@@ -9,8 +9,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400..800&amp;family=Fraunces:opsz,wght@9..144,500..800&amp;family=Noto+Naskh+Arabic:wght@500..700&amp;family=Noto+Sans+Arabic:wght@400..800&amp;display=swap">
-  <link rel="stylesheet" href="editorial.css?v=science-day-videos">
+  <link rel="stylesheet" href="editorial.css?v=conference-countdown">
   <script src="editorial.js" defer></script>
+  <script src="conference-date.js" defer></script>
 </head>
 <body class="bas-editorial bas-club-page">
 <header class="bas-header">
@@ -76,11 +77,14 @@
           <span class="bas-activity-icon" aria-hidden="true">◎</span>
           <span>
             <span data-en="Your Health Isn’t a Trend" data-ar="صحتك مش ترند">Your Health Isn’t a Trend</span>
-            <small data-en="Upcoming conference" data-ar="ندوة قادمة">Upcoming conference</small>
+            <small data-conference-notice data-en="Upcoming conference" data-ar="ندوة قادمة">Upcoming conference</small>
           </span>
         </summary>
         <div class="bas-activity-content">
-          <p data-en="Conference details are coming soon." data-ar="تفاصيل الندوة قريبًا.">Conference details are coming soon.</p>
+          <div class="bas-conference-date">
+            <time datetime="2026-11-27" data-en="Friday, 27 November 2026" data-ar="الجمعة، ٢٧ تشرين الثاني ٢٠٢٦">Friday, 27 November 2026</time>
+            <strong data-conference-countdown></strong>
+          </div>
         </div>
       </details>
     </div>

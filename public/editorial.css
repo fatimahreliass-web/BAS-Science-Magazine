@@ -689,6 +689,17 @@
     border-block-start: 1px solid var(--tile-line);
 }
 .bas-activity-content p { color: var(--bas-muted); margin: 0; }
+.bas-conference-date {
+    display: grid;
+    gap: 5px;
+    padding: 12px 14px;
+    border: 1px solid var(--tile-line);
+    border-radius: 9px;
+    background: #fffdf3;
+}
+.bas-conference-date time { color: var(--bas-muted); font-weight: 650; }
+.bas-conference-date strong { color: var(--bas-ink); font-size: clamp(1.15rem, 2.5vw, 1.45rem); }
+.bas-conference-date strong:empty { display: none; }
 .bas-science-day-videos { scroll-margin-block-start: 20px; margin-block-start: 15px; }
 .bas-science-day-videos h3 { margin: 0 0 10px; font-size: 1.1rem; }
 .bas-science-day-video-grid {

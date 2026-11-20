@@ -105,6 +105,23 @@ a { color: inherit; }
 .welcome-entry-club:hover { background: #ead08a; }
 .welcome-issue { display: inline-block; margin-block-start: 7px; font-weight: 700; text-decoration-color: #9d763c; text-underline-offset: 5px; padding-block: 10px; }
 .welcome-issue:hover { text-decoration-thickness: 2px; }
+.welcome-conference {
+    display: grid;
+    gap: 2px;
+    margin-block-start: 12px;
+    padding: 10px 13px;
+    max-inline-size: 355px;
+    border: 1px solid #bcaa73;
+    border-inline-start: 4px solid #8d6a2e;
+    border-radius: 7px;
+    background: #fbf3d9ed;
+    color: var(--ink);
+    line-height: 1.4;
+    text-decoration: none;
+}
+.welcome-conference:hover { background: #fff6d9; }
+.welcome-conference > span, .welcome-conference time { font-size: .86rem; }
+.welcome-conference strong { font-size: 1.02rem; }
 .welcome-footer {
     gap: 8px 15px;
     flex-wrap: wrap;
