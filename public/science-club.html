@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BAS Science Club | نادي العلوم</title>
-  <meta name="description" content="BAS Science Club at Al Bashaer High School. Explore student activities, science challenges and club videos.">
+  <meta name="description" content="BAS Science Club at Al Bashaer High School. Explore Science Day and the upcoming student conference.">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400..800&amp;family=Fraunces:opsz,wght@9..144,500..800&amp;family=Noto+Naskh+Arabic:wght@500..700&amp;family=Noto+Sans+Arabic:wght@400..800&amp;display=swap">
-  <link rel="stylesheet" href="editorial.css?v=magazine-type">
+  <link rel="stylesheet" href="editorial.css?v=club-activities">
   <script src="editorial.js" defer></script>
 </head>
 <body class="bas-editorial bas-club-page">
@@ -24,7 +24,6 @@
       <a href="index.html" data-en="Magazine" data-ar="المجلّة">Magazine</a>
       <a href="science-club.html" class="bas-nav-club" aria-current="page" data-en="Science Club" data-ar="نادي العلوم">Science Club</a>
       <a href="#activities" data-en="Activities" data-ar="الأنشطة">Activities</a>
-      <a href="#videos" data-en="Videos" data-ar="الفيديوهات">Videos</a>
     </nav>
     <div class="bas-languages" aria-label="Language">
       <button type="button" data-language="en" lang="en">EN</button>
@@ -48,28 +47,31 @@
   <section class="bas-section bas-wrap" id="activities" aria-labelledby="bas-activities-title">
     <h2 id="bas-activities-title" data-en="Club activities" data-ar="أنشطة النادي">Club activities</h2>
     <div class="bas-activities">
-        <article class="bas-activity">
+      <details class="bas-activity" id="science-day" name="club-activity">
+        <summary>
           <span class="bas-activity-icon" aria-hidden="true">⚗</span>
-          <h3 data-en="Science Day" data-ar="يوم العلوم">Science Day</h3>
+          <span data-en="Science Day" data-ar="يوم العلوم">Science Day</span>
+        </summary>
+        <div class="bas-activity-content">
           <p data-en="Cycle 3 students explored biology, physics and chemistry through hands-on experiments, science games and puzzles." data-ar="استكشف تلاميذ الحلقة الثالثة الأحياء والفيزياء والكيمياء من خلال التجارب العملية والألعاب والألغاز العلمية.">Cycle 3 students explored biology, physics and chemistry through hands-on experiments, science games and puzzles.</p>
-        </article>
-        <article class="bas-activity">
+          <div id="videos" class="bas-science-day-videos">
+            <h3 data-en="Science Day videos" data-ar="فيديوهات يوم العلوم">Science Day videos</h3>
+            <p data-en="Videos coming soon." data-ar="الفيديوهات قريبًا.">Videos coming soon.</p>
+          </div>
+        </div>
+      </details>
+      <details class="bas-activity" id="health-conference" name="club-activity">
+        <summary>
           <span class="bas-activity-icon" aria-hidden="true">◎</span>
-          <h3 data-en="Science challenges" data-ar="التحدّيات العلمية">Science challenges</h3>
-          <p data-en="Science bingo, Snakes and Ladders and mystery clues give teams a chance to reason together and explain their answers." data-ar="بالبنغو العلمي والسلالم والثعابين والألغاز، يتعاون التلاميذ لحلّ التحدّيات وشرح إجاباتهم.">Science bingo, Snakes and Ladders and mystery clues give teams a chance to reason together and explain their answers.</p>
-        </article>
-        <article class="bas-activity">
-          <span class="bas-activity-icon" aria-hidden="true">✦</span>
-          <h3 data-en="Investigations and projects" data-ar="الاستقصاء والمشاريع">Investigations and projects</h3>
-          <p data-en="Students work together to ask a question, plan how to investigate it and share what they find." data-ar="يعمل التلاميذ ضمن فرق لطرح سؤال، والتخطيط لاستقصائه، وعرض ما توصّلوا إليه.">Students work together to ask a question, plan how to investigate it and share what they find.</p>
-        </article>
-    </div>
-  </section>
-  <section class="bas-section bas-wrap" id="videos" aria-labelledby="bas-videos-title">
-    <h2 id="bas-videos-title" data-en="Club videos" data-ar="فيديوهات النادي">Club videos</h2>
-    <div class="bas-club-video-empty">
-      <span class="bas-club-shortcut-icon" aria-hidden="true">▶</span>
-      <p data-en="Club videos will be posted here." data-ar="تُنشر فيديوهات النادي هنا عند توفّرها.">Club videos will be posted here.</p>
+          <span>
+            <span data-en="Your Health Isn’t a Trend" data-ar="صحتك مش ترند">Your Health Isn’t a Trend</span>
+            <small data-en="Upcoming conference" data-ar="ندوة قادمة">Upcoming conference</small>
+          </span>
+        </summary>
+        <div class="bas-activity-content">
+          <p data-en="Conference details are coming soon." data-ar="تفاصيل الندوة قريبًا.">Conference details are coming soon.</p>
+        </div>
+      </details>
     </div>
   </section>
   <section class="home-club-card bas-club bas-wrap" id="join-club" aria-labelledby="club-join-title">
@@ -105,7 +107,20 @@
   </div>
 </footer>
 <script>
-document.addEventListener("DOMContentLoaded", () => basEditorial.initializeLanguage());
+function openLinkedActivity() {
+    const target = ["#science-day", "#videos", "#health-conference"].includes(location.hash)
+        ? document.getElementById(location.hash.slice(1))
+        : null;
+    if (!target) return;
+    target.closest("details").open = true;
+    target.scrollIntoView();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    basEditorial.initializeLanguage();
+    openLinkedActivity();
+});
+window.addEventListener("hashchange", openLinkedActivity);
 
 /* Science Club applications: students explicitly send their details via WhatsApp.
    No automatic WhatsApp message, enrollment, or database storage occurs. */
