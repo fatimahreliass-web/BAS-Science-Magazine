@@ -734,7 +734,7 @@
 .bas-lab-content { min-width: 0; }
 .bas-lab-rack-scroll {
     overflow-x: auto;
-    padding-block: 3px 9px;
+    padding-block: 50px 10px;
     scrollbar-color: #92673a #eadac4;
     scrollbar-width: thin;
     scroll-padding-inline: 12px;
@@ -745,7 +745,7 @@
     isolation: isolate;
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: 114px;
+    grid-auto-columns: clamp(142px, 13vw, 174px);
     width: max-content;
     min-width: 100%;
     padding: 0 12px;
@@ -776,12 +776,12 @@
     --tube-fluid: #82bd94;
     --tube-light: #c6eac8;
     display: grid;
-    grid-template-rows: 170px auto;
+    grid-template-rows: 188px auto;
     justify-items: center;
     align-content: start;
     gap: 8px;
     min-width: 0;
-    padding: 4px 5px 7px;
+    padding: 4px 7px 9px;
     color: var(--bas-ink);
     text-align: center;
 }
@@ -791,10 +791,21 @@
 .bas-lab-article:focus-visible .bas-lab-article-title { text-decoration: underline; text-underline-offset: 3px; }
 .bas-lab-article:focus-visible { outline: 2px solid #47745d; outline-offset: -2px; border-radius: 6px; }
 .bas-lab-article-title {
-    font-size: .91rem;
-    font-weight: 700;
-    line-height: 1.33;
+    width: 100%;
+    padding: 7px 6px;
+    border: 1px solid #b9cec0;
+    border-radius: 7px;
+    background: #f9fcf5;
+    color: #163c2d;
+    font-size: 1rem;
+    font-weight: 750;
+    line-height: 1.32;
+    text-wrap: pretty;
     overflow-wrap: anywhere;
+}
+.bas-lab-article:is(:hover, :focus-visible, .is-fizzing) .bas-lab-article-title {
+    border-color: #679273;
+    background: #f2f7d9;
 }
 .bas-lab-tube {
     display: block;
@@ -834,29 +845,81 @@
 }
 .bas-tube-bubble {
     position: absolute;
-    bottom: 52px;
+    bottom: 8px;
     left: 10px;
     width: 7px;
     height: 7px;
     opacity: 0;
     border: 1px solid #46785c;
     border-radius: 50%;
-    background: var(--tube-light);
+    background: #f8ffedbb;
+}
+.bas-tube-bubble:nth-of-type(2n) { left: 23px; width: 5px; height: 5px; }
+.bas-tube-bubble:nth-of-type(2) { --bubble-delay: .18s; }
+.bas-tube-bubble:nth-of-type(3) { --bubble-delay: .37s; }
+.bas-tube-bubble:nth-of-type(4) { --bubble-delay: .62s; }
+.bas-tube-bubble:nth-of-type(5) { --bubble-delay: .75s; }
+.bas-lab-article:nth-child(2n) { --tube-delay: .19s; }
+.bas-lab-article:nth-child(3n) { --tube-delay: .31s; }
+.bas-tube-smoke {
+    position: absolute;
     z-index: 3;
+    pointer-events: none;
+    bottom: calc(100% - 8px);
+    left: 50%;
+    width: 44px;
+    height: 28px;
+    transform: translateX(-50%);
 }
-.bas-tube-bubble:nth-of-type(2n) { left: 19px; width: 5px; height: 5px; }
-.bas-tube-bubble:nth-of-type(2) { animation-delay: .06s; }
-.bas-tube-bubble:nth-of-type(3) { animation-delay: .12s; }
-.bas-tube-bubble:nth-of-type(4) { animation-delay: .18s; }
-.bas-tube-bubble:nth-of-type(5) { animation-delay: .24s; }
-.bas-lab-article.is-fizzing .bas-tube-bubble { animation-name: bas-lab-fizz; animation-duration: .41s; animation-timing-function: ease-out; }
-.bas-lab-article.is-fizzing .bas-tube-liquid { animation: bas-lab-surge .24s ease-in-out 2 alternate; }
-@keyframes bas-lab-fizz {
-    0% { opacity: 0; transform: translateY(0) scale(.55); }
+.bas-tube-smoke::before, .bas-tube-smoke::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    border-radius: 48%;
+    background: radial-gradient(ellipse at 48% 51%, #fff 19%, #e7efdd 43%, #acbcab80 61%, transparent 76%);
+    opacity: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+    .bas-lab-rack.is-in-view .bas-lab-tube {
+        animation: bas-tube-sway 2s ease-in-out var(--tube-delay, 0s) 2;
+        transform-origin: 50% 39%;
+    }
+    .bas-lab-rack.is-in-view .bas-tube-bubble {
+        animation: bas-tube-rise 1.75s ease-out calc(var(--bubble-delay, 0s) + var(--tube-delay, 0s)) 2;
+    }
+    .bas-lab-article:is(:hover, :focus-visible) .bas-tube-bubble {
+        animation: bas-tube-hover-rise 1.35s ease-out var(--bubble-delay, 0s) 2;
+    }
+    .bas-lab-rack .bas-lab-article.is-fizzing .bas-lab-tube { animation: none; }
+    .bas-lab-article.is-fizzing .bas-tube-liquid { animation: bas-lab-surge .28s ease-in-out 2 alternate; }
+    .bas-lab-article.is-fizzing .bas-tube-smoke::before { animation: bas-tube-steam .88s ease-out both; }
+    .bas-lab-article.is-fizzing .bas-tube-smoke::after {
+        animation: bas-tube-steam .81s .11s ease-out both;
+        scale: -1 1;
+    }
+}
+@keyframes bas-tube-sway {
+    0%, 100% { transform: rotate(0); }
+    30% { transform: translateY(-3px) rotate(2deg); }
+    68% { transform: translateY(-1px) rotate(-2deg); }
+}
+@keyframes bas-tube-rise {
+    0% { opacity: 0; transform: translateY(0) scale(.7); }
     20%, 65% { opacity: 1; }
-    100% { opacity: 0; transform: translateY(-130px) scale(1.15); }
+    100% { opacity: 0; transform: translateY(-46px) scale(1.1); }
 }
-@keyframes bas-lab-surge { to { transform: scaleY(1.43) skewX(-5deg); } }
+@keyframes bas-tube-hover-rise {
+    0% { opacity: 0; transform: translateY(0) scale(.7); }
+    20%, 65% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-46px) scale(1.1); }
+}
+@keyframes bas-tube-steam {
+    0% { opacity: 0; transform: translate(0, 12px) scale(.45); }
+    26% { opacity: .97; }
+    70% { opacity: .68; }
+    100% { opacity: 0; transform: translate(13px, -33px) scale(1.65); }
+}
+@keyframes bas-lab-surge { to { transform: scaleY(1.28) skewX(-4deg); } }
 @media (max-width: 850px) {
     .bas-issue-lab { grid-template-columns: minmax(160px, .65fr) minmax(0, 1.6fr); }
 }
@@ -864,10 +927,6 @@
     .bas-issue-lab { grid-template-columns: minmax(0, 1fr); }
     .bas-lab-cover img { min-height: 0; height: clamp(195px, 58vw, 295px); }
 }
-@media (prefers-reduced-motion: reduce) {
-    .bas-lab-article.is-fizzing :is(.bas-tube-bubble, .bas-tube-liquid) { animation: none; }
-}
-
 /* Student figures on the microscope stage and the portrait magnifier. */
 .bas-lens-instruction {
     display: flex;

@@ -20,8 +20,12 @@ const basIssueLab = (() => {
         for (let index = 0; index < 5; index += 1) {
             const bubble = document.createElement("i");
             bubble.className = "bas-tube-bubble";
-            tube.append(bubble);
+            glass.append(bubble);
         }
+
+        const smoke = document.createElement("span");
+        smoke.className = "bas-tube-smoke";
+        tube.append(smoke);
 
         const title = document.createElement("span");
         title.className = "bas-lab-article-title";
@@ -38,6 +42,11 @@ const basIssueLab = (() => {
         let bubbling = null;
         let navigationTimer;
 
+        const observer = new IntersectionObserver(([entry]) => {
+            rack.classList.toggle("is-in-view", entry.isIntersecting);
+        }, { threshold: 0.35 });
+        observer.observe(content);
+
         content.addEventListener("click", event => {
             const tube = event.target.closest(".bas-lab-article");
             if (!tube || event.defaultPrevented || event.button !== 0 ||
@@ -47,7 +56,7 @@ const basIssueLab = (() => {
             bubbling?.classList.remove("is-fizzing");
             bubbling = tube;
             tube.classList.add("is-fizzing");
-            navigationTimer = setTimeout(() => window.location.assign(tube.href), 620);
+            navigationTimer = setTimeout(() => window.location.assign(tube.href), 1000);
         });
         window.addEventListener("pagehide", () => {
             clearTimeout(navigationTimer);
