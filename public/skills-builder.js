@@ -1,42 +1,43 @@
 const basSkills = (() => {
+    const iconDirectory = "https://cdn.prod.website-files.com/689201fe2216589f5d4897f1/";
     const skills = {
         listening: {
-            icon: "♪", en: "Listening", ar: "الإصغاء",
+            icon: "689201fe2216589f5d48a930_Listening%20SVG.svg", en: "Listening", ar: "الإصغاء",
             descriptionEn: "Pay attention to what others communicate, ask questions when needed, and check that you understood.",
             descriptionAr: "أنتبه لما يقوله الآخرون، وأطرح أسئلة عند الحاجة، وأتأكّد من أنّني فهمت قصدهم.",
         },
         speaking: {
-            icon: "◉", en: "Speaking", ar: "التحدّث",
+            icon: "689201fe2216589f5d48a931_Speaking%20SVG.svg", en: "Speaking", ar: "التحدّث",
             descriptionEn: "Share your ideas clearly and choose words and examples that suit your audience.",
             descriptionAr: "أعبّر عن أفكاري بوضوح، وأختار الكلمات والأمثلة التي تناسب من يستمع إليّ.",
         },
         "problem-solving": {
-            icon: "◇", en: "Problem Solving", ar: "حلّ المشكلات",
+            icon: "689201fe2216589f5d48a932_Problem%20Solving%20SVG.svg", en: "Problem Solving", ar: "حلّ المشكلات",
             descriptionEn: "Work out what the problem is, use evidence to consider possible solutions, and check what works.",
             descriptionAr: "أحدّد المشكلة، وأستعين بالأدلّة لدراسة الحلول الممكنة، وأتحقّق ممّا ينجح منها.",
         },
         creativity: {
-            icon: "✦", en: "Creativity", ar: "الإبداع",
+            icon: "689201fe2216589f5d48a933_Creativity%20SVG.svg", en: "Creativity", ar: "الإبداع",
             descriptionEn: "Come up with different ideas, then try and develop the ones that show promise.",
             descriptionAr: "أقترح أفكارًا متنوّعة، ثم أجرّب الأفكار الواعدة وأطوّرها.",
         },
         adapting: {
-            icon: "↻", en: "Adapting", ar: "التكيّف",
+            icon: "689201fe2216589f5d48a934_Adapting%20SVG.svg", en: "Adapting", ar: "التكيّف",
             descriptionEn: "Notice what has changed, adjust your approach, and use feedback to keep making progress.",
             descriptionAr: "ألاحظ ما تغيّر، وأعدّل طريقتي، وأستفيد من الملاحظات لأواصل التقدّم.",
         },
         planning: {
-            icon: "≡", en: "Planning", ar: "التخطيط",
+            icon: "689201fe2216589f5d48a935_Planning%20SVG.svg", en: "Planning", ar: "التخطيط",
             descriptionEn: "Set a goal, put the steps in order, and check your progress along the way.",
             descriptionAr: "أحدّد هدفًا، وأرتّب خطوات العمل، وأتابع تقدّمي أثناء التنفيذ.",
         },
         leadership: {
-            icon: "⚑", en: "Leadership", ar: "القيادة",
+            icon: "689201fe2216589f5d48a936_Leadership%20SVG.svg", en: "Leadership", ar: "القيادة",
             descriptionEn: "Help a group agree on a direction, support its members, and encourage everyone to contribute.",
             descriptionAr: "أساعد المجموعة على الاتفاق على هدف، وأدعم أعضاءها، وأشجّع الجميع على المشاركة.",
         },
         teamwork: {
-            icon: "◎", en: "Teamwork", ar: "العمل الجماعي",
+            icon: "689201fe2216589f5d48a937_Teamwork%20SVG.svg", en: "Teamwork", ar: "العمل الجماعي",
             descriptionEn: "Work with others toward a shared goal, do your part, and help the group succeed.",
             descriptionAr: "أتعاون مع الآخرين لتحقيق هدف مشترك، وأقوم بدوري، وأساعد المجموعة على النجاح.",
         },
@@ -78,10 +79,12 @@ const basSkills = (() => {
     }
 
     function iconFor(skill) {
-        const icon = document.createElement("span");
+        const icon = document.createElement("img");
         icon.className = "skill-icon";
-        icon.setAttribute("aria-hidden", "true");
-        icon.textContent = skill.icon;
+        icon.src = iconDirectory + skill.icon;
+        icon.alt = "";
+        icon.width = 44;
+        icon.height = 44;
         return icon;
     }
 

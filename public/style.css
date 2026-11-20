@@ -1450,9 +1450,9 @@ html[dir=rtl] .club-application-confirm{flex-direction:row}
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    min-height: 44px;
-    padding: 5px;
+    gap: 7px;
+    min-height: 62px;
+    padding: 6px;
     border: 1px solid #c6dac0;
     border-radius: 8px;
     background: #fff;
@@ -1472,7 +1472,13 @@ a.article-skill-badge:focus-visible { outline: 2px solid #805715; outline-offset
 .skills-builder-explanation { margin: 7px 0 0; font-size: .94rem; line-height: 1.55; }
 .skills-builder-explanation:empty { margin: 0; }
 .skills-builder-explanation p { display: inline; margin: 0; margin-inline-start: .55em; }
-.skill-icon { font-size: 1.05em; line-height: 1; flex: none; }
+.skill-icon {
+    display: block;
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    flex: none;
+}
 .article-skill-badge {
     display: inline-flex;
     align-items: center;
@@ -1489,12 +1495,15 @@ a.article-skill-badge:focus-visible { outline: 2px solid #805715; outline-offset
     font-weight: 700;
     line-height: 1.4;
 }
+.article-skill-badge .skill-icon { width: 34px; height: 34px; }
+a.article-skill-badge .skill-icon { width: 48px; height: 48px; }
 a.article-skill-badge:hover { background: #f8edbc; }
 a.article-skill-badge [lang="ar"] { border-inline-start: 1px solid #a5c09a; padding-inline-start: 8px; }
-@media (max-width: 950px) {
+@media (max-width: 1090px) {
     .skills-builder-strip { margin-inline: 10px; }
     .skills-builder-options { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
-@media (max-width: 400px) {
-    .skills-builder-options button { flex-direction: column; min-height: 55px; gap: 4px; }
+@media (max-width: 620px) {
+    .skills-builder-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .skills-builder-options button { justify-content: flex-start; }
 }
