@@ -7,7 +7,8 @@
     const button = document.createElement("button");
     button.type = "button";
     button.className = "bas-music-toggle";
-    button.innerHTML = '<span aria-hidden="true">♫</span>';
+    button.innerHTML = '<span class="bas-music-icon" aria-hidden="true">♫</span><span class="bas-music-label"></span>';
+    const buttonLabel = button.querySelector(".bas-music-label");
     document.body.append(button);
 
     function readState() {
@@ -35,14 +36,11 @@
     }
 
     function updateButton() {
-        const on = enabled && !waitingForGesture;
         const arabic = document.documentElement.lang === "ar";
-        const label = arabic
-            ? (on ? "إيقاف موسيقى الخلفية" : "تشغيل موسيقى الخلفية")
-            : (on ? "Pause background music" : "Play background music");
-        button.setAttribute("aria-label", label);
-        button.title = label;
-        button.dataset.playing = String(on);
+        buttonLabel.textContent = arabic
+            ? (enabled ? "إذا بدّك توقف الموسيقى، كبس هون" : "شغّل الموسيقى")
+            : (enabled ? "Click here to pause the music" : "Play music");
+        button.dataset.enabled = String(enabled);
     }
 
     function applyPlayback() {
@@ -50,7 +48,6 @@
             .some(video => !video.muted && !video.paused && !video.ended);
         if (!enabled || videoPlaying || document.hidden) {
             audio.pause();
-            updateButton();
             return;
         }
 
@@ -66,19 +63,22 @@
             if (enabled && audio.paused) waitingForGesture = true;
         }).finally(() => {
             playingRequested = false;
-            updateButton();
         });
     }
 
     button.addEventListener("click", () => {
-        enabled = !enabled || waitingForGesture;
+        enabled = !enabled;
         saveState();
+        updateButton();
         applyPlayback();
     });
 
-    document.addEventListener("click", event => {
+    function tryAfterInteraction(event) {
         if (!button.contains(event.target) && waitingForGesture && enabled) applyPlayback();
-    });
+    }
+
+    document.addEventListener("click", tryAfterInteraction);
+    document.addEventListener("keydown", tryAfterInteraction);
 
     for (const event of ["play", "pause", "ended", "volumechange"]) {
         document.addEventListener(event, ({ target }) => {

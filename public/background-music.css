@@ -3,18 +3,23 @@
     z-index: 18;
     inset-inline-end: max(0.85rem, env(safe-area-inset-right));
     inset-block-end: max(0.85rem, env(safe-area-inset-bottom));
-    display: grid;
-    place-items: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     box-sizing: border-box;
-    inline-size: 44px;
-    block-size: 44px;
-    padding: 0;
+    min-block-size: 44px;
+    max-inline-size: calc(100% - 1.7rem);
+    padding: 0.4rem 0.8rem;
     border: 1px solid #aec5ae;
-    border-radius: 50%;
+    border-radius: 999px;
     background: #f6fbef;
     color: #245941;
     box-shadow: 0 3px 12px #183e2520;
-    font: 1.35rem/1 system-ui, sans-serif;
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: start;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
 }
@@ -23,10 +28,14 @@
     inset-inline-end: max(0.85rem, env(safe-area-inset-left));
 }
 
-.bas-music-toggle[data-playing="true"] {
+.bas-music-toggle[data-enabled="true"] {
     background: #245941;
     color: #f6fbef;
     border-color: #245941;
+}
+
+.bas-music-icon {
+    font: 1.2rem/1 system-ui, sans-serif;
 }
 
 .bas-music-toggle:hover {
