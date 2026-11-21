@@ -700,6 +700,22 @@
 .bas-conference-date time { color: var(--bas-muted); font-weight: 650; }
 .bas-conference-date strong { color: var(--bas-ink); font-size: clamp(1.15rem, 2.5vw, 1.45rem); }
 .bas-conference-date strong:empty { display: none; }
+.bas-seminar-link {
+    display: block;
+    max-width: 580px;
+    margin: 0 auto 2rem;
+}
+.bas-seminar-poster {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 18px;
+    box-shadow: 0 12px 36px rgba(32, 80, 45, .12);
+}
+.bas-activity-content .bas-seminar-poster {
+    max-width: 580px;
+    margin: 16px auto 0;
+}
 .bas-science-day-videos { scroll-margin-block-start: 20px; margin-block-start: 15px; }
 .bas-science-day-videos h3 { margin: 0 0 10px; font-size: 1.1rem; }
 .bas-science-day-video-grid {

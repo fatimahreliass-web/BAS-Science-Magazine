@@ -18,6 +18,10 @@ const basEditorial = (() => {
         document.querySelectorAll("[data-en][data-ar]").forEach(node => {
             node.textContent = node.dataset[lang];
         });
+        document.querySelectorAll("img[data-src-en][data-src-ar]").forEach(image => {
+            image.src = lang === "ar" ? image.dataset.srcAr : image.dataset.srcEn;
+            image.alt = lang === "ar" ? image.dataset.altAr : image.dataset.altEn;
+        });
         const pageTitle = document.querySelector("[data-page-title]");
         if (pageTitle) document.title = pageTitle.textContent + " — BAS";
         document.querySelectorAll("[data-language]").forEach(button => {
