@@ -51,13 +51,7 @@ const basIssueLab = (() => {
         const number = issue.issue_number;
         const en = "Issue " + number;
         const ar = Number(number) === 1 ? "العدد الأول" : "العدد " + new Intl.NumberFormat("ar-LB-u-nu-arab").format(number);
-        const date = new Date(issue.publication_date || "");
-        const dateLabel = locale => new Intl.DateTimeFormat(locale, {
-            month: "long", year: "numeric", timeZone: "UTC"
-        }).format(date);
-        basEditorial.localized(label,
-            Number.isNaN(+date) ? en : en + " · " + dateLabel("en"),
-            Number.isNaN(+date) ? ar : ar + " · " + dateLabel("ar-LB-u-nu-arab"));
+        basEditorial.localized(label, en, ar);
         link.href = "issue.html?id=" + encodeURIComponent(issue.id);
         updateImage(link.querySelector("img"), issue.cover_image);
     }
