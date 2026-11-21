@@ -35,13 +35,12 @@ function studentIntroduction(article, notes) {
     }
 
     const voice = notes?.voice || [
-        "I’d like to turn a question from my everyday life into a magazine article and explore it with the Science Club.",
-        "أحبّ أن أحوّل سؤالًا من حياتي اليوميّة إلى مقال في المجلّة، وأن أستكشفه مع زملائي في نادي العلوم.",
+        "I could bring a question to the club, explore it with my classmates and write about what we find.",
+        "فيني جيب سؤال عالنادي، ونبحث فيه سوا ونكتب شو اكتشفنا.",
     ];
     const motivation = element("div", "bas-student-motivation");
     motivation.append(
-        localized(element("h3"), "Why the magazine and the club?", "لماذا المجلّة والنادي؟"),
-        localized(element("p", "bas-student-voice-label"), "Suggested first-person wording", "صياغة مقترحة بصوت التلميذ"),
+        localized(element("h3"), "Why BAS Science Club?", "ليش نادي العلوم BAS؟"),
         localized(element("p"), ...voice)
     );
     panel.append(motivation);

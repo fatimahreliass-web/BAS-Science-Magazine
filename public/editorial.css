@@ -1480,12 +1480,6 @@ a:is(.bas-story-card, .bas-portrait-card):is(:hover, :focus-visible) h3 {
     border-radius: 12px;
     background: #fff9e5;
 }
-.bas-student-motivation .bas-student-voice-label {
-    margin-block-start: 2px;
-    color: #645630;
-    font-size: .86rem;
-    font-weight: 700;
-}
 @media (max-width: 520px) {
     .bas-issue-detail { grid-template-columns: minmax(0, 1fr); }
     .bas-student-profile .bas-portrait-frame { max-width: 220px; }
