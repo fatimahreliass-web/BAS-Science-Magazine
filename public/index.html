@@ -118,6 +118,15 @@
       </a>
     </div>
   </section>
+  <section class="bas-section bas-wrap" id="health-seminar" aria-labelledby="health-seminar-heading">
+    <div class="bas-section-head"><h2 id="health-seminar-heading" data-en="Upcoming Science Club Seminar" data-ar="ندوة نادي العلوم القادمة">Upcoming Science Club Seminar</h2></div>
+    <a href="science-club.html#health-seminar" aria-label="Science Club seminar: Your Health Is Not a Trend" style="display:block;max-width:580px;margin:0 auto 2rem;text-align:center">
+      <picture>
+        <source media="(min-width:0px)" srcset="images/health-seminar-en.png" id="seminar-source">
+        <img id="health-seminar-poster" src="images/health-seminar-en.png" alt="Your Health Is Not a Trend — November 27, 2026" loading="lazy" style="display:block;width:100%;height:auto;border-radius:18px;box-shadow:0 12px 36px rgba(32,80,45,.12)">
+      </picture>
+    </a>
+  </section>
   <section class="bas-section bas-wrap" id="latest" aria-labelledby="bas-stories-title">
     <div class="bas-section-head">
       <h2 id="bas-stories-title" data-en="The Issue 1 Lab" data-ar="مختبر العدد الأول">The Issue 1 Lab</h2>
@@ -246,5 +255,21 @@ function mountTopicLights() {
     </div>
   </div>
 </footer>
+<script>
+(function () {
+  function updateSeminarPoster() {
+    const ar = document.documentElement.lang === "ar";
+    const path = "images/health-seminar-" + (ar ? "ar" : "en") + ".png";
+    const source = document.getElementById("seminar-source");
+    const image = document.getElementById("health-seminar-poster");
+    if (source) source.srcset = path;
+    if (image) { image.src = path; image.alt = ar ? "صحتك مش ترند — الجمعة ٢٧ تشرين الثاني ٢٠٢٦" : "Your Health Is Not a Trend — Friday, November 27, 2026"; }
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    updateSeminarPoster();
+    new MutationObserver(updateSeminarPoster).observe(document.documentElement, {attributes:true,attributeFilter:["lang"]});
+  });
+})();
+</script>
 </body>
 </html>
