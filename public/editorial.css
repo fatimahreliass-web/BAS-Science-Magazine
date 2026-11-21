@@ -60,10 +60,10 @@
 .bas-nav a { display: inline-flex; min-height: 44px; align-items: center; }
 .bas-nav a:hover,
 .bas-nav [aria-current="page"] { text-decoration: underline; text-decoration-color: #ae8e43; text-underline-offset: 6px; }
-.bas-languages { display: flex; align-items: center; gap: 2px; padding: 3px; background: var(--bas-sage); border-radius: 8px; }
+.bas-languages { display: flex; align-items: center; gap: 2px; padding: 3px; background: var(--bas-sage); border-radius: 12px; }
 .bas-languages button {
     border: 0;
-    border-radius: 6px;
+    border-radius: 9px;
     background: transparent;
     color: var(--bas-ink);
     cursor: pointer;
@@ -71,6 +71,7 @@
     min-height: 36px;
 }
 .bas-languages [aria-pressed="true"] { background: var(--bas-accent); color: #fff; }
+.bas-languages button:hover:not([aria-pressed="true"]) { background: #d4e6d2; }
 
 .bas-skills-wrap { margin-block: 17px 22px; }
 .bas-editorial .skills-builder-strip {
@@ -181,13 +182,13 @@
     justify-content: center;
     min-height: 46px;
     padding: 8px 16px;
-    background: var(--bas-accent);
+    background: linear-gradient(155deg, #326451, #204b3c);
     color: #fff;
     border: 1px solid transparent;
-    border-radius: 8px;
+    border-radius: 12px;
     font-weight: 700;
 }
-.bas-primary:hover { background: #163e30; }
+.bas-primary:is(:hover, :focus-visible) { background: linear-gradient(155deg, #2b5c48, #173e30); }
 
 .bas-section { padding-block: clamp(34px, 5vw, 64px) 0; }
 .bas-section h2,
@@ -408,7 +409,7 @@
     border-radius: 12px;
     background: #fff;
 }
-.bas-story-card, .bas-portrait-card, .bas-primary {
+.bas-story-card, .bas-portrait-card {
     transition: border-color .16s ease, background-color .16s ease, box-shadow .16s ease;
 }
 
@@ -550,7 +551,7 @@
 
 @media (prefers-reduced-motion: reduce) {
     html:has(.bas-editorial) { scroll-behavior: auto; }
-    .bas-story-card, .bas-portrait-card, .bas-primary { transition: none; }
+    .bas-story-card, .bas-portrait-card { transition: none; }
 }
 
 /* Science Club entry points and activity page. */
@@ -561,25 +562,26 @@
     gap: 10px;
 }
 .bas-secondary,
-.bas-club-button {
+.bas-club-button,
+.bas-club-text-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     min-height: 44px;
-    padding: 7px 14px;
-    border-radius: 8px;
+    padding: 8px 15px;
+    border-radius: 12px;
     font-weight: 700;
-    transition: background-color .18s ease, border-color .18s ease;
 }
+.bas-primary, .bas-secondary, .bas-club-button { box-shadow: 0 3px 8px #173d301c; }
 .bas-secondary {
     border: 1px solid #a6beaa;
     background: #f5faf3;
     color: var(--bas-ink);
 }
-.bas-secondary:hover { background: #fff; border-color: var(--bas-accent); }
+.bas-secondary:is(:hover, :focus-visible) { background: #fff; border-color: var(--bas-accent); }
 .bas-nav .bas-nav-club {
     padding-inline: 10px;
-    border-radius: 7px;
+    border-radius: 10px;
     background: #edf4e9;
     color: #174636;
 }
@@ -611,9 +613,10 @@
 .bas-club-feature-copy p,
 .bas-club-hero p { color: #e3efe0; margin: 10px 0 17px; }
 .bas-club-feature-copy p { max-width: 48ch; }
-.bas-club-button { background: #f4e6b2; color: #244235; }
-.bas-club-button:hover { background: #fff5ce; }
-.bas-club-text-link { text-decoration: underline; text-underline-offset: 5px; padding: 8px; }
+.bas-club-button { background: linear-gradient(155deg, #fff1c8, #ecd48e); color: #244235; }
+.bas-club-button:is(:hover, :focus-visible) { background: linear-gradient(155deg, #fff8df, #f2dda1); }
+.bas-club-text-link { border: 1px solid #e9f2e754; color: inherit; }
+.bas-club-text-link:is(:hover, :focus-visible) { background: #f5f9f329; border-color: #e9f2e799; }
 
 .bas-club-shortcuts { display: grid; gap: 9px; }
 .bas-club-shortcuts a {
@@ -625,7 +628,6 @@
     background: #f5f9f31a;
     border: 1px solid #e9f2e749;
     border-radius: 10px;
-    transition: background-color .18s ease;
 }
 .bas-club-shortcuts a:hover { background: #f5f9f32c; }
 .bas-club-shortcuts a span span {
@@ -664,7 +666,7 @@
     gap: 12px;
     margin-block-start: 16px;
 }
-.bas-activity { border-radius: 12px; }
+.bas-activity { border-radius: 16px; }
 .bas-activity summary {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
@@ -679,9 +681,20 @@
     line-height: 1.35;
 }
 .bas-activity summary::-webkit-details-marker { display: none; }
-.bas-activity summary::after { content: "+" / ""; color: var(--bas-accent); font-size: 1.3rem; }
-.bas-activity[open] summary::after { content: "−" / ""; }
-.bas-activity summary:hover { background: #ffffff48; }
+.bas-activity summary::after {
+    content: "";
+    inline-size: 30px;
+    block-size: 30px;
+    border: 1px solid var(--tile-line);
+    border-radius: 50%;
+    color: var(--bas-accent);
+    background:
+        linear-gradient(currentColor, currentColor) center / 11px 2px no-repeat,
+        linear-gradient(currentColor, currentColor) center / 2px 11px no-repeat,
+        #ffffff74;
+}
+.bas-activity[open] summary::after { background-size: 11px 2px, 2px 0, auto; }
+.bas-activity summary:is(:hover, :focus-visible) { background: #ffffff68; }
 .bas-activity summary small { display: block; color: var(--bas-muted); font-size: .86rem; font-weight: 650; }
 .bas-activity-icon { background: var(--tile-icon); }
 .bas-activity-content {
@@ -755,18 +768,31 @@
     .bas-activities { grid-template-columns: minmax(0, 1fr); }
     .bas-hero-actions { gap: 8px; }
 }
-@media (prefers-reduced-motion: reduce) {
-    .bas-secondary, .bas-club-button, .bas-club-shortcuts a { transition: none; }
-}
-
 @media (prefers-reduced-motion: no-preference) {
     .bas-homepage .bas-hero,
     .bas-club-page .bas-club-hero { animation: bas-page-enter .38s ease-out both; }
 
-    .bas-club-shortcuts a { transition: background-color .18s ease, transform .18s ease; }
+    .bas-editorial :is(.bas-primary, .bas-secondary, .bas-club-button, .bas-club-text-link,
+        .bas-club-shortcuts a, .bas-nav-club, .bas-languages button, .home-club-link,
+        .club-application-submit, .bas-activity summary) {
+        transition: transform .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    .bas-editorial :is(.bas-primary, .bas-secondary, .bas-club-button, .bas-club-text-link,
+        .bas-club-shortcuts a, .bas-nav-club, .bas-languages button, .home-club-link,
+        .club-application-submit):active { transform: translateY(1px) scale(.985); }
+    .bas-activity summary::after { transition: background-size .2s ease; }
+    .bas-activity-icon { transition: transform .24s ease; }
+    .bas-activity summary:is(:hover, :focus-visible) .bas-activity-icon { transform: rotate(-8deg); }
+    .bas-activity[open] > .bas-activity-content { animation: bas-page-enter .25s ease-out both; }
 }
 @media (prefers-reduced-motion: no-preference) and (hover: hover) {
-    .bas-club-shortcuts a:hover { transform: translateY(-2px); }
+    .bas-editorial :is(.bas-primary, .bas-secondary, .bas-club-button, .bas-club-text-link,
+        .bas-club-shortcuts a, .bas-nav-club, .home-club-link, .club-application-submit):hover:not(:active) {
+        transform: translateY(-2px);
+    }
+    .bas-editorial :is(.bas-primary, .bas-secondary, .bas-club-button):hover:not(:active) {
+        box-shadow: 0 6px 12px #173d3033;
+    }
 }
 @keyframes bas-page-enter {
     from { opacity: .82; transform: translateY(6px); }
@@ -1229,8 +1255,8 @@
 .bas-home-opening .bas-hero h1 { font-size: clamp(1.8rem, 3.35vw, 3.2rem); max-width: none; }
 .bas-home-opening .bas-hero-copy > p:not(.bas-school-line) { margin-block: 7px 11px; }
 .bas-home-opening .bas-hero-actions :is(.bas-primary, .bas-secondary) {
-    padding: 4px 11px;
-    min-height: 38px;
+    padding: 5px 11px;
+    min-height: 44px;
     font-size: .88rem;
 }
 .bas-home-opening .bas-student-band {
@@ -1264,7 +1290,7 @@
     .bas-home-opening .bas-hero h1 { font-size: clamp(1.3rem, 5vw, 2rem); }
     .bas-home-opening .bas-hero-copy > p:not(.bas-school-line) { margin-block: 4px 6px; font-size: .84rem; }
     .bas-home-opening .bas-hero-actions { gap: 4px; }
-    .bas-home-opening .bas-hero-actions :is(.bas-primary, .bas-secondary) { min-height: 33px; padding: 3px 7px; }
+    .bas-home-opening .bas-hero-actions :is(.bas-primary, .bas-secondary) { padding-inline: 8px; }
     .bas-home-opening .bas-student-band .bas-section-head { gap: 3px 8px; }
     .bas-home-opening .bas-student-band .bas-section-head a { font-size: .79rem; }
 }

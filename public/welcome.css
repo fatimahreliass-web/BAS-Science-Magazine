@@ -85,24 +85,113 @@ a { color: inherit; }
 .welcome-intro { max-inline-size: 33ch; margin: 24px 0 26px; color: #3d5547; font-size: clamp(1.04rem, 1.35vw, 1.27rem); }
 .welcome-intro span { display: block; }
 .welcome-intro:lang(ar) { max-inline-size: 29ch; }
-.welcome-actions { flex-wrap: wrap; gap: 10px 12px; }
+.welcome-actions { flex-wrap: wrap; gap: 12px; }
 .welcome-entry {
     display: inline-flex;
-    min-height: 54px;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-block-size: 58px;
+    max-inline-size: 100%;
     align-items: center;
-    padding: 11px 19px;
-    border: 1px solid transparent;
-    border-radius: 5px;
-    justify-content: center;
-    text-align: center;
+    gap: 10px;
+    padding-block: 7px;
+    padding-inline: 8px 16px;
+    border: 1px solid var(--entry-border);
+    border-radius: 17px;
+    background: linear-gradient(155deg, var(--entry-top), var(--entry-base));
+    box-shadow: 0 5px 12px var(--entry-shadow), inset 0 1px rgb(255 255 255 / 26%);
+    color: var(--entry-text);
     font-weight: 750;
+    line-height: 1.3;
     text-decoration: none;
-    transition: background .18s ease, color .18s ease;
 }
-.welcome-entry-magazine { background: var(--ink); color: #fffbed; }
-.welcome-entry-magazine:hover { background: #285343; }
-.welcome-entry-club { border-color: #a98843; background: #f3dfa5; color: var(--ink); }
-.welcome-entry-club:hover { background: #ead08a; }
+.welcome-entry-magazine {
+    --entry-top: #35624e;
+    --entry-base: #173d2e;
+    --entry-border: #244d3c;
+    --entry-shadow: rgb(28 64 48 / 25%);
+    --entry-text: #fffbed;
+    --icon-surface: rgb(255 255 255 / 12%);
+    --icon-ink: #ffedaf;
+}
+.welcome-entry-club {
+    --entry-top: #fff3ce;
+    --entry-base: #ead18a;
+    --entry-border: #a58748;
+    --entry-shadow: rgb(127 94 32 / 20%);
+    --entry-text: #2c3d2d;
+    --icon-surface: rgb(255 255 255 / 42%);
+    --icon-ink: #36553e;
+}
+.welcome-entry:is(:hover, :focus-visible) {
+    box-shadow: 0 9px 18px var(--entry-shadow), inset 0 1px rgb(255 255 255 / 38%);
+}
+.welcome-entry-icon {
+    display: grid;
+    position: relative;
+    place-items: center;
+    flex: 0 0 39px;
+    block-size: 39px;
+    border-radius: 11px;
+    background: var(--icon-surface);
+    color: var(--icon-ink);
+}
+.welcome-book { position: relative; inline-size: 23px; block-size: 17px; }
+.welcome-book::before, .welcome-book::after {
+    content: "";
+    position: absolute;
+    inset-block: 1px;
+    inline-size: 50%;
+    border: 1.5px solid currentColor;
+}
+.welcome-book::before { left: 0; border-radius: 3px 1px 1px 3px; transform: skewY(12deg); }
+.welcome-book::after { right: 0; border-radius: 1px 3px 3px 1px; transform: skewY(-12deg); }
+.welcome-atom {
+    position: relative;
+    inline-size: 25px;
+    block-size: 25px;
+    background: radial-gradient(circle, currentColor 1.5px, transparent 2px);
+}
+.welcome-atom::before, .welcome-atom::after {
+    content: "";
+    position: absolute;
+    inset: 2px 7px;
+    border: 1.5px solid currentColor;
+    border-radius: 50%;
+}
+.welcome-atom::before { transform: rotate(54deg); }
+.welcome-atom::after { transform: rotate(-54deg); }
+@media (prefers-reduced-motion: no-preference) {
+    .welcome-entry {
+        transition: transform .22s ease, box-shadow .22s ease;
+        animation: welcome-entry-appear .42s cubic-bezier(.2, .75, .3, 1) .08s backwards;
+    }
+    .welcome-entry-club { animation-delay: .17s; }
+    .welcome-entry::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        background: linear-gradient(110deg, transparent 32%, rgb(255 255 255 / 20%) 50%, transparent 66%);
+        transform: translateX(-100%);
+        pointer-events: none;
+    }
+    .welcome-entry:is(:hover, :focus-visible)::before { animation: welcome-entry-glint .65s ease-out; }
+    .welcome-entry-icon > span { transition: transform .28s cubic-bezier(.2, .75, .3, 1); }
+    .welcome-entry-magazine:is(:hover, :focus-visible) .welcome-book { transform: translateY(-2px) rotate(-8deg); }
+    .welcome-entry-club:is(:hover, :focus-visible) .welcome-atom { transform: rotate(42deg); }
+    .welcome-entry:active { transform: translateY(1px) scale(.985); }
+}
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+    .welcome-entry:hover:not(:active) { transform: translateY(-3px); }
+}
+@keyframes welcome-entry-appear {
+    from { opacity: 0; transform: translateY(8px); }
+}
+@keyframes welcome-entry-glint {
+    to { transform: translateX(100%); }
+}
 .welcome-issue { display: inline-block; margin-block-start: 7px; font-weight: 700; text-decoration-color: #9d763c; text-underline-offset: 5px; padding-block: 10px; }
 .welcome-issue:hover { text-decoration-thickness: 2px; }
 .welcome-conference {
@@ -214,9 +303,6 @@ a { color: inherit; }
     .welcome-art video { height: clamp(310px, 61svh, 570px); }
     .welcome-motion { inset-block-end: 10px; }
 }
-@media (max-width: 420px) {
-    .welcome-entry { flex: 1 1 135px; padding-inline: 12px; }
-}
-@media (prefers-reduced-motion: reduce) {
-    .welcome-entry { transition: none; }
+@media (max-width: 480px) {
+    .welcome-actions { display: grid; grid-template-columns: minmax(0, 1fr); max-inline-size: 330px; gap: 9px; }
 }
