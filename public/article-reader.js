@@ -103,6 +103,25 @@ async function loadArticle() {
             fragments.push(localized(element("p", "eyebrow"), article.class_name, gradeInArabic(article.class_name)));
         }
         fragments.push(title);
+        // Show the credited student immediately below the article title.
+        // Use the name saved with the article; resolve a linked student record if needed.
+        let authorName = [article.author_name, article.student_name, article.author, article.written_by]
+            .find(value => typeof value === "string" && value.trim())?.trim();
+        if (!authorName && (article.student_id != null || article.author_id != null)) {
+            try {
+                const students = await basEditorial.fetchList("/api/students");
+                const linkedId = article.student_id ?? article.author_id;
+                authorName = students.find(student => String(student.id) === String(linkedId))?.name?.trim();
+            } catch (error) {
+                console.warn("Could not resolve article author", error);
+            }
+        }
+        if (authorName) {
+            const credit = localized(element("p", "bas-article-author"),
+                "Written by: " + authorName, "بقلم: " + authorName);
+            credit.style.cssText = "margin:0.4rem 0 1rem;color:#527c69;font-size:0.98rem;font-weight:650;";
+            fragments.push(credit);
+        }
         const badge = basSkills.createBadge(article.id, { link: true });
         if (badge) fragments.push(badge);
         const excerpt = localized(element("p", "bas-article-excerpt"), article.excerpt_en?.trim() || "", cleanArabic(article.excerpt_ar));
