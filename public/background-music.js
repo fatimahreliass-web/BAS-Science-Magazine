@@ -9,7 +9,12 @@
     button.className = "bas-music-toggle";
     button.innerHTML = '<span class="bas-music-icon" aria-hidden="true">♫</span><span class="bas-music-label"></span>';
     const buttonLabel = button.querySelector(".bas-music-label");
-    document.body.append(button);
+    const welcomeControls = document.querySelector(".welcome-controls");
+    if (welcomeControls) {
+        welcomeControls.prepend(button);
+    } else {
+        document.body.append(button);
+    }
 
     function readState() {
         try {

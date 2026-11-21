@@ -276,10 +276,21 @@ a { color: inherit; }
     filter: brightness(1.015);
     mix-blend-mode: multiply;
 }
-.welcome-motion {
+.welcome-controls {
     position: absolute;
     inset-block-end: clamp(17px, 3vw, 39px);
     inset-inline-end: clamp(19px, 4vw, 62px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    max-inline-size: calc(100% - 38px);
+}
+.welcome-controls .bas-music-toggle {
+    position: static;
+    max-inline-size: 100%;
+}
+.welcome-motion {
     border: 1px solid #aab69f;
     border-radius: 5px;
     padding: 8px 12px;
@@ -301,7 +312,7 @@ a { color: inherit; }
     .welcome-kicker { margin-block-end: 11px; }
     .welcome-art { padding: 80px 12px 45px; }
     .welcome-art video { height: clamp(310px, 61svh, 570px); }
-    .welcome-motion { inset-block-end: 10px; }
+    .welcome-controls { inset-block-end: 10px; }
 }
 @media (max-width: 480px) {
     .welcome-actions { display: grid; grid-template-columns: minmax(0, 1fr); max-inline-size: 330px; gap: 9px; }
