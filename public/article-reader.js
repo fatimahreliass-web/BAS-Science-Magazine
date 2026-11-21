@@ -119,7 +119,6 @@ async function loadArticle() {
         if (authorName) {
             const credit = localized(element("p", "bas-article-author"),
                 "Written by: " + authorName, "بقلم: " + authorName);
-            credit.style.cssText = "margin:0.4rem 0 1rem;color:#527c69;font-size:0.98rem;font-weight:650;";
             fragments.push(credit);
         }
         const badge = basSkills.createBadge(article.id, { link: true });

@@ -1285,6 +1285,37 @@ a:is(.bas-story-card, .bas-portrait-card):is(:hover, :focus-visible) h3 {
 }
 
 /* Public reading pages follow the selected site language. */
+#article {
+    --article-font: "Atkinson Hyperlegible Next", "Segoe UI", Arial, sans-serif;
+    --article-size: clamp(1.1875rem, 1.1rem + .28vw, 1.3125rem);
+    --article-line-height: 1.74;
+    --article-title-line-height: 1.16;
+}
+#article:lang(ar) {
+    --article-font: "Noto Sans Arabic", Tahoma, Arial, sans-serif;
+    --article-size: clamp(1.25rem, 1.14rem + .4vw, 1.4375rem);
+    --article-line-height: 1.96;
+    --article-title-line-height: 1.45;
+}
+#article :is(h1, p, .bas-article-copy, .bas-article-media a) {
+    font-family: var(--article-font);
+}
+#article h1 {
+    margin-block: 0 10px;
+    color: #183b30;
+    font-size: clamp(1.875rem, 1.5rem + 1.65vw, 3rem);
+    font-weight: 800;
+    line-height: var(--article-title-line-height);
+    letter-spacing: normal;
+    overflow-wrap: anywhere;
+}
+#article .bas-article-author {
+    margin-block: 0 18px;
+    color: #305447;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.6;
+}
 #article .bas-article-hero {
     display: block;
     width: 100%;
@@ -1293,15 +1324,19 @@ a:is(.bas-story-card, .bas-portrait-card):is(:hover, :focus-visible) h3 {
     margin-block-end: 24px;
 }
 #article .bas-article-excerpt {
-    color: var(--bas-muted);
-    font-size: 1.16rem;
+    color: #384c43;
+    font-size: var(--article-size);
+    font-weight: 600;
+    line-height: var(--article-line-height);
     margin-block: 8px 20px;
 }
 .bas-article-excerpt:empty, .bas-story-excerpt:empty, .bas-student-profile p:empty { display: none; }
 #article .bas-article-copy {
     white-space: pre-line;
-    line-height: 1.95;
-    font-size: clamp(1.06rem, 1.7vw, 1.19rem);
+    color: #202c27;
+    line-height: var(--article-line-height);
+    font-size: var(--article-size);
+    font-weight: 500;
     margin-block-start: 16px;
     text-align: start;
     unicode-bidi: plaintext;
@@ -1449,20 +1484,9 @@ a:is(.bas-story-card, .bas-portrait-card):is(:hover, :focus-visible) h3 {
 }
 .bas-editorial :is(.bas-story-copy h3, .bas-activity h3, .bas-lab-content h3) { font-weight: 650; }
 
-.bas-editorial #article h1 {
-    font-family: var(--bas-serif) !important;
-    font-weight: 650;
-    line-height: 1.2;
-}
-.bas-editorial #article .bas-article-copy { font-family: var(--bas-body-font); }
 .bas-editorial :is(.bas-hero h1, .bas-section h2, .bas-page-intro h1, .bas-club h2,
     .bas-club-feature h2, .bas-club-hero h1, .bas-story-copy h3, .bas-activity h3, .bas-lab-content h3):lang(ar) {
     font-family: var(--bas-arabic-serif);
-    font-weight: 700;
-    line-height: 1.35;
-}
-.bas-editorial #article h1:lang(ar) {
-    font-family: var(--bas-arabic-serif) !important;
     font-weight: 700;
     line-height: 1.35;
 }
