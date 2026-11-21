@@ -1442,6 +1442,50 @@ a:is(.bas-story-card, .bas-portrait-card):is(:hover, :focus-visible) h3 {
 .bas-story-copy .bas-primary { margin: 6px 0; margin-inline-end: 6px; }
 .bas-issue-detail :is(.bas-story-copy, .bas-portrait-copy) { padding: 0; }
 .bas-issue-detail .bas-portrait-frame { border-radius: 9px; }
+.bas-student-introduction {
+    margin-block-start: 18px;
+    padding-block-start: 16px;
+    border-block-start: 1px solid #c1d5c2;
+}
+.bas-student-introduction h2, .bas-student-introduction h3 {
+    margin: 0;
+    color: var(--bas-ink);
+    font: 750 1.1rem/1.45 var(--bas-body-font);
+}
+.bas-student-introduction p {
+    margin: 5px 0 0;
+    color: #304940;
+    font-size: 1rem;
+    line-height: 1.7;
+}
+.bas-student-introduction .bas-student-subject {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    margin-block-start: 11px;
+}
+.bas-student-subject strong {
+    padding: 2px 10px;
+    border: 1px solid #bcd2bc;
+    border-radius: 8px;
+    background: #f8fcf5;
+    color: var(--bas-accent);
+}
+.bas-student-motivation {
+    max-width: 65ch;
+    margin-block-start: 14px;
+    padding: 12px 15px 14px;
+    border: 1px solid #e3d5a4;
+    border-radius: 12px;
+    background: #fff9e5;
+}
+.bas-student-motivation .bas-student-voice-label {
+    margin-block-start: 2px;
+    color: #645630;
+    font-size: .86rem;
+    font-weight: 700;
+}
 @media (max-width: 520px) {
     .bas-issue-detail { grid-template-columns: minmax(0, 1fr); }
     .bas-student-profile .bas-portrait-frame { max-width: 220px; }
