@@ -1,0 +1,45 @@
+.bas-music-toggle {
+    position: fixed;
+    z-index: 18;
+    inset-inline-end: max(0.85rem, env(safe-area-inset-right));
+    inset-block-end: max(0.85rem, env(safe-area-inset-bottom));
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    inline-size: 44px;
+    block-size: 44px;
+    padding: 0;
+    border: 1px solid #aec5ae;
+    border-radius: 50%;
+    background: #f6fbef;
+    color: #245941;
+    box-shadow: 0 3px 12px #183e2520;
+    font: 1.35rem/1 system-ui, sans-serif;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.bas-music-toggle:dir(rtl) {
+    inset-inline-end: max(0.85rem, env(safe-area-inset-left));
+}
+
+.bas-music-toggle[data-playing="true"] {
+    background: #245941;
+    color: #f6fbef;
+    border-color: #245941;
+}
+
+.bas-music-toggle:hover {
+    box-shadow: 0 3px 14px #183e2545;
+}
+
+.bas-music-toggle:focus-visible {
+    outline: 2px solid #4c805d;
+    outline-offset: 3px;
+}
+
+@media print {
+    .bas-music-toggle {
+        display: none;
+    }
+}
