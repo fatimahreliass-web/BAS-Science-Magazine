@@ -8,10 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400..800&amp;family=Fraunces:opsz,wght@9..144,500..800&amp;family=Noto+Naskh+Arabic:wght@500..700&amp;family=Noto+Sans+Arabic:wght@400..800&amp;display=swap">
-  <link rel="stylesheet" href="editorial.css?v=interior-controls">
+  <link rel="stylesheet" href="editorial.css?v=issue-front-page">
   <script src="skills-builder.js?v=article-language" defer></script>
-  <script src="editorial.js?v=seminar-poster" defer></script>
-  <script src="issue-lab.js?v=continuous-bubbles" defer></script>
+  <script src="editorial.js?v=issue-front-page" defer></script>
+  <script src="issue-lab.js?v=issue-front-page" defer></script>
 </head>
 <body class="bas-editorial bas-homepage">
 <header class="bas-header">
@@ -35,43 +35,33 @@
   </div>
 </header>
 <main>
-  <div class="bas-wrap bas-skills-wrap">
-<section class="skills-builder-strip" id="skills-builder" aria-labelledby="skills-builder-title">
-  <div class="skills-builder-heading">
-    <h2 id="skills-builder-title" data-en="Skills Builder" data-ar="مهارات Skills Builder">Skills Builder</h2>
-    <a href="https://www.skillsbuilder.org/global/universal-framework" data-en="Universal Framework 2.0" data-ar="الإطار العالمي 2.0">Universal Framework 2.0</a>
-  </div>
-  <div class="skills-builder-options"></div>
-  <p class="skills-builder-prompt" data-en="Choose a skill to see what it means." data-ar="اختاروا مهارة لتتعرّفوا إلى معناها.">Choose a skill to see what it means.</p>
-  <div class="skills-builder-explanation" id="skills-builder-explanation" aria-live="polite"></div>
-</section>
-  </div>
-  <div class="bas-home-opening bas-wrap">
-  <section class="bas-hero">
-    <div class="bas-hero-copy">
+  <section class="bas-front-page bas-wrap" id="issue-front-page" aria-labelledby="bas-front-title">
+    <div class="bas-front-masthead">
       <p class="bas-school-line" data-en="Al Bashaer High School · Cycle 3" data-ar="ثانوية البشائر · الحلقة الثالثة">Al Bashaer High School · Cycle 3</p>
-      <h1 data-en="Bashaer Science School Magazine" data-ar="مجلة بشائر العلمية">Bashaer Science School Magazine</h1>
-      <p data-en="A science magazine written by our students." data-ar="مجلة علمية من إعداد تلاميذنا.">A science magazine written by our students.</p>
-      <div class="bas-hero-actions">
-        <a class="bas-primary" href="#categories-showcase" data-en="Magazine" data-ar="المجلّة">Magazine</a>
-        <a class="bas-secondary" href="science-club.html" data-en="Science Club" data-ar="نادي العلوم">Science Club</a>
-      </div>
+      <h1 id="bas-front-title" data-en="Bashaer Science School Magazine" data-ar="مجلة بشائر العلميّة">Bashaer Science School Magazine</h1>
     </div>
-    <div class="bas-hero-emblem">
-      <img src="images/bas-science-club-logo.webp" alt="BAS Science Club" width="900" height="900" fetchpriority="high">
+    <div class="bas-front-spread">
+      <div class="bas-front-cover">
+        <a class="bas-front-cover-link" href="issue.html?id=1">
+          <img src="images/bas-issue-1-cover.webp" data-original="https://bxrzebqvfekqncrjdmyf.supabase.co/storage/v1/object/public/bas-media/1793831442296-BAS-Science-Magazine-Cover--1-.png"
+              width="760" height="984" alt="" decoding="async" fetchpriority="high">
+          <span class="bas-front-issue-label" id="bas-front-issue"
+              data-en="Issue 1 · November 2026" data-ar="العدد الأول · تشرين الثاني ٢٠٢٦">Issue 1 · November 2026</span>
+        </a>
+      </div>
+      <article class="bas-front-story" aria-labelledby="bas-front-story-title" data-article-id="3" data-issue-id="1">
+        <img class="bas-front-story-image" src="images/bas-issue-1-feature.webp" data-original="https://bxrzebqvfekqncrjdmyf.supabase.co/storage/v1/object/public/bas-media/1793822202953-Bioluminescent-Jellyfish-Trio.png"
+            width="1200" height="675" alt="" decoding="async">
+        <div class="bas-front-story-copy">
+          <p class="bas-front-kicker" data-en="Featured article" data-ar="مقال العدد">Featured article</p>
+          <h2 id="bas-front-story-title" data-en="Bioluminescent Organisms" data-ar="عندما تصبح الحياة مضيئة">Bioluminescent Organisms</h2>
+          <p class="bas-front-author"><span data-en="Written by" data-ar="بقلم">Written by</span> <bdi>Christine Othman</bdi></p>
+          <a class="bas-primary bas-front-read" href="article.html?id=3"
+              data-en="Read the article" data-ar="اقرأوا المقال">Read the article</a>
+        </div>
+      </article>
     </div>
   </section>
-  <section class="bas-student-band" id="student-voices" aria-labelledby="bas-students-title">
-    <div class="bas-section">
-      <div class="bas-section-head">
-        <h2 id="bas-students-title" data-en="Student Voices" data-ar="أصوات التلاميذ">Student Voices</h2>
-        <a href="students.html" data-en="Meet all the students" data-ar="تعرّفوا إلى جميع التلاميذ">Meet all the students</a>
-      </div>
-      <p class="bas-lens-instruction"><span class="bas-lens-instruction-icon" aria-hidden="true">🔍</span><strong data-en="Tap a figure to see the student’s photo." data-ar="اضغطوا على مجسّم لتظهر صورة التلميذ بالعدسة.">Tap a figure to see the student’s photo.</strong></p>
-      <div id="students" class="bas-lens-roster"><p class="bas-status" data-en="Loading students…" data-ar="جارٍ تحميل التلاميذ…">Loading students…</p></div>
-    </div>
-  </section>
-  </div>
   <section class="bas-section bas-wrap" id="categories-showcase" aria-labelledby="bas-topics-title">
     <h2 id="bas-topics-title" data-en="Explore by topic" data-ar="استكشفوا الأقسام">Explore by topic</h2>
     <div class="bas-topic-controls">
@@ -118,6 +108,23 @@
       </a>
     </div>
   </section>
+  <section class="bas-section bas-wrap" id="latest" aria-labelledby="bas-stories-title">
+    <div class="bas-section-head">
+      <h2 id="bas-stories-title" data-en="Article Lab" data-ar="مختبر المقالات">Article Lab</h2>
+      <a href="archive.html" data-en="Browse all issues" data-ar="تصفّحوا الأعداد">Browse all issues</a>
+    </div>
+    <div class="bas-issue-lab">
+      <div class="bas-lab-content">
+        <p data-en="Scroll sideways to see all the articles. Tap a test tube to open its article." data-ar="اسحبوا الأنابيب يمينًا ويسارًا لتشوفوا كلّ المقالات. اضغطوا على أنبوب لفتح مقاله.">Scroll sideways to see all the articles. Tap a test tube to open its article.</p>
+        <div class="bas-lab-strip" role="region" aria-labelledby="bas-stories-title" tabindex="0">
+          <div id="latestArticles" class="bas-lab-rack">
+            <p class="bas-status" data-en="Loading articles…" data-ar="جارٍ تحميل المقالات…">Loading articles…</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="bas-section bas-wrap" id="health-seminar" aria-labelledby="health-seminar-heading">
     <div class="bas-section-head"><h2 id="health-seminar-heading" data-en="Upcoming Science Club Seminar" data-ar="ندوة نادي العلوم القادمة">Upcoming Science Club Seminar</h2></div>
     <a class="bas-seminar-link" href="science-club.html#health-conference">
@@ -129,27 +136,27 @@
         width="1227" height="1536" loading="lazy" decoding="async">
     </a>
   </section>
-  <section class="bas-section bas-wrap" id="latest" aria-labelledby="bas-stories-title">
-    <div class="bas-section-head">
-      <h2 id="bas-stories-title" data-en="The Issue 1 Lab" data-ar="مختبر العدد الأول">The Issue 1 Lab</h2>
-      <a href="archive.html" data-en="Browse all issues" data-ar="تصفّحوا الأعداد">Browse all issues</a>
-    </div>
-    <div class="bas-issue-lab">
-      <figure class="bas-lab-cover">
-        <img src="images/bas-issue-1-lab.webp" alt="" width="720" height="900" loading="lazy" decoding="async">
-        <figcaption><span lang="en" dir="ltr">BAS</span><span data-en="Issue 1" data-ar="العدد الأول">Issue 1</span></figcaption>
-      </figure>
-      <div class="bas-lab-content">
-        <h3 id="bas-rack-title" data-en="Issue 1 articles" data-ar="مقالات العدد الأول">Issue 1 articles</h3>
-        <p data-en="Scroll sideways to see all the articles. Tap a test tube to open its article." data-ar="اسحبوا الأنابيب يمينًا ويسارًا لتشوفوا كلّ المقالات. اضغطوا على أنبوب لفتح مقاله.">Scroll sideways to see all the articles. Tap a test tube to open its article.</p>
-        <div class="bas-lab-strip" role="region" aria-labelledby="bas-rack-title" tabindex="0">
-          <div id="latestArticles" class="bas-lab-rack">
-            <p class="bas-status" data-en="Loading articles…" data-ar="جارٍ تحميل المقالات…">Loading articles…</p>
-          </div>
-        </div>
+  <section class="bas-student-band bas-wrap" id="student-voices" aria-labelledby="bas-students-title">
+    <div class="bas-section">
+      <div class="bas-section-head">
+        <h2 id="bas-students-title" data-en="Student Voices" data-ar="أصوات التلاميذ">Student Voices</h2>
+        <a href="students.html" data-en="Meet all the students" data-ar="تعرّفوا إلى جميع التلاميذ">Meet all the students</a>
       </div>
+      <p class="bas-lens-instruction"><span class="bas-lens-instruction-icon" aria-hidden="true">🔍</span><strong data-en="Tap a figure to see the student’s photo." data-ar="اضغطوا على مجسّم لتظهر صورة التلميذ بالعدسة.">Tap a figure to see the student’s photo.</strong></p>
+      <div id="students" class="bas-lens-roster"><p class="bas-status" data-en="Loading students…" data-ar="جارٍ تحميل التلاميذ…">Loading students…</p></div>
     </div>
   </section>
+  <div class="bas-wrap bas-skills-wrap">
+<section class="skills-builder-strip" id="skills-builder" aria-labelledby="skills-builder-title">
+  <div class="skills-builder-heading">
+    <h2 id="skills-builder-title" data-en="Skills Builder" data-ar="مهارات Skills Builder">Skills Builder</h2>
+    <a href="https://www.skillsbuilder.org/global/universal-framework" data-en="Universal Framework 2.0" data-ar="الإطار العالمي 2.0">Universal Framework 2.0</a>
+  </div>
+  <div class="skills-builder-options"></div>
+  <p class="skills-builder-prompt" data-en="Choose a skill to see what it means." data-ar="اختاروا مهارة لتتعرّفوا إلى معناها.">Choose a skill to see what it means.</p>
+  <div class="skills-builder-explanation" id="skills-builder-explanation" aria-live="polite"></div>
+</section>
+  </div>
 
 <details class="bas-editors-note bas-wrap" id="editors-note">
   <summary data-en="Editor’s Note" data-ar="كلمة المحرّر">Editor’s Note</summary>
@@ -200,8 +207,9 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     showLinkedNote();
     window.addEventListener("hashchange", showLinkedNote);
-    basEditorial.loadStudents(document.getElementById("students"));
-    basIssueLab.mount();
+    const students = basEditorial.fetchList("/api/students");
+    basEditorial.loadStudents(document.getElementById("students"), students);
+    basIssueLab.mount(students);
     mountTopicLights();
 });
 

@@ -1,12 +1,13 @@
 const basIssueLab = (() => {
-    const issueId = 1;
+    function articleLink(article) {
+        const usesId = article.id != null;
+        return "article.html?" + (usesId ? "id=" : "slug=") + encodeURIComponent(usesId ? article.id : article.slug);
+    }
 
     function tubeLink(article) {
         const link = document.createElement("a");
         link.className = "bas-lab-article";
-        const usesId = article.id != null;
-        const identifier = usesId ? article.id : article.slug;
-        link.href = "article.html?" + (usesId ? "id=" : "slug=") + encodeURIComponent(identifier);
+        link.href = articleLink(article);
 
         const tube = document.createElement("span");
         tube.className = "bas-lab-tube";
@@ -39,9 +40,53 @@ const basIssueLab = (() => {
         return link;
     }
 
-    async function mount() {
+    function updateImage(image, source) {
+        if (source && source !== image.dataset.original) image.src = source;
+        image.hidden = !source;
+    }
+
+    function updateIssue(cover, issue) {
+        const link = cover.querySelector("a");
+        const label = link.querySelector("span");
+        const number = issue.issue_number;
+        const en = "Issue " + number;
+        const ar = Number(number) === 1 ? "العدد الأول" : "العدد " + new Intl.NumberFormat("ar-LB-u-nu-arab").format(number);
+        const date = new Date(issue.publication_date || "");
+        const dateLabel = locale => new Intl.DateTimeFormat(locale, {
+            month: "long", year: "numeric", timeZone: "UTC"
+        }).format(date);
+        basEditorial.localized(label,
+            Number.isNaN(+date) ? en : en + " · " + dateLabel("en"),
+            Number.isNaN(+date) ? ar : ar + " · " + dateLabel("ar-LB-u-nu-arab"));
+        link.href = "issue.html?id=" + encodeURIComponent(issue.id);
+        updateImage(link.querySelector("img"), issue.cover_image);
+    }
+
+    function showFeatured(story, articles, studentsRequest) {
+        const featured = articles.filter(article => article.featured);
+        const article = featured.find(item => String(item.id) === story.dataset.articleId) ||
+            featured.find(item => item.main_image && item.student_id != null) ||
+            featured[0] || articles.find(item => item.main_image && item.student_id != null) || articles[0];
+        story.hidden = !article;
+        if (!article) return;
+
+        basEditorial.articleTitle(article, story.querySelector("h2"));
+        story.querySelector(".bas-front-read").href = articleLink(article);
+        updateImage(story.querySelector("img"), article.main_image);
+        const byline = story.querySelector(".bas-front-author");
+        if (String(article.id) !== story.dataset.articleId) byline.hidden = true;
+        studentsRequest.then(students => {
+            const name = students.find(student => String(student.id) === String(article.student_id))?.name?.trim();
+            byline.querySelector("bdi").textContent = name || "";
+            byline.hidden = !name;
+        }, () => {});
+    }
+
+    async function mount(studentsRequest) {
         const rack = document.getElementById("latestArticles");
         const content = rack.closest(".bas-lab-content");
+        const cover = document.querySelector(".bas-front-cover");
+        const story = document.querySelector(".bas-front-story");
         const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
         let bubbling = null;
         let navigationTimer;
@@ -69,21 +114,37 @@ const basIssueLab = (() => {
             bubbling = null;
         });
 
-        try {
-            const articles = await basEditorial.fetchList("/api/articles");
-            const issueArticles = articles.filter(article => Number(article.issue_id) === issueId &&
-                article.title_en !== "About BAS" && article.slug !== "About BAS");
-            if (!issueArticles.length) {
-                basEditorial.status(rack, "No articles in this issue yet.", "لا توجد مقالات في هذا العدد بعد.");
-                return;
-            }
-            const tubes = issueArticles.map(tubeLink);
-            rack.replaceChildren(...tubes);
-            tubes.forEach(tube => observer.observe(tube));
-        } catch (error) {
-            console.error("Issue 1 articles could not be loaded", error);
-            basEditorial.status(rack, "Could not load articles.", "تعذّر تحميل المقالات.");
+        for (const image of [cover.querySelector("img"), story.querySelector("img")]) {
+            image.addEventListener("error", () => { image.hidden = true; });
         }
+        const [issues, articles] = await Promise.allSettled([
+            basEditorial.fetchList("/api/issues"),
+            basEditorial.fetchList("/api/articles")
+        ]);
+        const issue = issues.status === "fulfilled" ? issues.value.find(item => item.status === "published") : null;
+        if (issues.status === "fulfilled" && !issue) {
+            cover.hidden = story.hidden = true;
+            basEditorial.status(rack, "No published issues yet.", "لا توجد أعداد منشورة بعد.");
+            return;
+        }
+        if (issue) updateIssue(cover, issue);
+        const issueId = String(issue?.id ?? story.dataset.issueId);
+        if (articles.status === "rejected") {
+            story.hidden = issueId !== story.dataset.issueId;
+            basEditorial.status(rack, "Could not load articles.", "تعذّر تحميل المقالات.");
+            return;
+        }
+        const issueArticles = articles.value.filter(article => article.status === "published" &&
+            (String(article.issue_id) === issueId || (article.issue_id == null && Number(issue?.issue_number) === 1)) &&
+            article.title_en !== "About BAS" && article.slug !== "About BAS");
+        showFeatured(story, issueArticles, studentsRequest);
+        if (!issueArticles.length) {
+            basEditorial.status(rack, "No articles in this issue yet.", "لا توجد مقالات في هذا العدد بعد.");
+            return;
+        }
+        const tubes = issueArticles.map(tubeLink);
+        rack.replaceChildren(...tubes);
+        tubes.forEach(tube => observer.observe(tube));
     }
 
     return { mount };

@@ -294,9 +294,9 @@ const basEditorial = (() => {
         return [scene, dialog];
     }
 
-    async function loadStudents(container) {
+    async function loadStudents(container, studentsRequest = fetchList("/api/students")) {
         try {
-            const students = await fetchList("/api/students");
+            const students = await studentsRequest;
             students.sort((a, b) => String(a.name ?? "").localeCompare(
                 String(b.name ?? ""), "en", { sensitivity: "base", numeric: true }
             ));
