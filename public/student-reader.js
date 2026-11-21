@@ -28,7 +28,8 @@ async function loadStudent() {
         container.replaceChildren(profile);
         try {
             const articles = await fetchList("/api/articles");
-            const selected = articles.filter(article => Number(article.student_id) === Number(student.id));
+            const selected = articles.filter(article => article.status === "published" &&
+                String(article.student_id ?? article.author_id) === String(student.id));
             if (selected.length) list.replaceChildren(...selected.map(articleCard));
             else status(list, "This student has no published articles yet.", "ما من مقالات منشورة لهذا التلميذ بعد.");
         } catch (error) {

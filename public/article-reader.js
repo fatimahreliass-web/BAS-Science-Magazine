@@ -72,6 +72,46 @@ const reviewedArabic = {
 القرنيّة هي الجزء الشفّاف في مقدّمة العين، ولا تحتوي على أوعية دموية.`,
 };
 
+function readingTime(text, wordsPerMinute) {
+    const count = text.match(/[\p{L}\p{N}][\p{L}\p{M}\p{N}'’-]*/gu)?.length ?? 0;
+    return count ? Math.ceil(count / wordsPerMinute) : 0;
+}
+
+function showReadingProgress(article) {
+    const progress = document.querySelector(".bas-article-progress");
+    let frame = 0;
+    progress.hidden = false;
+
+    function update() {
+        frame = 0;
+        const rect = article.getBoundingClientRect();
+        const distance = rect.height - window.innerHeight;
+        const fraction = distance > 0 ? Math.min(1, Math.max(0, -rect.top / distance)) :
+            Number(rect.bottom <= window.innerHeight);
+        progress.style.setProperty("--reading-progress", fraction);
+        progress.setAttribute("aria-valuenow", String(Math.round(fraction * 100)));
+    }
+    function scheduleUpdate() {
+        if (!frame) frame = requestAnimationFrame(update);
+    }
+
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+    window.addEventListener("pageshow", scheduleUpdate);
+    new ResizeObserver(scheduleUpdate).observe(article);
+    update();
+}
+
+function showRelatedArticles(article, articles) {
+    if (article.category_id == null) return;
+    const related = articles.filter(item => item !== article && item.status === "published" &&
+        String(item.category_id) === String(article.category_id)).slice(0, 2);
+    if (!related.length) return;
+    const section = document.getElementById("bas-related-stories");
+    section.querySelector(".bas-stories").replaceChildren(...related.map(basEditorial.articleCard));
+    section.hidden = false;
+}
+
 async function loadArticle() {
     basEditorial.initializeLanguage();
     const { element, localized, cleanArabic, status, articleTitle, gradeInArabic } = basEditorial;
@@ -80,7 +120,10 @@ async function loadArticle() {
     const id = params.get("id");
     const slug = params.get("slug")?.trim();
     try {
-        const articles = id || slug ? await basEditorial.fetchList("/api/articles") : [];
+        const articlesRequest = id || slug ? basEditorial.fetchList("/api/articles") : Promise.resolve([]);
+        const categoriesRequest = id || slug ? basEditorial.fetchList("/api/categories").catch(() => []) : Promise.resolve([]);
+        const studentsRequest = id || slug ? basEditorial.fetchList("/api/students").catch(() => []) : Promise.resolve([]);
+        const articles = await articlesRequest;
         const article = articles.find(item => id && String(item.id) === id) ||
             articles.find(item => slug && String(item.slug || "").trim() === slug);
         if (!article) {
@@ -102,25 +145,22 @@ async function loadArticle() {
         if (article.class_name) {
             fragments.push(localized(element("p", "eyebrow"), article.class_name, gradeInArabic(article.class_name)));
         }
+        const metadata = element("div", "bas-article-meta");
+        const categoryLink = element("a", "bas-article-category");
+        categoryLink.hidden = true;
+        metadata.append(categoryLink);
+        const duration = element("span", "bas-article-duration");
+        metadata.append(duration);
+        fragments.push(metadata);
         fragments.push(title);
-        // Show the credited student immediately below the article title.
-        // Use the name saved with the article; resolve a linked student record if needed.
-        let authorName = [article.author_name, article.student_name, article.author, article.written_by]
+        const recordedName = [article.author_name, article.student_name, article.author, article.written_by]
             .find(value => typeof value === "string" && value.trim())?.trim();
-        if (!authorName && (article.student_id != null || article.author_id != null)) {
-            try {
-                const students = await basEditorial.fetchList("/api/students");
-                const linkedId = article.student_id ?? article.author_id;
-                authorName = students.find(student => String(student.id) === String(linkedId))?.name?.trim();
-            } catch (error) {
-                console.warn("Could not resolve article author", error);
-            }
-        }
-        if (authorName) {
-            const credit = localized(element("p", "bas-article-author"),
-                "Written by: " + authorName, "بقلم: " + authorName);
-            fragments.push(credit);
-        }
+        const credit = element("p", "bas-article-author");
+        const creditLabel = localized(element("span"), "Written by", "بقلم");
+        const authorName = element("bdi", "", recordedName);
+        credit.append(creditLabel, " ", authorName);
+        credit.hidden = !recordedName;
+        fragments.push(credit);
         const badge = basSkills.createBadge(article.id, { link: true });
         if (badge) fragments.push(badge);
         const excerpt = localized(element("p", "bas-article-excerpt"), article.excerpt_en?.trim() || "", cleanArabic(article.excerpt_ar));
@@ -133,6 +173,11 @@ async function loadArticle() {
             .replace("الأبحاث البيولوجية الحديث\n", "الأبحاث البيولوجية الحديثة.\n")
             .replace(/الأبحاث البيولوجية الحديث$/, "الأبحاث البيولوجية الحديثة.")
             .replace("التي يفسر بها دماغي الحقيقي", "التي يفسّر بها دماغي الواقع");
+        const minutesEn = readingTime(english, 220);
+        const minutesAr = readingTime(arabic, 180);
+        localized(duration,
+            minutesEn ? minutesEn + " min read" : "",
+            minutesAr ? "نحو " + new Intl.NumberFormat("ar-LB-u-nu-arab").format(minutesAr) + " د للقراءة" : "");
         fragments.push(localized(element("div", "bas-article-copy"),
             english || "This article is not available in English yet.",
             arabic || "الترجمة العربية لهذا المقال غير متوفّرة بعد."));
@@ -154,6 +199,28 @@ async function loadArticle() {
         }
         if (media.childElementCount) fragments.push(media);
         container.replaceChildren(...fragments);
+        showReadingProgress(container);
+        showRelatedArticles(article, articles);
+
+        const linkedId = article.student_id ?? article.author_id;
+        const [categories, students] = await Promise.all([categoriesRequest, studentsRequest]);
+        const category = categories.find(item => article.category_id != null && String(item.id) === String(article.category_id));
+        if (category?.slug && (category.name_en || category.name_ar)) {
+            categoryLink.href = "category.html?slug=" + encodeURIComponent(category.slug);
+            localized(categoryLink, category.name_en || category.name_ar,
+                cleanArabic(category.name_ar) || category.name_en);
+            categoryLink.hidden = false;
+        }
+        const student = students.find(item => linkedId != null && String(item.id) === String(linkedId));
+        const name = recordedName || student?.name?.trim();
+        if (student && name) {
+            const profile = element("a", "bas-article-author-link");
+            profile.href = "student.html?id=" + encodeURIComponent(student.id);
+            authorName.textContent = name;
+            authorName.replaceWith(profile);
+            profile.append(authorName);
+            credit.hidden = false;
+        }
     } catch (error) {
         console.error("Article could not be loaded", error);
         status(container, "Could not load article.", "تعذّر تحميل المقال.");
